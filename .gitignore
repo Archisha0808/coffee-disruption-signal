@@ -1,7 +1,3 @@
-# Never commit files that hold secrets. The patterns are deliberately wide:
-# an editor that appends its own extension (.env.txt from Notepad) or a
-# hand-made copy (.env.backup, env2) is still a file full of live keys, and
-# the narrow rules missed all of them.
 .env
 .env.*
 *.env
@@ -38,7 +34,3 @@ venv/
 # OS cruft
 .DS_Store
 Thumbs.db
-
-# NOTE: data/raw/*.csv and results/* ARE committed on purpose — the hosted
-# dashboard reads them to display precomputed prices, anomalies, and
-# explanations.

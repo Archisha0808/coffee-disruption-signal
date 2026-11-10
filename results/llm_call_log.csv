@@ -281,3 +281,5 @@ timestamp_utc,anomaly_date,model,provider,prompt_tokens,output_tokens,total_toke
 2026-10-06T07:03:26.478196+00:00,outlook,gemini-3.6-flash,google-gemini,1839,1001,5259,OUTLOOK,,,
 2026-10-06T08:48:23.234657+00:00,daily_briefing,openai/gpt-oss-120b,groq,1516,1864,3380,BRIEFING,,,
 2026-10-06T08:53:34.406619+00:00,outlook,gemini-3.8-flash,google-gemini,1819,960,4344,OUTLOOK,,,
+2026-11-10T18:41:59.605000+00:00,daily_briefing,gemini-3.6-flash,google-gemini,1554,831,3897,BRIEFING,,,
+2026-11-10T18:46:52.966995+00:00,outlook,gemini-3.6-flash,google-gemini,1903,1024,5938,OUTLOOK,,,
