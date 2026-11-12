@@ -77,6 +77,8 @@ class CommodityConfig:
     # switched futures contract and so shows a move no contract made (see
     # src/modeling/anomaly_detector.py). Empty: none have been checked.
     contract_switch_file: str = ""
+    # How the quoted price is denominated, for labels (the dashboard, reports).
+    price_unit: str = ""
 
 
 COMMODITIES = {
@@ -125,6 +127,7 @@ COMMODITIES = {
         other_markets="robusta coffee, or prices paid locally in one country",
         contract_switch_file="contract_switch_dates.csv",
         validation_md_file="anomaly_detector_validation.md",
+        price_unit="US cents/lb",
     ),
     "crude_oil": CommodityConfig(
         key="crude_oil",
@@ -171,6 +174,7 @@ COMMODITIES = {
         price_file="crude_oil_prices.csv",
         anomalies_file="crude_oil_anomaly_detections.csv",
         validation_md_file="crude_oil_anomaly_detector_validation.md",
+        price_unit="US$/barrel",
     ),
     "wheat": CommodityConfig(
         key="wheat",
@@ -212,6 +216,85 @@ COMMODITIES = {
         price_file="wheat_prices.csv",
         anomalies_file="wheat_anomaly_detections.csv",
         validation_md_file="wheat_anomaly_detector_validation.md",
+        price_unit="US cents/bushel",
+    ),
+    # Cocoa and sugar were added for the five-commodity scope. Their events are
+    # cited below; their control periods are NOT yet verified. Until
+    # `python -m scripts.multi_commodity_report` has been run on the fetched
+    # series and a fully quiet quarter chosen from its "clean quarters" list,
+    # treat any "clean control period" result for these two as untested.
+    # Yahoo's continuous front-month series (CC=F, SB=F) jumps when the
+    # contract rolls, as coffee's does; no contract-switch list has been built
+    # for either yet, so a flag on a roll day may be the roll, not the market.
+    "cocoa": CommodityConfig(
+        key="cocoa",
+        display_name="Cocoa (ICE New York)",
+        ticker="CC=F",
+        gdelt_queries=["cocoa Ivory Coast", "cocoa Ghana harvest", "cocoa grindings",
+                       "cocoa West Africa weather"],
+        gdelt_recent_queries=["cocoa prices", "cocoa futures", "cocoa prices settle"],
+        gdelt_combined_query=(
+            'cocoa ("Ivory Coast" OR Ghana OR harvest OR grindings OR weather OR Harmattan)'),
+        gdelt_combined_recent_query="cocoa (prices OR futures OR settle OR harvest OR rain)",
+        gdelt_combined_day_query="cocoa (futures OR prices OR settle OR market OR London)",
+        semantic_reference_query="cocoa Ivory Coast Ghana harvest weather price disruption supply",
+        known_events=[
+            ("2024 April record high and crash", "2024-04-15", "2024-05-03",
+             "New York futures set an all-time high on 19 Apr 2024 (ICCO Cocoa Market "
+             "Report for April 2024, US$11,878/t) and then fell ~15% on 29 Apr 2024, the "
+             "largest one-day drop in data back to 1960 (Bloomberg, 29 Apr 2024)"),
+            ("2024 December record high", "2024-12-09", "2024-12-20",
+             "Dry Harmattan weather in West Africa; New York futures hit a record "
+             "$12,931/t on 18 Dec 2024 (Reuters, 'Cocoa and coffee futures post strong "
+             "gains in 2024', Dec 2024)"),
+        ],
+        control_period=("2019-01-01", "2019-03-31",
+                         "No fully quiet quarter exists for cocoa: every quarter from 2015 on "
+                         "has at least one flagged day (scripts/multi_commodity_report.py). "
+                         "This is one of five quarters with the fewest, 1 of 61 days, and the "
+                         "same quarter as coffee's control. Reported as 1 false flag, not as clean."),
+        history_start_date="2015-01-01",  # 2024 events plus a long history for
+        # the inflation comparison (src/analysis/inflation.py)
+        price_file="cocoa_prices.csv",
+        anomalies_file="cocoa_anomaly_detections.csv",
+        validation_md_file="cocoa_anomaly_detector_validation.md",
+        price_unit="US$/tonne",
+        watched_market="cocoa futures on ICE in New York",
+        other_markets="London cocoa futures, or farm-gate prices set in Ivory Coast or Ghana",
+    ),
+    "sugar": CommodityConfig(
+        key="sugar",
+        display_name="Sugar (Raw, No. 11)",
+        ticker="SB=F",
+        gdelt_queries=["sugar India export", "sugar Brazil harvest", "sugar ethanol Brazil",
+                       "sugar Thailand drought"],
+        gdelt_recent_queries=["sugar prices", "raw sugar futures", "sugar prices settle"],
+        gdelt_combined_query=(
+            'sugar (India OR Brazil OR ethanol OR Thailand OR export OR monsoon)'),
+        gdelt_combined_recent_query="sugar (prices OR futures OR settle OR harvest OR Unica)",
+        gdelt_combined_day_query='sugar (futures OR "raw sugar" OR prices OR settle OR market)',
+        semantic_reference_query="raw sugar India export Brazil harvest ethanol price disruption supply",
+        known_events=[
+            ("2020 COVID and oil-price collapse", "2020-03-06", "2020-03-31",
+             "Oil's collapse made Brazilian mills switch cane from ethanol to sugar; raw "
+             "sugar fell from a one-year peak on 20 Feb to near 10 c/lb by 31 Mar 2020, a "
+             "12-year low (Argus, 'Brazil cane harvest kicks off with whimper', 1 Apr 2020; "
+             "S&P Global Platts, 16 Mar 2020)"),
+            ("2023 India export curbs, 12-year high", "2023-10-16", "2023-11-10",
+             "India extended its sugar export curbs indefinitely on 18 Oct 2023 after a "
+             "weak monsoon; raw sugar hit a 12-year high near 28 c/lb, again on 7 Nov 2023 "
+             "(Nikkei via datamarnews.com, 31 Oct 2023; Barchart, Nov 2023)"),
+        ],
+        control_period=("2025-04-01", "2025-06-30",
+                         "Verified quiet in real data - 0/62 days flagged; the only fully "
+                         "clean quarter for sugar (scripts/multi_commodity_report.py)."),
+        history_start_date="2015-01-01",
+        price_file="sugar_prices.csv",
+        anomalies_file="sugar_anomaly_detections.csv",
+        validation_md_file="sugar_anomaly_detector_validation.md",
+        price_unit="US cents/lb",
+        watched_market="raw sugar No. 11 futures on ICE in New York",
+        other_markets="white sugar No. 5 in London, ethanol, or prices set locally in India or Brazil",
     ),
 }
 

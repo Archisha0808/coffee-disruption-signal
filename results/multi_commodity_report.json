@@ -1,0 +1,1256 @@
+{
+  "commodities": {
+    "coffee": {
+      "excess_kurtosis": 1.77,
+      "pct_days_beyond_3sd": 1.21,
+      "start": "2018-01-02",
+      "end": "2026-10-23",
+      "contract_switch_list": true,
+      "clean_quarters": [
+        {
+          "quarter": "2019Q1",
+          "start": "2019-01-01",
+          "end": "2019-03-31",
+          "trading_days": 61
+        },
+        {
+          "quarter": "2020Q2",
+          "start": "2020-04-01",
+          "end": "2020-06-30",
+          "trading_days": 63
+        }
+      ],
+      "runs": {
+        "2.0": {
+          "flagged": 279,
+          "shock_days": 130,
+          "days": 2142,
+          "events_detected": 4,
+          "events_total": 4,
+          "events_missed": [],
+          "control_flags": 0,
+          "control_days": 61
+        },
+        "2.5": {
+          "flagged": 133,
+          "shock_days": 53,
+          "days": 2142,
+          "events_detected": 3,
+          "events_total": 4,
+          "events_missed": [
+            "2024 Brazil drought+Typhoon Yagi"
+          ],
+          "control_flags": 0,
+          "control_days": 61
+        },
+        "3.0": {
+          "flagged": 56,
+          "shock_days": 26,
+          "days": 2142,
+          "events_detected": 3,
+          "events_total": 4,
+          "events_missed": [
+            "2024 Brazil drought+Typhoon Yagi"
+          ],
+          "control_flags": 0,
+          "control_days": 61
+        }
+      }
+    },
+    "crude_oil": {
+      "excess_kurtosis": 38.4,
+      "pct_days_beyond_3sd": 1.72,
+      "start": "2013-01-02",
+      "end": "2026-09-11",
+      "contract_switch_list": false,
+      "clean_quarters": [
+        {
+          "quarter": "2023Q3",
+          "start": "2023-07-01",
+          "end": "2023-09-30",
+          "trading_days": 63
+        },
+        {
+          "quarter": "2025Q3",
+          "start": "2025-07-01",
+          "end": "2025-09-30",
+          "trading_days": 65
+        }
+      ],
+      "runs": {
+        "2.0": {
+          "flagged": 425,
+          "shock_days": 210,
+          "days": 3367,
+          "events_detected": 5,
+          "events_total": 5,
+          "events_missed": [],
+          "control_flags": 0,
+          "control_days": 63
+        },
+        "2.5": {
+          "flagged": 199,
+          "shock_days": 104,
+          "days": 3367,
+          "events_detected": 4,
+          "events_total": 5,
+          "events_missed": [
+            "2024 Red Sea shipping attacks"
+          ],
+          "control_flags": 0,
+          "control_days": 63
+        },
+        "3.0": {
+          "flagged": 101,
+          "shock_days": 58,
+          "days": 3367,
+          "events_detected": 4,
+          "events_total": 5,
+          "events_missed": [
+            "2024 Red Sea shipping attacks"
+          ],
+          "control_flags": 0,
+          "control_days": 63
+        }
+      }
+    },
+    "wheat": {
+      "excess_kurtosis": 4.71,
+      "pct_days_beyond_3sd": 1.12,
+      "start": "2009-01-02",
+      "end": "2026-09-11",
+      "contract_switch_list": false,
+      "clean_quarters": [
+        {
+          "quarter": "2022Q2",
+          "start": "2022-04-01",
+          "end": "2022-06-30",
+          "trading_days": 62
+        }
+      ],
+      "runs": {
+        "2.0": {
+          "flagged": 519,
+          "shock_days": 249,
+          "days": 4373,
+          "events_detected": 4,
+          "events_total": 4,
+          "events_missed": [],
+          "control_flags": 0,
+          "control_days": 62
+        },
+        "2.5": {
+          "flagged": 228,
+          "shock_days": 114,
+          "days": 4373,
+          "events_detected": 4,
+          "events_total": 4,
+          "events_missed": [],
+          "control_flags": 0,
+          "control_days": 62
+        },
+        "3.0": {
+          "flagged": 95,
+          "shock_days": 49,
+          "days": 4373,
+          "events_detected": 4,
+          "events_total": 4,
+          "events_missed": [],
+          "control_flags": 0,
+          "control_days": 62
+        }
+      }
+    },
+    "cocoa": {
+      "excess_kurtosis": 7.61,
+      "pct_days_beyond_3sd": 1.38,
+      "start": "2015-01-02",
+      "end": "2026-11-12",
+      "contract_switch_list": false,
+      "clean_quarters": [],
+      "runs": {
+        "2.0": {
+          "flagged": 361,
+          "shock_days": 167,
+          "days": 2908,
+          "events_detected": 2,
+          "events_total": 2,
+          "events_missed": [],
+          "control_flags": 1,
+          "control_days": 61
+        },
+        "2.5": {
+          "flagged": 157,
+          "shock_days": 78,
+          "days": 2908,
+          "events_detected": 2,
+          "events_total": 2,
+          "events_missed": [],
+          "control_flags": 0,
+          "control_days": 61
+        },
+        "3.0": {
+          "flagged": 65,
+          "shock_days": 40,
+          "days": 2908,
+          "events_detected": 1,
+          "events_total": 2,
+          "events_missed": [
+            "2024 December record high"
+          ],
+          "control_flags": 0,
+          "control_days": 61
+        }
+      }
+    },
+    "sugar": {
+      "excess_kurtosis": 1.94,
+      "pct_days_beyond_3sd": 1.03,
+      "start": "2015-01-02",
+      "end": "2026-11-12",
+      "contract_switch_list": false,
+      "clean_quarters": [
+        {
+          "quarter": "2025Q2",
+          "start": "2025-04-01",
+          "end": "2025-06-30",
+          "trading_days": 62
+        }
+      ],
+      "runs": {
+        "2.0": {
+          "flagged": 377,
+          "shock_days": 167,
+          "days": 2909,
+          "events_detected": 1,
+          "events_total": 2,
+          "events_missed": [
+            "2023 India export curbs, 12-year high"
+          ],
+          "control_flags": 0,
+          "control_days": 62
+        },
+        "2.5": {
+          "flagged": 172,
+          "shock_days": 70,
+          "days": 2909,
+          "events_detected": 1,
+          "events_total": 2,
+          "events_missed": [
+            "2023 India export curbs, 12-year high"
+          ],
+          "control_flags": 0,
+          "control_days": 62
+        },
+        "3.0": {
+          "flagged": 76,
+          "shock_days": 30,
+          "days": 2909,
+          "events_detected": 1,
+          "events_total": 2,
+          "events_missed": [
+            "2023 India export curbs, 12-year high"
+          ],
+          "control_flags": 0,
+          "control_days": 62
+        }
+      }
+    }
+  },
+  "missing": [],
+  "shared_shocks": {
+    "days_compared": 2185,
+    "multi_days": [
+      {
+        "date": "2018-02-07",
+        "commodities": [
+          "crude_oil",
+          "wheat"
+        ],
+        "z": {
+          "crude_oil": -2.32,
+          "wheat": 2.33
+        }
+      },
+      {
+        "date": "2018-02-28",
+        "commodities": [
+          "wheat",
+          "sugar"
+        ],
+        "z": {
+          "wheat": 3.14,
+          "sugar": 2.31
+        }
+      },
+      {
+        "date": "2018-06-04",
+        "commodities": [
+          "cocoa",
+          "sugar"
+        ],
+        "z": {
+          "cocoa": -2.16,
+          "sugar": -2.84
+        }
+      },
+      {
+        "date": "2018-06-08",
+        "commodities": [
+          "cocoa",
+          "sugar"
+        ],
+        "z": {
+          "cocoa": 2.35,
+          "sugar": 2.49
+        }
+      },
+      {
+        "date": "2018-09-17",
+        "commodities": [
+          "wheat",
+          "sugar"
+        ],
+        "z": {
+          "wheat": 2.44,
+          "sugar": -2.64
+        }
+      },
+      {
+        "date": "2018-10-02",
+        "commodities": [
+          "coffee",
+          "cocoa"
+        ],
+        "z": {
+          "coffee": 3.14,
+          "cocoa": 2.35
+        }
+      },
+      {
+        "date": "2018-11-30",
+        "commodities": [
+          "coffee",
+          "wheat"
+        ],
+        "z": {
+          "coffee": -2.23,
+          "wheat": 2.27
+        }
+      },
+      {
+        "date": "2018-12-26",
+        "commodities": [
+          "crude_oil",
+          "cocoa"
+        ],
+        "z": {
+          "crude_oil": 3.86,
+          "cocoa": 2.22
+        }
+      },
+      {
+        "date": "2019-03-06",
+        "commodities": [
+          "wheat",
+          "cocoa"
+        ],
+        "z": {
+          "wheat": -2.1,
+          "cocoa": 2.23
+        }
+      },
+      {
+        "date": "2019-04-18",
+        "commodities": [
+          "coffee",
+          "sugar"
+        ],
+        "z": {
+          "coffee": 2.26,
+          "sugar": 2.03
+        }
+      },
+      {
+        "date": "2019-05-30",
+        "commodities": [
+          "crude_oil",
+          "wheat"
+        ],
+        "z": {
+          "crude_oil": -2.7,
+          "wheat": 2.7
+        }
+      },
+      {
+        "date": "2019-06-05",
+        "commodities": [
+          "coffee",
+          "crude_oil"
+        ],
+        "z": {
+          "coffee": -3.45,
+          "crude_oil": -2.05
+        }
+      },
+      {
+        "date": "2019-06-20",
+        "commodities": [
+          "coffee",
+          "crude_oil"
+        ],
+        "z": {
+          "coffee": 2.48,
+          "crude_oil": 3.11
+        }
+      },
+      {
+        "date": "2019-07-08",
+        "commodities": [
+          "coffee",
+          "cocoa"
+        ],
+        "z": {
+          "coffee": -2.08,
+          "cocoa": 2.96
+        }
+      },
+      {
+        "date": "2019-07-15",
+        "commodities": [
+          "wheat",
+          "cocoa"
+        ],
+        "z": {
+          "wheat": -2.84,
+          "cocoa": -2.26
+        }
+      },
+      {
+        "date": "2019-09-16",
+        "commodities": [
+          "crude_oil",
+          "cocoa"
+        ],
+        "z": {
+          "crude_oil": 5.97,
+          "cocoa": 2.58
+        }
+      },
+      {
+        "date": "2019-11-29",
+        "commodities": [
+          "crude_oil",
+          "wheat"
+        ],
+        "z": {
+          "crude_oil": -2.06,
+          "wheat": 2.63
+        }
+      },
+      {
+        "date": "2019-12-16",
+        "commodities": [
+          "coffee",
+          "cocoa"
+        ],
+        "z": {
+          "coffee": 2.21,
+          "cocoa": -2.93
+        }
+      },
+      {
+        "date": "2020-02-24",
+        "commodities": [
+          "crude_oil",
+          "wheat"
+        ],
+        "z": {
+          "crude_oil": -2.18,
+          "wheat": -2.24
+        }
+      },
+      {
+        "date": "2020-03-02",
+        "commodities": [
+          "crude_oil",
+          "sugar"
+        ],
+        "z": {
+          "crude_oil": 2.58,
+          "sugar": -3.55
+        }
+      },
+      {
+        "date": "2020-03-06",
+        "commodities": [
+          "crude_oil",
+          "sugar"
+        ],
+        "z": {
+          "crude_oil": -5.06,
+          "sugar": -2.13
+        }
+      },
+      {
+        "date": "2020-03-09",
+        "commodities": [
+          "crude_oil",
+          "sugar"
+        ],
+        "z": {
+          "crude_oil": -10.83,
+          "sugar": -2.16
+        }
+      },
+      {
+        "date": "2020-03-12",
+        "commodities": [
+          "cocoa",
+          "sugar"
+        ],
+        "z": {
+          "cocoa": -3.02,
+          "sugar": -3.35
+        }
+      },
+      {
+        "date": "2020-03-16",
+        "commodities": [
+          "crude_oil",
+          "wheat",
+          "cocoa",
+          "sugar"
+        ],
+        "z": {
+          "crude_oil": -2.33,
+          "wheat": -2.57,
+          "cocoa": -2.07,
+          "sugar": -3.1
+        }
+      },
+      {
+        "date": "2020-03-19",
+        "commodities": [
+          "crude_oil",
+          "wheat"
+        ],
+        "z": {
+          "crude_oil": 5.23,
+          "wheat": 4.1
+        }
+      },
+      {
+        "date": "2020-04-27",
+        "commodities": [
+          "crude_oil",
+          "sugar"
+        ],
+        "z": {
+          "crude_oil": -2.31,
+          "sugar": -2.51
+        }
+      },
+      {
+        "date": "2020-04-29",
+        "commodities": [
+          "crude_oil",
+          "sugar"
+        ],
+        "z": {
+          "crude_oil": 2.25,
+          "sugar": 2.45
+        }
+      },
+      {
+        "date": "2020-04-30",
+        "commodities": [
+          "crude_oil",
+          "sugar"
+        ],
+        "z": {
+          "crude_oil": 2.43,
+          "sugar": 3.32
+        }
+      },
+      {
+        "date": "2020-07-17",
+        "commodities": [
+          "coffee",
+          "cocoa"
+        ],
+        "z": {
+          "coffee": 2.27,
+          "cocoa": -2.57
+        }
+      },
+      {
+        "date": "2020-09-16",
+        "commodities": [
+          "crude_oil",
+          "cocoa"
+        ],
+        "z": {
+          "crude_oil": 2.03,
+          "cocoa": -3.05
+        }
+      },
+      {
+        "date": "2020-11-16",
+        "commodities": [
+          "coffee",
+          "cocoa"
+        ],
+        "z": {
+          "coffee": 3.06,
+          "cocoa": 6.83
+        }
+      },
+      {
+        "date": "2021-02-22",
+        "commodities": [
+          "coffee",
+          "sugar"
+        ],
+        "z": {
+          "coffee": 2.36,
+          "sugar": 3.02
+        }
+      },
+      {
+        "date": "2021-03-18",
+        "commodities": [
+          "coffee",
+          "crude_oil"
+        ],
+        "z": {
+          "coffee": -2.86,
+          "crude_oil": -4.62
+        }
+      },
+      {
+        "date": "2021-04-26",
+        "commodities": [
+          "coffee",
+          "wheat"
+        ],
+        "z": {
+          "coffee": 2.07,
+          "wheat": 2.22
+        }
+      },
+      {
+        "date": "2021-05-13",
+        "commodities": [
+          "wheat",
+          "sugar"
+        ],
+        "z": {
+          "wheat": -2.16,
+          "sugar": -2.06
+        }
+      },
+      {
+        "date": "2021-07-12",
+        "commodities": [
+          "wheat",
+          "cocoa"
+        ],
+        "z": {
+          "wheat": 2.09,
+          "cocoa": 2.42
+        }
+      },
+      {
+        "date": "2021-07-19",
+        "commodities": [
+          "coffee",
+          "crude_oil",
+          "cocoa",
+          "sugar"
+        ],
+        "z": {
+          "coffee": -2.07,
+          "crude_oil": -4.52,
+          "cocoa": -2.31,
+          "sugar": -2.13
+        }
+      },
+      {
+        "date": "2021-07-21",
+        "commodities": [
+          "coffee",
+          "crude_oil"
+        ],
+        "z": {
+          "coffee": 2.72,
+          "crude_oil": 2.21
+        }
+      },
+      {
+        "date": "2021-07-26",
+        "commodities": [
+          "coffee",
+          "cocoa"
+        ],
+        "z": {
+          "coffee": 3.77,
+          "cocoa": 2.04
+        }
+      },
+      {
+        "date": "2021-11-26",
+        "commodities": [
+          "crude_oil",
+          "cocoa",
+          "sugar"
+        ],
+        "z": {
+          "crude_oil": -7.6,
+          "cocoa": -3.09,
+          "sugar": -2.07
+        }
+      },
+      {
+        "date": "2021-11-30",
+        "commodities": [
+          "crude_oil",
+          "wheat",
+          "sugar"
+        ],
+        "z": {
+          "crude_oil": -2.33,
+          "wheat": -2.78,
+          "sugar": -2.09
+        }
+      },
+      {
+        "date": "2021-12-02",
+        "commodities": [
+          "wheat",
+          "cocoa"
+        ],
+        "z": {
+          "wheat": 2.2,
+          "cocoa": 2.79
+        }
+      },
+      {
+        "date": "2022-03-01",
+        "commodities": [
+          "crude_oil",
+          "wheat"
+        ],
+        "z": {
+          "crude_oil": 3.03,
+          "wheat": 2.96
+        }
+      },
+      {
+        "date": "2022-03-15",
+        "commodities": [
+          "crude_oil",
+          "cocoa"
+        ],
+        "z": {
+          "crude_oil": -2.02,
+          "cocoa": -2.4
+        }
+      },
+      {
+        "date": "2022-09-20",
+        "commodities": [
+          "wheat",
+          "sugar"
+        ],
+        "z": {
+          "wheat": 2.79,
+          "sugar": 2.05
+        }
+      },
+      {
+        "date": "2022-10-31",
+        "commodities": [
+          "coffee",
+          "wheat"
+        ],
+        "z": {
+          "coffee": 2.13,
+          "wheat": 2.42
+        }
+      },
+      {
+        "date": "2022-11-02",
+        "commodities": [
+          "coffee",
+          "wheat"
+        ],
+        "z": {
+          "coffee": 2.14,
+          "wheat": -2.43
+        }
+      },
+      {
+        "date": "2023-05-03",
+        "commodities": [
+          "wheat",
+          "cocoa"
+        ],
+        "z": {
+          "wheat": 3.35,
+          "cocoa": -3.26
+        }
+      },
+      {
+        "date": "2023-06-08",
+        "commodities": [
+          "coffee",
+          "sugar"
+        ],
+        "z": {
+          "coffee": 2.65,
+          "sugar": 2.04
+        }
+      },
+      {
+        "date": "2023-09-15",
+        "commodities": [
+          "wheat",
+          "cocoa"
+        ],
+        "z": {
+          "wheat": 2.35,
+          "cocoa": -2.03
+        }
+      },
+      {
+        "date": "2023-10-13",
+        "commodities": [
+          "coffee",
+          "crude_oil"
+        ],
+        "z": {
+          "coffee": 2.32,
+          "crude_oil": 3.21
+        }
+      },
+      {
+        "date": "2023-11-30",
+        "commodities": [
+          "coffee",
+          "sugar"
+        ],
+        "z": {
+          "coffee": 3.5,
+          "sugar": -2.15
+        }
+      },
+      {
+        "date": "2023-12-05",
+        "commodities": [
+          "wheat",
+          "sugar"
+        ],
+        "z": {
+          "wheat": 2.04,
+          "sugar": -2.11
+        }
+      },
+      {
+        "date": "2023-12-06",
+        "commodities": [
+          "coffee",
+          "sugar"
+        ],
+        "z": {
+          "coffee": -2.26,
+          "sugar": -4.8
+        }
+      },
+      {
+        "date": "2023-12-11",
+        "commodities": [
+          "coffee",
+          "sugar"
+        ],
+        "z": {
+          "coffee": 2.09,
+          "sugar": -2.01
+        }
+      },
+      {
+        "date": "2023-12-29",
+        "commodities": [
+          "coffee",
+          "sugar"
+        ],
+        "z": {
+          "coffee": -2.23,
+          "sugar": -2.59
+        }
+      },
+      {
+        "date": "2024-02-20",
+        "commodities": [
+          "wheat",
+          "cocoa"
+        ],
+        "z": {
+          "wheat": 2.01,
+          "cocoa": 2.48
+        }
+      },
+      {
+        "date": "2024-04-17",
+        "commodities": [
+          "coffee",
+          "crude_oil"
+        ],
+        "z": {
+          "coffee": 2.26,
+          "crude_oil": -2.1
+        }
+      },
+      {
+        "date": "2024-04-22",
+        "commodities": [
+          "coffee",
+          "wheat",
+          "cocoa"
+        ],
+        "z": {
+          "coffee": -2.19,
+          "wheat": 2.2,
+          "cocoa": -2.21
+        }
+      },
+      {
+        "date": "2024-04-29",
+        "commodities": [
+          "cocoa",
+          "sugar"
+        ],
+        "z": {
+          "cocoa": -2.33,
+          "sugar": 2.23
+        }
+      },
+      {
+        "date": "2024-05-01",
+        "commodities": [
+          "crude_oil",
+          "cocoa"
+        ],
+        "z": {
+          "crude_oil": -2.66,
+          "cocoa": -2.88
+        }
+      },
+      {
+        "date": "2024-05-02",
+        "commodities": [
+          "coffee",
+          "cocoa"
+        ],
+        "z": {
+          "coffee": -2.34,
+          "cocoa": -2.25
+        }
+      },
+      {
+        "date": "2024-06-24",
+        "commodities": [
+          "coffee",
+          "cocoa"
+        ],
+        "z": {
+          "coffee": 2.1,
+          "cocoa": -2.19
+        }
+      },
+      {
+        "date": "2024-08-26",
+        "commodities": [
+          "crude_oil",
+          "sugar"
+        ],
+        "z": {
+          "crude_oil": 2.0,
+          "sugar": 2.08
+        }
+      },
+      {
+        "date": "2024-09-03",
+        "commodities": [
+          "crude_oil",
+          "wheat"
+        ],
+        "z": {
+          "crude_oil": -2.32,
+          "wheat": 2.22
+        }
+      },
+      {
+        "date": "2025-02-14",
+        "commodities": [
+          "coffee",
+          "wheat"
+        ],
+        "z": {
+          "coffee": -2.28,
+          "wheat": 2.66
+        }
+      },
+      {
+        "date": "2025-02-27",
+        "commodities": [
+          "wheat",
+          "sugar"
+        ],
+        "z": {
+          "wheat": -2.23,
+          "sugar": -2.89
+        }
+      },
+      {
+        "date": "2025-03-03",
+        "commodities": [
+          "cocoa",
+          "sugar"
+        ],
+        "z": {
+          "cocoa": -2.66,
+          "sugar": -3.94
+        }
+      },
+      {
+        "date": "2025-03-17",
+        "commodities": [
+          "wheat",
+          "sugar"
+        ],
+        "z": {
+          "wheat": 2.62,
+          "sugar": 2.33
+        }
+      },
+      {
+        "date": "2025-04-04",
+        "commodities": [
+          "coffee",
+          "crude_oil",
+          "cocoa"
+        ],
+        "z": {
+          "coffee": -2.49,
+          "crude_oil": -4.44,
+          "cocoa": -2.02
+        }
+      },
+      {
+        "date": "2025-04-09",
+        "commodities": [
+          "crude_oil",
+          "cocoa"
+        ],
+        "z": {
+          "crude_oil": 2.59,
+          "cocoa": 2.31
+        }
+      },
+      {
+        "date": "2025-06-13",
+        "commodities": [
+          "crude_oil",
+          "wheat"
+        ],
+        "z": {
+          "crude_oil": 3.28,
+          "wheat": 2.14
+        }
+      },
+      {
+        "date": "2025-06-23",
+        "commodities": [
+          "crude_oil",
+          "cocoa"
+        ],
+        "z": {
+          "crude_oil": -3.65,
+          "cocoa": 2.18
+        }
+      },
+      {
+        "date": "2025-09-15",
+        "commodities": [
+          "coffee",
+          "wheat"
+        ],
+        "z": {
+          "coffee": 2.14,
+          "wheat": 3.06
+        }
+      },
+      {
+        "date": "2025-10-27",
+        "commodities": [
+          "wheat",
+          "sugar"
+        ],
+        "z": {
+          "wheat": 2.24,
+          "sugar": -2.48
+        }
+      },
+      {
+        "date": "2025-12-15",
+        "commodities": [
+          "wheat",
+          "cocoa"
+        ],
+        "z": {
+          "wheat": -2.03,
+          "cocoa": -2.33
+        }
+      },
+      {
+        "date": "2026-03-02",
+        "commodities": [
+          "crude_oil",
+          "wheat",
+          "sugar"
+        ],
+        "z": {
+          "crude_oil": 3.21,
+          "wheat": -2.33,
+          "sugar": -2.03
+        }
+      },
+      {
+        "date": "2026-03-05",
+        "commodities": [
+          "crude_oil",
+          "wheat"
+        ],
+        "z": {
+          "crude_oil": 4.04,
+          "wheat": 2.06
+        }
+      },
+      {
+        "date": "2026-03-06",
+        "commodities": [
+          "crude_oil",
+          "wheat",
+          "sugar"
+        ],
+        "z": {
+          "crude_oil": 5.27,
+          "wheat": 3.49,
+          "sugar": 2.05
+        }
+      },
+      {
+        "date": "2026-04-14",
+        "commodities": [
+          "crude_oil",
+          "cocoa"
+        ],
+        "z": {
+          "crude_oil": -2.01,
+          "cocoa": 2.58
+        }
+      },
+      {
+        "date": "2026-07-06",
+        "commodities": [
+          "coffee",
+          "cocoa"
+        ],
+        "z": {
+          "coffee": 6.81,
+          "cocoa": 3.13
+        }
+      }
+    ],
+    "pairs": {
+      "coffee+crude_oil": {
+        "both": 8,
+        "either": 266
+      },
+      "coffee+wheat": {
+        "both": 7,
+        "either": 254
+      },
+      "coffee+cocoa": {
+        "both": 12,
+        "either": 237
+      },
+      "coffee+sugar": {
+        "both": 8,
+        "either": 249
+      },
+      "crude_oil+wheat": {
+        "both": 13,
+        "either": 262
+      },
+      "crude_oil+cocoa": {
+        "both": 12,
+        "either": 251
+      },
+      "crude_oil+sugar": {
+        "both": 13,
+        "either": 258
+      },
+      "wheat+cocoa": {
+        "both": 10,
+        "either": 240
+      },
+      "wheat+sugar": {
+        "both": 12,
+        "either": 246
+      },
+      "cocoa+sugar": {
+        "both": 8,
+        "either": 238
+      }
+    },
+    "return_correlation": {
+      "coffee": {
+        "coffee": 1.0,
+        "crude_oil": 0.09,
+        "wheat": 0.08,
+        "cocoa": 0.14,
+        "sugar": 0.17
+      },
+      "crude_oil": {
+        "coffee": 0.09,
+        "crude_oil": 1.0,
+        "wheat": 0.13,
+        "cocoa": 0.04,
+        "sugar": 0.23
+      },
+      "wheat": {
+        "coffee": 0.08,
+        "crude_oil": 0.13,
+        "wheat": 1.0,
+        "cocoa": 0.01,
+        "sugar": 0.14
+      },
+      "cocoa": {
+        "coffee": 0.14,
+        "crude_oil": 0.04,
+        "wheat": 0.01,
+        "cocoa": 1.0,
+        "sugar": 0.08
+      },
+      "sugar": {
+        "coffee": 0.17,
+        "crude_oil": 0.23,
+        "wheat": 0.14,
+        "cocoa": 0.08,
+        "sugar": 1.0
+      }
+    }
+  }
+}

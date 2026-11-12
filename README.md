@@ -210,6 +210,8 @@ python -m scripts.calibrate_thresholds               # results/relevance_gate_ca
 python -m scripts.evaluate_retrieval                 # results/retrieval_evaluation.md
 python -m scripts.ops_report                         # results/ops_report.md
 python -m scripts.evaluate_detector --all            # results/detector_evaluation.md
+python -m scripts.multi_commodity_report             # results/multi_commodity_report.md
+python -m src.analysis.inflation                     # results/inflation_comparison.md
 
 # Needs the embedding model
 python -m src.evaluation.ablation_study              # results/ablation_study_report.md
@@ -227,6 +229,33 @@ python -m scripts.collect_labeling_set --n 200       # then label, then calibrat
 ```
 
 `python -m scripts.run_all_evaluations` runs the offline set in order; add `--live` for the rest.
+
+## Five commodities
+
+Coffee is the reference commodity: the only one with a labelled answer key and
+an evaluated explanation stage. Crude oil, wheat, cocoa and sugar share the same
+detector, retrieval and blind-reading code through `src/config/commodities.py`.
+
+| | Coffee | Crude oil | Wheat | Cocoa | Sugar |
+|---|---|---|---|---|---|
+| Price series and detector | yes | yes | yes | fetch first | fetch first |
+| Cited known events | 4 | 5 | 4 | 2 | 2 |
+| Control period verified | yes | yes | yes | no | no |
+| Contract-switch list | yes | no | no | no | no |
+| Headline scoring knows its name | yes | yes | yes | yes | yes |
+| Labelled dates (answer key) | 16 | none | none | none | none |
+| Briefing, outlook, market brief | yes | no | no | no | no |
+
+No explanation figure exists for any commodity but coffee: without labelled
+dates there is nothing to score against, and "always explain" cannot be ruled
+out as a baseline. `scripts/multi_commodity_report.py` reports the detector at
+z = 2.0, 2.5 and 3.0 side by side (as sensitivity; every labelled date was drawn
+at 2.0), lists fully quiet quarters to choose control periods from, and counts
+days on which several markets moved at once. `src/analysis/inflation.py`
+deflates every series by US CPI and shows that deflating changes the
+detector's flag on only a handful of days, each within a few hundredths of the
+cut-off: inflation matters for statements about price levels, not for the
+detector.
 
 ## Project layout
 
@@ -263,6 +292,17 @@ results/                      pipeline outputs and evaluation reports
 ```
 
 ## Limits
+
+- **Sugar, 2023 India export curbs: missed by the detector (0 of 20 days flagged).** The window
+  (16 Oct - 10 Nov 2023) was set from the dates of the news coverage: India's indefinite extension of
+  export curbs on 18 October and the 12-year high on 7 November. In the price series, that window is a
+  plateau: sugar traded between 26.75 and 27.95 US cents/lb, with no daily |z| above 1.6 and no 10-day
+  |z| above 1.2. The large move came earlier: sugar rose about 14% between 22 August and 5 September
+  2023, starting the day Reuters reported that India was considering an export ban, and the detector
+  flagged it on 5-7 September through the 10-day cumulative check (z = 2.76, 2.28, 2.14). The miss
+  reflects a window chosen from headline dates rather than from price behaviour. The window was not
+  moved after this result, because that would fit the test to the outcome. Future event windows should
+  be chosen from the market reports describing the move, before the detector is run.
 
 - **Sample size.** 18 dates have been run under version 9; 16 are graded and none of them is a should-refuse date. The refusal test is a dozen quiet days. The 94-date set in `data/eval/eval_dates.csv` has been run in full only under version 3. No rate here can be quoted without its interval.
 - **The refusal claim failed its first test, and the fix is unmeasured.** Version 10 explained 5 of 12 invented moves. Version 11's rule was built on those days and has not been run on the labelled dates or on other quiet days; on stored readings it costs up to five of the twelve real explanations.

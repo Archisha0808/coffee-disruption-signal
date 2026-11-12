@@ -63,6 +63,14 @@ NEWS_QUERIES = {
         "wheat prices OR wheat futures OR grain harvest",
         "wheat export ban OR wheat supply OR wheat drought",
     ],
+    "cocoa": [
+        "cocoa prices OR cocoa futures",
+        "cocoa harvest OR Ivory Coast cocoa OR Ghana cocoa OR cocoa grindings",
+    ],
+    "sugar": [
+        "sugar prices OR raw sugar futures",
+        "sugar export India OR Brazil sugar harvest OR sugar ethanol",
+    ],
 }
 
 # Industry-specific RSS feeds (these carry deep market analysis that
@@ -80,6 +88,8 @@ INDUSTRY_FEEDS = {
     ],
     "crude_oil": [],
     "wheat": [],
+    "cocoa": [],
+    "sugar": [],
 }
 
 GOOGLE_NEWS_RSS = "https://news.google.com/rss/search"

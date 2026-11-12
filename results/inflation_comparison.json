@@ -1,0 +1,612 @@
+{
+  "cpi_base": "2026-10",
+  "cpi_interpolated_months": [
+    "2025-10"
+  ],
+  "commodities": [
+    {
+      "key": "coffee",
+      "display_name": "Coffee (Arabica)",
+      "missing": false,
+      "whole_period": {
+        "start": "2018-01-02",
+        "end": "2026-10-23",
+        "nominal_change_pct": 136.1,
+        "cpi_change_pct": 35.9,
+        "real_change_pct": 73.8,
+        "nominal_high": {
+          "date": "2025-02-13",
+          "price": 438.9
+        },
+        "real_high": {
+          "date": "2025-02-13",
+          "price_in_latest_dollars": 463.4
+        },
+        "latest_vs_real_high_pct": -33.7,
+        "days_beyond_cpi": 0
+      },
+      "by_year": [
+        {
+          "year": 2019,
+          "nominal_pct": 27.3,
+          "cpi_pct": 2.3,
+          "real_pct": 24.5,
+          "beat_inflation": true
+        },
+        {
+          "year": 2020,
+          "nominal_pct": -1.1,
+          "cpi_pct": 1.3,
+          "real_pct": -2.4,
+          "beat_inflation": false
+        },
+        {
+          "year": 2021,
+          "nominal_pct": 76.3,
+          "cpi_pct": 7.2,
+          "real_pct": 64.5,
+          "beat_inflation": true
+        },
+        {
+          "year": 2022,
+          "nominal_pct": -26.0,
+          "cpi_pct": 6.4,
+          "real_pct": -30.5,
+          "beat_inflation": false
+        },
+        {
+          "year": 2023,
+          "nominal_pct": 12.6,
+          "cpi_pct": 3.3,
+          "real_pct": 8.9,
+          "beat_inflation": true
+        },
+        {
+          "year": 2024,
+          "nominal_pct": 69.8,
+          "cpi_pct": 2.9,
+          "real_pct": 65.1,
+          "beat_inflation": true
+        },
+        {
+          "year": 2025,
+          "nominal_pct": 9.1,
+          "cpi_pct": 2.7,
+          "real_pct": 6.3,
+          "beat_inflation": true
+        }
+      ],
+      "detector": {
+        "max_distance_from_threshold": 0.056,
+        "days": 2142,
+        "flagged_nominal": 279,
+        "flagged_real": 278,
+        "days_that_differ": 7,
+        "dates_that_differ": [
+          "2019-12-12",
+          "2021-04-27",
+          "2022-04-13",
+          "2022-06-02",
+          "2022-08-24",
+          "2023-10-18",
+          "2026-06-26"
+        ],
+        "median_abs_daily_return_pct": 1.383,
+        "median_abs_daily_cpi_drift_pct": 0.01
+      },
+      "cpi_base": "2026-10"
+    },
+    {
+      "key": "crude_oil",
+      "display_name": "Crude Oil (WTI)",
+      "missing": false,
+      "whole_period": {
+        "start": "2013-01-02",
+        "end": "2026-09-11",
+        "nominal_change_pct": 7.4,
+        "cpi_change_pct": 45.2,
+        "real_change_pct": -26.0,
+        "nominal_high": {
+          "date": "2022-03-08",
+          "price": 123.7
+        },
+        "real_high": {
+          "date": "2013-09-06",
+          "price_in_latest_dollars": 159.74
+        },
+        "latest_vs_real_high_pct": -37.1,
+        "days_beyond_cpi": 0
+      },
+      "by_year": [
+        {
+          "year": 2014,
+          "nominal_pct": -45.9,
+          "cpi_pct": 0.7,
+          "real_pct": -46.2,
+          "beat_inflation": false
+        },
+        {
+          "year": 2015,
+          "nominal_pct": -30.5,
+          "cpi_pct": 0.6,
+          "real_pct": -30.9,
+          "beat_inflation": false
+        },
+        {
+          "year": 2016,
+          "nominal_pct": 45.0,
+          "cpi_pct": 2.1,
+          "real_pct": 42.1,
+          "beat_inflation": true
+        },
+        {
+          "year": 2017,
+          "nominal_pct": 12.5,
+          "cpi_pct": 2.1,
+          "real_pct": 10.1,
+          "beat_inflation": true
+        },
+        {
+          "year": 2018,
+          "nominal_pct": -24.8,
+          "cpi_pct": 2.0,
+          "real_pct": -26.3,
+          "beat_inflation": false
+        },
+        {
+          "year": 2019,
+          "nominal_pct": 34.5,
+          "cpi_pct": 2.3,
+          "real_pct": 31.4,
+          "beat_inflation": true
+        },
+        {
+          "year": 2020,
+          "nominal_pct": -20.5,
+          "cpi_pct": 1.3,
+          "real_pct": -21.6,
+          "beat_inflation": false
+        },
+        {
+          "year": 2021,
+          "nominal_pct": 55.0,
+          "cpi_pct": 7.2,
+          "real_pct": 44.6,
+          "beat_inflation": true
+        },
+        {
+          "year": 2022,
+          "nominal_pct": 6.7,
+          "cpi_pct": 6.4,
+          "real_pct": 0.3,
+          "beat_inflation": true
+        },
+        {
+          "year": 2023,
+          "nominal_pct": -10.7,
+          "cpi_pct": 3.3,
+          "real_pct": -13.6,
+          "beat_inflation": false
+        },
+        {
+          "year": 2024,
+          "nominal_pct": 0.1,
+          "cpi_pct": 2.9,
+          "real_pct": -2.7,
+          "beat_inflation": false
+        },
+        {
+          "year": 2025,
+          "nominal_pct": -19.9,
+          "cpi_pct": 2.7,
+          "real_pct": -22.0,
+          "beat_inflation": false
+        }
+      ],
+      "detector": {
+        "max_distance_from_threshold": 0.011,
+        "days": 3368,
+        "flagged_nominal": 420,
+        "flagged_real": 416,
+        "days_that_differ": 6,
+        "dates_that_differ": [
+          "2014-02-07",
+          "2014-02-18",
+          "2018-11-09",
+          "2021-06-04",
+          "2021-12-06",
+          "2024-08-26"
+        ],
+        "median_abs_daily_return_pct": 1.272,
+        "median_abs_daily_cpi_drift_pct": 0.0087
+      },
+      "cpi_base": "2026-10"
+    },
+    {
+      "key": "wheat",
+      "display_name": "Wheat (Chicago SRW)",
+      "missing": false,
+      "whole_period": {
+        "start": "2009-01-02",
+        "end": "2026-09-11",
+        "nominal_change_pct": 15.7,
+        "cpi_change_pct": 58.7,
+        "real_change_pct": -27.1,
+        "nominal_high": {
+          "date": "2022-03-07",
+          "price": 1425.25
+        },
+        "real_high": {
+          "date": "2022-03-07",
+          "price_in_latest_dollars": 1677.28
+        },
+        "latest_vs_real_high_pct": -57.7,
+        "days_beyond_cpi": 0
+      },
+      "by_year": [
+        {
+          "year": 2010,
+          "nominal_pct": 46.7,
+          "cpi_pct": 1.4,
+          "real_pct": 44.6,
+          "beat_inflation": true
+        },
+        {
+          "year": 2011,
+          "nominal_pct": -17.8,
+          "cpi_pct": 3.1,
+          "real_pct": -20.3,
+          "beat_inflation": false
+        },
+        {
+          "year": 2012,
+          "nominal_pct": 19.2,
+          "cpi_pct": 1.8,
+          "real_pct": 17.1,
+          "beat_inflation": true
+        },
+        {
+          "year": 2013,
+          "nominal_pct": -22.2,
+          "cpi_pct": 1.5,
+          "real_pct": -23.4,
+          "beat_inflation": false
+        },
+        {
+          "year": 2014,
+          "nominal_pct": -2.6,
+          "cpi_pct": 0.7,
+          "real_pct": -3.2,
+          "beat_inflation": false
+        },
+        {
+          "year": 2015,
+          "nominal_pct": -20.3,
+          "cpi_pct": 0.6,
+          "real_pct": -20.8,
+          "beat_inflation": false
+        },
+        {
+          "year": 2016,
+          "nominal_pct": -13.2,
+          "cpi_pct": 2.1,
+          "real_pct": -14.9,
+          "beat_inflation": false
+        },
+        {
+          "year": 2017,
+          "nominal_pct": 4.7,
+          "cpi_pct": 2.1,
+          "real_pct": 2.5,
+          "beat_inflation": true
+        },
+        {
+          "year": 2018,
+          "nominal_pct": 17.9,
+          "cpi_pct": 2.0,
+          "real_pct": 15.5,
+          "beat_inflation": true
+        },
+        {
+          "year": 2019,
+          "nominal_pct": 11.0,
+          "cpi_pct": 2.3,
+          "real_pct": 8.5,
+          "beat_inflation": true
+        },
+        {
+          "year": 2020,
+          "nominal_pct": 14.6,
+          "cpi_pct": 1.3,
+          "real_pct": 13.1,
+          "beat_inflation": true
+        },
+        {
+          "year": 2021,
+          "nominal_pct": 20.3,
+          "cpi_pct": 7.2,
+          "real_pct": 12.3,
+          "beat_inflation": true
+        },
+        {
+          "year": 2022,
+          "nominal_pct": 2.8,
+          "cpi_pct": 6.4,
+          "real_pct": -3.4,
+          "beat_inflation": false
+        },
+        {
+          "year": 2023,
+          "nominal_pct": -20.7,
+          "cpi_pct": 3.3,
+          "real_pct": -23.3,
+          "beat_inflation": false
+        },
+        {
+          "year": 2024,
+          "nominal_pct": -12.2,
+          "cpi_pct": 2.9,
+          "real_pct": -14.6,
+          "beat_inflation": false
+        },
+        {
+          "year": 2025,
+          "nominal_pct": -8.1,
+          "cpi_pct": 2.7,
+          "real_pct": -10.4,
+          "beat_inflation": false
+        }
+      ],
+      "detector": {
+        "max_distance_from_threshold": 0.061,
+        "days": 4373,
+        "flagged_nominal": 519,
+        "flagged_real": 513,
+        "days_that_differ": 16,
+        "dates_that_differ": [
+          "2013-08-27",
+          "2014-04-21",
+          "2016-03-10",
+          "2018-05-04",
+          "2019-03-21",
+          "2020-03-24",
+          "2020-07-09",
+          "2021-07-21",
+          "2022-12-06",
+          "2024-02-20",
+          "2024-04-24",
+          "2025-01-13",
+          "2025-03-06",
+          "2026-02-20",
+          "2026-02-24",
+          "2026-02-25"
+        ],
+        "median_abs_daily_return_pct": 1.179,
+        "median_abs_daily_cpi_drift_pct": 0.0085
+      },
+      "cpi_base": "2026-10"
+    },
+    {
+      "key": "cocoa",
+      "display_name": "Cocoa (ICE New York)",
+      "missing": false,
+      "whole_period": {
+        "start": "2015-01-02",
+        "end": "2026-11-12",
+        "nominal_change_pct": 66.8,
+        "cpi_change_pct": 43.4,
+        "real_change_pct": 16.4,
+        "nominal_high": {
+          "date": "2024-12-18",
+          "price": 12565.0
+        },
+        "real_high": {
+          "date": "2024-12-18",
+          "price_in_latest_dollars": 13345.65
+        },
+        "latest_vs_real_high_pct": -63.4,
+        "days_beyond_cpi": 9
+      },
+      "by_year": [
+        {
+          "year": 2016,
+          "nominal_pct": -33.8,
+          "cpi_pct": 2.1,
+          "real_pct": -35.1,
+          "beat_inflation": false
+        },
+        {
+          "year": 2017,
+          "nominal_pct": -11.0,
+          "cpi_pct": 2.1,
+          "real_pct": -12.9,
+          "beat_inflation": false
+        },
+        {
+          "year": 2018,
+          "nominal_pct": 27.7,
+          "cpi_pct": 2.0,
+          "real_pct": 25.2,
+          "beat_inflation": true
+        },
+        {
+          "year": 2019,
+          "nominal_pct": 5.1,
+          "cpi_pct": 2.3,
+          "real_pct": 2.7,
+          "beat_inflation": true
+        },
+        {
+          "year": 2020,
+          "nominal_pct": 2.5,
+          "cpi_pct": 1.3,
+          "real_pct": 1.1,
+          "beat_inflation": true
+        },
+        {
+          "year": 2021,
+          "nominal_pct": -3.2,
+          "cpi_pct": 7.2,
+          "real_pct": -9.7,
+          "beat_inflation": false
+        },
+        {
+          "year": 2022,
+          "nominal_pct": 3.2,
+          "cpi_pct": 6.4,
+          "real_pct": -3.0,
+          "beat_inflation": false
+        },
+        {
+          "year": 2023,
+          "nominal_pct": 61.4,
+          "cpi_pct": 3.3,
+          "real_pct": 56.2,
+          "beat_inflation": true
+        },
+        {
+          "year": 2024,
+          "nominal_pct": 178.2,
+          "cpi_pct": 2.9,
+          "real_pct": 170.5,
+          "beat_inflation": true
+        },
+        {
+          "year": 2025,
+          "nominal_pct": -48.1,
+          "cpi_pct": 2.7,
+          "real_pct": -49.4,
+          "beat_inflation": false
+        }
+      ],
+      "detector": {
+        "max_distance_from_threshold": 0.009,
+        "days": 2908,
+        "flagged_nominal": 361,
+        "flagged_real": 360,
+        "days_that_differ": 3,
+        "dates_that_differ": [
+          "2018-02-26",
+          "2019-04-05",
+          "2025-10-13"
+        ],
+        "median_abs_daily_return_pct": 1.212,
+        "median_abs_daily_cpi_drift_pct": 0.0092
+      },
+      "cpi_base": "2026-10"
+    },
+    {
+      "key": "sugar",
+      "display_name": "Sugar (Raw, No. 11)",
+      "missing": false,
+      "whole_period": {
+        "start": "2015-01-02",
+        "end": "2026-11-12",
+        "nominal_change_pct": 27.9,
+        "cpi_change_pct": 43.4,
+        "real_change_pct": -10.8,
+        "nominal_high": {
+          "date": "2023-11-06",
+          "price": 27.95
+        },
+        "real_high": {
+          "date": "2016-10-05",
+          "price_in_latest_dollars": 33.27
+        },
+        "latest_vs_real_high_pct": -45.5,
+        "days_beyond_cpi": 9
+      },
+      "by_year": [
+        {
+          "year": 2016,
+          "nominal_pct": 28.0,
+          "cpi_pct": 2.1,
+          "real_pct": 25.4,
+          "beat_inflation": true
+        },
+        {
+          "year": 2017,
+          "nominal_pct": -22.3,
+          "cpi_pct": 2.1,
+          "real_pct": -23.9,
+          "beat_inflation": false
+        },
+        {
+          "year": 2018,
+          "nominal_pct": -20.6,
+          "cpi_pct": 2.0,
+          "real_pct": -22.2,
+          "beat_inflation": false
+        },
+        {
+          "year": 2019,
+          "nominal_pct": 11.6,
+          "cpi_pct": 2.3,
+          "real_pct": 9.0,
+          "beat_inflation": true
+        },
+        {
+          "year": 2020,
+          "nominal_pct": 15.4,
+          "cpi_pct": 1.3,
+          "real_pct": 13.9,
+          "beat_inflation": true
+        },
+        {
+          "year": 2021,
+          "nominal_pct": 21.9,
+          "cpi_pct": 7.2,
+          "real_pct": 13.7,
+          "beat_inflation": true
+        },
+        {
+          "year": 2022,
+          "nominal_pct": 6.1,
+          "cpi_pct": 6.4,
+          "real_pct": -0.2,
+          "beat_inflation": false
+        },
+        {
+          "year": 2023,
+          "nominal_pct": 2.7,
+          "cpi_pct": 3.3,
+          "real_pct": -0.6,
+          "beat_inflation": false
+        },
+        {
+          "year": 2024,
+          "nominal_pct": -6.4,
+          "cpi_pct": 2.9,
+          "real_pct": -9.0,
+          "beat_inflation": false
+        },
+        {
+          "year": 2025,
+          "nominal_pct": -22.1,
+          "cpi_pct": 2.7,
+          "real_pct": -24.1,
+          "beat_inflation": false
+        }
+      ],
+      "detector": {
+        "max_distance_from_threshold": 0.046,
+        "days": 2909,
+        "flagged_nominal": 377,
+        "flagged_real": 376,
+        "days_that_differ": 7,
+        "dates_that_differ": [
+          "2022-03-04",
+          "2022-05-09",
+          "2022-07-18",
+          "2022-07-19",
+          "2022-07-27",
+          "2023-12-04",
+          "2024-09-04"
+        ],
+        "median_abs_daily_return_pct": 1.113,
+        "median_abs_daily_cpi_drift_pct": 0.0092
+      },
+      "cpi_base": "2026-10"
+    }
+  ]
+}

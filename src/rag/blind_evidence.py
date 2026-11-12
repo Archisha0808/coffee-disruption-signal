@@ -205,7 +205,7 @@ def _age(doc: dict, anomaly_date: str) -> Optional[int]:
 
 
 def recent_documents(documents: list, anomaly_date: str,
-                     max_age: int = MAX_AGE_TRADING_DAYS) -> list:
+                     max_age: int = MAX_AGE_TRADING_DAYS, commodity: str = "coffee") -> list:
     """Documents from the session of the anomaly date or up to max_age
     sessions before it, in the order they are offered to the reading (see
     market_report.reading_order): market reports first, newest session first.
@@ -221,15 +221,15 @@ def recent_documents(documents: list, anomaly_date: str,
     ages = {id(d): _age(d, anomaly_date) for d in documents}
     in_range = [d for d in documents if ages[id(d)] is not None and 0 <= ages[id(d)] <= max_age]
     return market_report.reading_order(in_range, lambda d: ages[id(d)], relevance,
-                                       limit=MAX_DOCUMENTS_READ)
+                                       limit=MAX_DOCUMENTS_READ, commodity=commodity)
 
 
-def as_shown(doc: dict) -> dict:
+def as_shown(doc: dict, commodity: str = "coffee") -> dict:
     """The document as the reading is shown it: its text reduced to the
     opening and the passages that mention the commodity, so that a fixed-length
     excerpt holds the part that matters. The passages are verbatim, so a quote
     from this text is a quote from the document."""
-    return {**doc, "text": market_report.focus_text(doc.get("text") or "")}
+    return {**doc, "text": market_report.focus_text(doc.get("text") or "", commodity=commodity)}
 
 
 def _clean_choice(value, allowed: tuple, default: str = "none") -> str:
@@ -408,7 +408,9 @@ def read_documents(anomaly_date: str, documents: list, providers: list = None,
     # Imported here so that importing this module does not need a model key.
     from src.rag import explainer
 
-    recent = [as_shown(d) for d in recent_documents(documents, anomaly_date)[:MAX_DOCUMENTS_READ]]
+    recent = [as_shown(d, commodity)
+              for d in recent_documents(documents, anomaly_date,
+                                        commodity=commodity)[:MAX_DOCUMENTS_READ]]
     if not recent:
         return {"status": "nothing_recent", "readings": []}
 
@@ -806,7 +808,8 @@ def blind_decision(anomaly: dict, price_description: str, accepted_documents: li
         "variants": list(DEFAULT_VARIANTS),
         "fresh_trading_days": FRESH_TRADING_DAYS,
         "max_age_trading_days": MAX_AGE_TRADING_DAYS,
-        "n_recent_documents": len(recent_documents(accepted_documents, date)),
+        "n_recent_documents": len(recent_documents(accepted_documents, date,
+                                                   commodity=commodity)),
         "readings": reading["readings"],
         "deciding_age": verdict["deciding_age"],
         "deciding_kind": verdict["deciding_kind"],

@@ -24,7 +24,7 @@ import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
 
-from src.config.commodities import get_commodity
+from src.config.commodities import COMMODITIES, get_commodity
 from src.modeling.anomaly_detector import compute_anomalies, load_contract_switches
 from src.rag import outcome as outcome_mod
 from src.advisory.buying_brief import generate_brief, _generate_headline
@@ -37,10 +37,18 @@ READ_ONLY = os.environ.get("READ_ONLY", "").strip().lower() in ("1", "true", "ye
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 RESULTS_DIR = REPO_ROOT / "results"
 
-COMMODITY_KEY = "coffee"
-cfg = get_commodity(COMMODITY_KEY)
+st.set_page_config(page_title="Commodity Market Intelligence", layout="centered")
 
-st.set_page_config(page_title="Coffee Market Intelligence", layout="centered")
+# Coffee is the fully built and evaluated commodity and stays the default. The
+# others share the price chart, the detector and the explain-a-day section;
+# the briefing, outlook and market brief are built on coffee-only inputs
+# (Brazil weather, the real, coffee news feeds) and are shown for coffee only.
+COMMODITY_KEY = st.sidebar.selectbox(
+    "Commodity", list(COMMODITIES), index=list(COMMODITIES).index("coffee"),
+    format_func=lambda k: COMMODITIES[k].display_name)
+cfg = get_commodity(COMMODITY_KEY)
+PRICE_UNIT = cfg.price_unit or "price"
+TITLE = f"{cfg.display_name.split(' (')[0]} Market Intelligence"
 
 # --- Custom styling for a clean, professional look ---
 st.markdown("""
@@ -506,7 +514,8 @@ def render_explanation(output: dict):
             if reason == "no_documents_retrieved":
                 st.markdown("No news articles could be found for this date.")
             elif reason == "all_documents_below_noise_floor":
-                st.markdown("We found articles, but none of them were about coffee markets.")
+                st.markdown(f"We found articles, but none of them were about "
+                            f"{cfg.display_name.split(' (')[0].lower()} markets.")
             elif "direction_guard" in (explanation.get("reason") or ""):
                 st.markdown(f"We found {total_ct} articles and the model drafted an "
                             f"explanation, but more of the relevant articles described "
@@ -645,8 +654,9 @@ fp = price_path.stat().st_mtime if price_path.exists() else 0.0
 anomalies = detect_anomalies(cfg.price_file, fp)
 
 if prices.empty or anomalies.empty:
-    st.title("Coffee Market Intelligence")
-    st.error("No price data found. Run: `python -m src.modeling.fetch_price_data --commodity coffee`")
+    st.title(TITLE)
+    st.error(f"No price data found. Run: `python -m src.modeling.fetch_price_data --commodity {COMMODITY_KEY}` "
+             f"then `python -m src.modeling.anomaly_detector --commodity {COMMODITY_KEY}`")
     st.stop()
 
 today = datetime.now().date()
@@ -661,10 +671,10 @@ flagged = anomalies[anomalies["anomaly_flag"] == True]  # noqa: E712
 # SECTION 1: INTELLIGENCE BRIEF
 # ═══════════════════════════════════════════════════════════════════════════
 
-st.title("Coffee Market Intelligence")
+st.title(TITLE)
 
 stale_note = f"  ·  {stale_days} days old, use Refresh below" if stale_days > 3 else ""
-st.caption(f"Arabica coffee futures (ICE, KC=F)  ·  Data as of {latest_dt:%d %b %Y}{stale_note}")
+st.caption(f"{cfg.display_name} futures ({cfg.ticker})  ·  Data as of {latest_dt:%d %b %Y}{stale_note}")
 
 # --- Key metrics ---
 _p = prices["price"].to_numpy()
@@ -672,7 +682,7 @@ _now = float(_p[-1])
 _mo = (_now / _p[-22] - 1) * 100 if len(_p) > 22 else 0.0
 
 c1, c2, c3 = st.columns(3)
-c1.metric("Price (US¢/lb)", f"{_now:.2f}")
+c1.metric(f"Price ({PRICE_UNIT})", f"{_now:,.2f}")
 c2.metric("1-Month Change", f"{_mo:+.1f}%")
 c3.metric("Anomalies Detected", f"{len(flagged)}")
 
@@ -768,124 +778,129 @@ def render_daily_briefing(briefing: dict):
                f"Refreshes hourly")
 
 
-try:
-    brief = cached_brief(COMMODITY_KEY)
-
-    # --- Daily market briefing (RAG-powered) ---
-    st.subheader("Daily Market Briefing")
-
-    @st.cache_data(ttl=3600, show_spinner="Generating daily briefing...")
-    def cached_daily_briefing():
-        return generate_daily_briefing(allow_live=not READ_ONLY)
-
+if COMMODITY_KEY != "coffee":
+    st.info("The daily briefing, price outlook and market brief are built on coffee-only "
+            "inputs (Brazil weather, the real, coffee news feeds) and are not available for "
+            f"{cfg.display_name} yet. The price chart, detector and explain-a-day sections below are.")
+else:
     try:
-        briefing_data = cached_daily_briefing()
-        render_daily_briefing(briefing_data)
-    except Exception as briefing_exc:
-        st.warning(f"Daily briefing unavailable: {briefing_exc}")
+        brief = cached_brief(COMMODITY_KEY)
 
-    st.divider()
+        # --- Daily market briefing (RAG-powered) ---
+        st.subheader("Daily Market Briefing")
 
-    # --- Price outlook (RAG-powered) ---
-    st.subheader("Price Outlook")
+        @st.cache_data(ttl=3600, show_spinner="Generating daily briefing...")
+        def cached_daily_briefing():
+            return generate_daily_briefing(allow_live=not READ_ONLY)
 
-    @st.cache_data(ttl=3600, show_spinner="Generating outlook...")
-    def cached_outlook():
-        return generate_outlook(allow_live=not READ_ONLY)
+        try:
+            briefing_data = cached_daily_briefing()
+            render_daily_briefing(briefing_data)
+        except Exception as briefing_exc:
+            st.warning(f"Daily briefing unavailable: {briefing_exc}")
 
-    try:
-        outlook_data = cached_outlook()
-        render_outlook(outlook_data, brief.current_price)
-    except Exception as outlook_exc:
-        outlook_data = None
-        st.warning(f"Outlook unavailable: {outlook_exc}")
+        st.divider()
 
-    # --- Log sentiment & show timeline ---
-    try:
-        _briefing_for_log = briefing_data if "briefing_data" in dir() else None
-        _outlook_for_log = outlook_data if outlook_data else None
-        if _outlook_for_log or _briefing_for_log:
-            log_sentiment(outlook=_outlook_for_log, briefing=_briefing_for_log)
+        # --- Price outlook (RAG-powered) ---
+        st.subheader("Price Outlook")
 
-        sentiment_entries = load_sentiment_log()
-        if len(sentiment_entries) >= 2:
-            streak = get_sentiment_streak(sentiment_entries)
-            if streak["days"] > 1:
-                streak_label = (f"{'🔴' if streak['direction'] == 'bearish' else '🟢' if streak['direction'] == 'bullish' else '⚪'} "
-                                f"Outlook has been {streak['direction']} for {streak['days']} consecutive days")
-                st.caption(streak_label)
+        @st.cache_data(ttl=3600, show_spinner="Generating outlook...")
+        def cached_outlook():
+            return generate_outlook(allow_live=not READ_ONLY)
 
-            _sent_dates = [e["date"] for e in sentiment_entries]
-            _lean_map = {"upward": 1, "balanced": 0, "downward": -1}
-            _conf_map = {"high": 1.0, "medium": 0.6, "low": 0.3}
-            _lean_vals = [_lean_map.get(e.get("lean", "balanced"), 0) for e in sentiment_entries]
-            _conf_vals = [_conf_map.get(e.get("confidence", "low"), 0.3) for e in sentiment_entries]
-            _colors = ["#b03a2e" if v > 0 else "#1f6f8b" if v < 0 else "#95a5a6" for v in _lean_vals]
+        try:
+            outlook_data = cached_outlook()
+            render_outlook(outlook_data, brief.current_price)
+        except Exception as outlook_exc:
+            outlook_data = None
+            st.warning(f"Outlook unavailable: {outlook_exc}")
 
-            with st.expander("Sentiment Timeline", expanded=False):
-                fig_s = go.Figure()
-                fig_s.add_trace(go.Bar(
-                    x=_sent_dates, y=_lean_vals,
-                    marker_color=_colors,
-                    marker_opacity=[c for c in _conf_vals],
-                    name="Lean",
-                    hovertemplate="%{x}<br>Lean: %{customdata[0]}<br>Confidence: %{customdata[1]}<extra></extra>",
-                    customdata=[[e.get("lean", "?"), e.get("confidence", "?")] for e in sentiment_entries],
-                ))
-                fig_s.update_layout(
-                    template="plotly_white", height=200,
-                    margin=dict(l=10, r=10, t=10, b=10),
-                    yaxis=dict(tickvals=[-1, 0, 1], ticktext=["Bearish", "Neutral", "Bullish"],
-                               range=[-1.3, 1.3]),
-                    xaxis_title="",
-                )
-                st.plotly_chart(fig_s, use_container_width=True)
-                st.caption("Bar height = direction, opacity = confidence. "
-                           f"{len(sentiment_entries)} data points logged.")
-    except Exception:
-        pass  # sentiment logging/display is non-critical
+        # --- Log sentiment & show timeline ---
+        try:
+            _briefing_for_log = briefing_data if "briefing_data" in dir() else None
+            _outlook_for_log = outlook_data if outlook_data else None
+            if _outlook_for_log or _briefing_for_log:
+                log_sentiment(outlook=_outlook_for_log, briefing=_briefing_for_log)
 
-    st.subheader("Market Brief")
+            sentiment_entries = load_sentiment_log()
+            if len(sentiment_entries) >= 2:
+                streak = get_sentiment_streak(sentiment_entries)
+                if streak["days"] > 1:
+                    streak_label = (f"{'🔴' if streak['direction'] == 'bearish' else '🟢' if streak['direction'] == 'bullish' else '⚪'} "
+                                    f"Outlook has been {streak['direction']} for {streak['days']} consecutive days")
+                    st.caption(streak_label)
 
-    # --- Headline ---
-    headline = _generate_headline(brief.observations)
-    st.markdown(f'<div class="headline-block">{headline}</div>',
-                unsafe_allow_html=True)
+                _sent_dates = [e["date"] for e in sentiment_entries]
+                _lean_map = {"upward": 1, "balanced": 0, "downward": -1}
+                _conf_map = {"high": 1.0, "medium": 0.6, "low": 0.3}
+                _lean_vals = [_lean_map.get(e.get("lean", "balanced"), 0) for e in sentiment_entries]
+                _conf_vals = [_conf_map.get(e.get("confidence", "low"), 0.3) for e in sentiment_entries]
+                _colors = ["#b03a2e" if v > 0 else "#1f6f8b" if v < 0 else "#95a5a6" for v in _lean_vals]
 
-    # --- Category sections ---
-    _section_titles = {
-        "supply": "Supply",
-        "demand": "Demand & Market",
-        "events": "Events",
-        "context": "Context",
-    }
+                with st.expander("Sentiment Timeline", expanded=False):
+                    fig_s = go.Figure()
+                    fig_s.add_trace(go.Bar(
+                        x=_sent_dates, y=_lean_vals,
+                        marker_color=_colors,
+                        marker_opacity=[c for c in _conf_vals],
+                        name="Lean",
+                        hovertemplate="%{x}<br>Lean: %{customdata[0]}<br>Confidence: %{customdata[1]}<extra></extra>",
+                        customdata=[[e.get("lean", "?"), e.get("confidence", "?")] for e in sentiment_entries],
+                    ))
+                    fig_s.update_layout(
+                        template="plotly_white", height=200,
+                        margin=dict(l=10, r=10, t=10, b=10),
+                        yaxis=dict(tickvals=[-1, 0, 1], ticktext=["Bearish", "Neutral", "Bullish"],
+                                   range=[-1.3, 1.3]),
+                        xaxis_title="",
+                    )
+                    st.plotly_chart(fig_s, use_container_width=True)
+                    st.caption("Bar height = direction, opacity = confidence. "
+                               f"{len(sentiment_entries)} data points logged.")
+        except Exception:
+            pass  # sentiment logging/display is non-critical
 
-    for cat_key in ["supply", "demand", "events", "context"]:
-        obs_list = [o for o in brief.observations if o.category == cat_key]
-        if not obs_list:
-            continue
+        st.subheader("Market Brief")
 
-        title = _section_titles.get(cat_key, cat_key.title())
-        has_important = any(o.importance <= 2 for o in obs_list)
+        # --- Headline ---
+        headline = _generate_headline(brief.observations)
+        st.markdown(f'<div class="headline-block">{headline}</div>',
+                    unsafe_allow_html=True)
 
-        with st.expander(f"**{title}**", expanded=has_important):
-            for idx, o in enumerate(sorted(obs_list, key=lambda x: x.importance)):
-                card_class = "obs-card urgent" if o.importance == 1 else "obs-card"
-                st.markdown(
-                    f'<div class="{card_class}">'
-                    f'<div class="obs-topic">{o.topic}</div>'
-                    f'<div class="obs-text">{o.text}</div>'
-                    f'<div class="obs-source">{o.source}</div>'
-                    f'</div>',
-                    unsafe_allow_html=True,
-                )
-                if o.detail:
-                    with st.expander("Detailed analysis",
-                                     expanded=False):
-                        st.write(o.detail)
+        # --- Category sections ---
+        _section_titles = {
+            "supply": "Supply",
+            "demand": "Demand & Market",
+            "events": "Events",
+            "context": "Context",
+        }
 
-except Exception as e:
-    st.error(f"Could not load the market brief: {e}")
+        for cat_key in ["supply", "demand", "events", "context"]:
+            obs_list = [o for o in brief.observations if o.category == cat_key]
+            if not obs_list:
+                continue
+
+            title = _section_titles.get(cat_key, cat_key.title())
+            has_important = any(o.importance <= 2 for o in obs_list)
+
+            with st.expander(f"**{title}**", expanded=has_important):
+                for idx, o in enumerate(sorted(obs_list, key=lambda x: x.importance)):
+                    card_class = "obs-card urgent" if o.importance == 1 else "obs-card"
+                    st.markdown(
+                        f'<div class="{card_class}">'
+                        f'<div class="obs-topic">{o.topic}</div>'
+                        f'<div class="obs-text">{o.text}</div>'
+                        f'<div class="obs-source">{o.source}</div>'
+                        f'</div>',
+                        unsafe_allow_html=True,
+                    )
+                    if o.detail:
+                        with st.expander("Detailed analysis",
+                                         expanded=False):
+                            st.write(o.detail)
+
+    except Exception as e:
+        st.error(f"Could not load the market brief: {e}")
 
 
 st.divider()
@@ -896,7 +911,7 @@ st.divider()
 # ═══════════════════════════════════════════════════════════════════════════
 
 st.subheader("Price History")
-st.caption("Daily closing price since 2018. Triangles mark days when the price "
+st.caption(f"Daily closing price since {prices['date'].min():%Y}. Triangles mark days when the price "
            "moved far outside its recent normal range.")
 
 fig = go.Figure()
@@ -912,7 +927,7 @@ fig.add_trace(go.Scatter(x=down["date"], y=down["price"], mode="markers",
                          marker=dict(color="#2471A3", size=7, symbol="triangle-down")))
 fig.update_layout(template="plotly_white", height=380,
                   margin=dict(l=10, r=10, t=10, b=10),
-                  hovermode="x unified", yaxis_title="Price (US cents/lb)",
+                  hovermode="x unified", yaxis_title=f"Price ({PRICE_UNIT})",
                   legend=dict(orientation="h", y=1.02))
 st.plotly_chart(fig, use_container_width=True)
 st.caption(f"{len(flagged)} unusual days out of {len(anomalies)} trading days.")
@@ -984,7 +999,7 @@ mode = st.radio("Which day?", ["Flagged days", "Any date"], horizontal=True,
 
 selected = None
 if mode == "Flagged days":
-    decisions = cached_decisions(f"{len(list(RESULTS_DIR.glob('pipeline_output_coffee_*.json')))}")
+    decisions = cached_decisions(f"{len(list(RESULTS_DIR.glob(f'pipeline_output_{COMMODITY_KEY}_*.json')))}")
     all_dates = flagged.sort_values("date", ascending=False)["date"].dt.strftime("%Y-%m-%d").tolist()
 
     only_explained = st.checkbox(
@@ -1018,7 +1033,7 @@ if selected:
     else:
         row = match.iloc[0]
         is_flagged = bool(row["anomaly_flag"])
-        st.write(f"**{pd.to_datetime(selected):%d %b %Y}:** price {row['price']:.2f} cents/lb, "
+        st.write(f"**{pd.to_datetime(selected):%d %b %Y}:** price {row['price']:,.2f} {PRICE_UNIT}, "
                  + ("flagged as an unusual move." if is_flagged else "a normal day."))
 
         cached = pipeline_output(selected)

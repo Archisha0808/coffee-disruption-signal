@@ -45,6 +45,8 @@ RSS_QUERIES = {
                "OR coffee tariff OR coffee supply OR coffee export"),
     "crude_oil": "crude oil prices OR oil futures OR OPEC OR oil supply",
     "wheat": "wheat prices OR wheat futures OR grain harvest OR wheat export",
+    "cocoa": "cocoa prices OR cocoa futures OR cocoa harvest OR Ivory Coast cocoa OR Ghana cocoa",
+    "sugar": "sugar prices OR raw sugar futures OR sugar export OR sugar harvest OR India sugar",
 }
 
 GOOGLE_NEWS_RSS = "https://news.google.com/rss/search"
