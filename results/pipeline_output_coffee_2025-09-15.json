@@ -1,5 +1,5 @@
 {
-  "pipeline_version": "9",
+  "pipeline_version": "11",
   "anomaly": {
     "date": "2025-09-15",
     "price": 432.3500061035156,
@@ -16,81 +16,58 @@
     "tier": "EXPLAINED_TENTATIVE",
     "label": "Explained (tentative)",
     "headline": "Explained, but treat as tentative.",
-    "detail": "A recent document gives a quoted reason for a move in this direction, but it rests on a single document.",
+    "detail": "A recent document gives a quoted reason for a move in this direction, but 1 citation(s) were flagged as weakly matched to their source.",
     "is_refusal": false,
     "is_fault": false
   },
   "retrieval_meta": {
-    "queries_attempted": 2,
+    "queries_attempted": 3,
     "network_attempts": 0,
     "network_failures": 0,
     "network_successes": 1,
-    "cache_hits": 2,
-    "reused_cache_hits": 2,
+    "cache_hits": 3,
+    "reused_cache_hits": 0,
     "fallback_added": 0,
-    "documents_returned": 483,
-    "dropped_out_of_window": 28,
-    "collapsed_duplicates": 60,
+    "documents_returned": 674,
+    "dropped_out_of_window": 30,
+    "collapsed_duplicates": 78,
     "retrieval_ran": true
   },
   "gate_result": {
     "decision": "EXPLAIN",
     "reason": "20_document(s)_above_threshold",
-    "best_score": 0.8911676406860352,
+    "best_score": 0.8911677598953247,
     "accepted_document_count": 20,
     "accepted_document_ids": [
       "bf666050cfe98a45",
       "25221e60ce6440f1",
+      "4712525a08be8d00",
       "70d83337519e0e7a",
       "3d33b3bea525d213",
       "01ab1cccfd0a4d5c",
       "f09e0d16208b39a4",
-      "4f7c9643a9e86ab2",
       "69d600ac6eb72dbd",
+      "4f7c9643a9e86ab2",
       "28a3388f4f8138d9",
-      "ea272e6bba42a986",
       "b0164997e1184e69",
+      "dd7346334cdaccb3",
       "c727777fc89e16f1",
-      "64c2cc7d083f6351",
-      "22bcb3315ae1a67a",
-      "b2a106a7aca14eac",
       "5e08a83abe660467",
+      "64c2cc7d083f6351",
+      "849bad3535cd544c",
       "a6d2a5f8f58ae1a7",
       "25b90ac37a7c8d5e",
       "456accc6d8715088",
       "56944df4f829e430"
     ],
-    "total_documents_considered": 483,
+    "total_documents_considered": 674,
     "keyword_threshold_used": 0.4,
     "semantic_threshold_used": 0.85,
-    "evaluated_at_utc": "2026-10-04T13:04:08.208297+00:00"
+    "evaluated_at_utc": "2026-10-26T19:37:37.030784+00:00"
   },
-  "documents_retrieved": 483,
-  "documents_retrieved_recent": 262,
+  "documents_retrieved": 674,
+  "documents_retrieved_recent": 446,
   "sources": [
-    {
-      "document_id": "d93d8c071aa709ac",
-      "title": "Why the \u00a35 latte is coming to a High Street near you : Coffee magnate Giuseppe Lavazza blames Donald Trump and climate change for industry global crisis",
-      "url": "https://www.dailymail.co.uk/news/article-15094903/5-latte-High-Street-Coffee-Giuseppe-Lavazza-Donald-Trump-climate-change.html",
-      "publication_date": "2025-09-13",
-      "days_before_anomaly": 2,
-      "trading_days_before_anomaly": 1,
-      "publication_date_unknown": false,
-      "text_chars": 0,
-      "seen_at": "20250913T144500Z",
-      "session_date": "2025-09-13",
-      "market_report_score": 2,
-      "found_by": "combined search, full window",
-      "passed_gate": false,
-      "n_copies": 1,
-      "syndication_domains": [
-        "dailymail.co.uk"
-      ],
-      "retrieval_score": 0.0364,
-      "semantic_score": 0.8247697949409485,
-      "direction_consistency": null,
-      "anomaly_query_score": null
-    },
     {
       "document_id": "89f6871a06535968",
       "title": "Sector cafetero de Brasil ve a China como un mercado estrat\u00e9gico con gran potencial",
@@ -110,7 +87,7 @@
         "spanish.peopledaily.com.cn"
       ],
       "retrieval_score": 0.0256,
-      "semantic_score": 0.8304680585861206,
+      "semantic_score": 0.8304681777954102,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -133,7 +110,7 @@
         "tienphong.vn"
       ],
       "retrieval_score": 0.0128,
-      "semantic_score": 0.8394476175308228,
+      "semantic_score": 0.8394477367401123,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -156,7 +133,7 @@
         "vietstock.vn"
       ],
       "retrieval_score": 0.0,
-      "semantic_score": 0.8384568095207214,
+      "semantic_score": 0.8384568691253662,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -191,19 +168,19 @@
       "days_before_anomaly": 3,
       "trading_days_before_anomaly": 1,
       "publication_date_unknown": false,
-      "text_chars": 0,
+      "text_chars": 3656,
       "seen_at": "20250912T113000Z",
       "session_date": "2025-09-12",
       "market_report_score": 4,
       "found_by": "combined search, full window",
-      "passed_gate": false,
+      "passed_gate": true,
       "n_copies": 1,
       "syndication_domains": [
         "newsweek.com"
       ],
-      "retrieval_score": 0.0256,
-      "semantic_score": 0.8321481347084045,
-      "direction_consistency": null,
+      "retrieval_score": 0.0931,
+      "semantic_score": 0.8773179054260254,
+      "direction_consistency": "consistent",
       "anomaly_query_score": null
     },
     {
@@ -225,7 +202,7 @@
         "thesaigontimes.vn"
       ],
       "retrieval_score": 0.0,
-      "semantic_score": 0.845470666885376,
+      "semantic_score": 0.8454709053039551,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -260,7 +237,7 @@
       "days_before_anomaly": 2,
       "trading_days_before_anomaly": 1,
       "publication_date_unknown": false,
-      "text_chars": 7998,
+      "text_chars": 8242,
       "seen_at": "20250913T164500Z",
       "session_date": "2025-09-13",
       "market_report_score": 3,
@@ -270,7 +247,7 @@
       "syndication_domains": [
         "vietnamplus.vn"
       ],
-      "retrieval_score": 0.0385,
+      "retrieval_score": 0.0438,
       "semantic_score": 0.8074641227722168,
       "direction_consistency": null,
       "anomaly_query_score": null
@@ -295,7 +272,7 @@
         "stockbiz.vn"
       ],
       "retrieval_score": 0.0,
-      "semantic_score": 0.8359841704368591,
+      "semantic_score": 0.8359842300415039,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -318,7 +295,7 @@
         "gazetadopovo.com.br"
       ],
       "retrieval_score": 0.0897,
-      "semantic_score": 0.8558242321014404,
+      "semantic_score": 0.85582435131073,
       "direction_consistency": "consistent",
       "anomaly_query_score": null
     },
@@ -341,7 +318,7 @@
         "eleconomista.es"
       ],
       "retrieval_score": 0.0,
-      "semantic_score": 0.8212090134620667,
+      "semantic_score": 0.8212090730667114,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -353,7 +330,7 @@
       "days_before_anomaly": 3,
       "trading_days_before_anomaly": 2,
       "publication_date_unknown": false,
-      "text_chars": 102,
+      "text_chars": 594,
       "seen_at": "20250912T023000Z",
       "session_date": "2025-09-11",
       "market_report_score": 1,
@@ -364,7 +341,7 @@
         "finance.eastmoney.com"
       ],
       "retrieval_score": 0.0,
-      "semantic_score": 0.8148280382156372,
+      "semantic_score": 0.8002886772155762,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -410,7 +387,7 @@
         "riotimesonline.com"
       ],
       "retrieval_score": 0.1969,
-      "semantic_score": 0.8911676406860352,
+      "semantic_score": 0.8911677598953247,
       "direction_consistency": "inconsistent",
       "anomaly_query_score": null
     },
@@ -434,7 +411,7 @@
         "wnep.com"
       ],
       "retrieval_score": 0.0364,
-      "semantic_score": 0.8263343572616577,
+      "semantic_score": 0.8263344764709473,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -458,30 +435,7 @@
         "baotintuc.vn"
       ],
       "retrieval_score": 0.0,
-      "semantic_score": 0.8187159299850464,
-      "direction_consistency": null,
-      "anomaly_query_score": null
-    },
-    {
-      "document_id": "d659ba591f1e713a",
-      "title": "Th\u00eam 2 . 500 \u0111\u1ed3ng / kg , gi\u00e1 c\u00e0 ph\u00ea gi\u1eef l\u1ee3i th\u1ebf cho ng\u01b0\u1eddi tr\u1ed3ng",
-      "url": "https://stockbiz.vn/tin-tuc/them-2500-dongkg-gia-ca-phe-giu-loi-the-cho-nguoi-trong/35341357",
-      "publication_date": "2025-09-12",
-      "days_before_anomaly": 3,
-      "trading_days_before_anomaly": 2,
-      "publication_date_unknown": false,
-      "text_chars": 2490,
-      "seen_at": "20250912T044500Z",
-      "session_date": "2025-09-11",
-      "market_report_score": 2,
-      "found_by": "combined search, full window",
-      "passed_gate": false,
-      "n_copies": 1,
-      "syndication_domains": [
-        "stockbiz.vn"
-      ],
-      "retrieval_score": 0.0,
-      "semantic_score": 0.8258967995643616,
+      "semantic_score": 0.8187158703804016,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -504,7 +458,7 @@
         "jaenoticia.com.br"
       ],
       "retrieval_score": 0.0,
-      "semantic_score": 0.8504734039306641,
+      "semantic_score": 0.8504735231399536,
       "direction_consistency": "consistent",
       "anomaly_query_score": null
     },
@@ -527,7 +481,30 @@
         "vietbao.vn"
       ],
       "retrieval_score": 0.0,
-      "semantic_score": 0.8176107406616211,
+      "semantic_score": 0.8176108598709106,
+      "direction_consistency": null,
+      "anomaly_query_score": null
+    },
+    {
+      "document_id": "6ca5269faafab4bb",
+      "title": "So s\u00e1nh c\u00e0 ph\u00ea Robusta v\u00e0 Arabica",
+      "url": "https://www.webtretho.com/p/so-sanh-ca-phe-robusta-va-arabica",
+      "publication_date": "2025-09-15",
+      "days_before_anomaly": 0,
+      "trading_days_before_anomaly": 0,
+      "publication_date_unknown": false,
+      "text_chars": 0,
+      "seen_at": "20250915T101500Z",
+      "session_date": "2025-09-15",
+      "market_report_score": 3,
+      "found_by": "combined search, full window",
+      "passed_gate": false,
+      "n_copies": 1,
+      "syndication_domains": [
+        "webtretho.com"
+      ],
+      "retrieval_score": 0.0,
+      "semantic_score": 0.8374600410461426,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -550,7 +527,7 @@
         "redepeabirus.com.br"
       ],
       "retrieval_score": 0.0,
-      "semantic_score": 0.8120332360267639,
+      "semantic_score": 0.8128992319107056,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -573,7 +550,7 @@
         "kxly.com"
       ],
       "retrieval_score": 0.0728,
-      "semantic_score": 0.8756946921348572,
+      "semantic_score": 0.875694751739502,
       "direction_consistency": "consistent",
       "anomaly_query_score": null
     },
@@ -596,7 +573,7 @@
         "tvbrasil.ebc.com.br"
       ],
       "retrieval_score": 0.0,
-      "semantic_score": 0.8346054553985596,
+      "semantic_score": 0.8346056938171387,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -619,7 +596,7 @@
         "thoibaotaichinhvietnam.vn"
       ],
       "retrieval_score": 0.0,
-      "semantic_score": 0.8102128505706787,
+      "semantic_score": 0.8102129101753235,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -711,7 +688,7 @@
         "novinky.cz"
       ],
       "retrieval_score": 0.0256,
-      "semantic_score": 0.8352301120758057,
+      "semantic_score": 0.8352302312850952,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -734,7 +711,7 @@
         "edition.cnn.com"
       ],
       "retrieval_score": 0.031,
-      "semantic_score": 0.815056562423706,
+      "semantic_score": 0.8150566816329956,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -757,7 +734,7 @@
         "20minutes.fr"
       ],
       "retrieval_score": 0.031,
-      "semantic_score": 0.8102730512619019,
+      "semantic_score": 0.8102731704711914,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -780,7 +757,7 @@
         "springfieldnewssun.com"
       ],
       "retrieval_score": 0.0256,
-      "semantic_score": 0.8020276427268982,
+      "semantic_score": 0.8020278215408325,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -826,30 +803,7 @@
         "redepeabirus.com.br"
       ],
       "retrieval_score": 0.0,
-      "semantic_score": 0.8434426784515381,
-      "direction_consistency": null,
-      "anomaly_query_score": null
-    },
-    {
-      "document_id": "b6cd8b7b78cd2291",
-      "title": "Qu\u1ea3n l\u00fd th\u1ecb tr\u01b0\u1eddng H\u00e0 N\u1ed9i li\u00ean t\u1ee5c thu gi\u1eef th\u1ef1c ph\u1ea9m \u0111\u00f4ng l\u1ea1nh kh\u00f4ng \u0111\u1ea3m b\u1ea3o an to\u00e0n",
-      "url": "https://vovgiaothong.vn/newsaudio/quan-ly-thi-truong-ha-noi-lien-tuc-thu-giu-thuc-pham-dong-lanh-khong-dam-bao-an-toan-d47116.html",
-      "publication_date": "2025-09-15",
-      "days_before_anomaly": 0,
-      "trading_days_before_anomaly": 1,
-      "publication_date_unknown": false,
-      "text_chars": 7691,
-      "seen_at": "20250915T053000Z",
-      "session_date": "2025-09-14",
-      "market_report_score": 0,
-      "found_by": "combined search, full window",
-      "passed_gate": false,
-      "n_copies": 1,
-      "syndication_domains": [
-        "vovgiaothong.vn"
-      ],
-      "retrieval_score": 0.0,
-      "semantic_score": 0.8052741289138794,
+      "semantic_score": 0.8435010313987732,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -918,7 +872,30 @@
         "vnexpress.net"
       ],
       "retrieval_score": 0.0128,
-      "semantic_score": 0.8350892663002014,
+      "semantic_score": 0.8350893259048462,
+      "direction_consistency": null,
+      "anomaly_query_score": null
+    },
+    {
+      "document_id": "f29e1cb5b849b17d",
+      "title": "\u7f8e\u56fd8\u6708\u5496\u5561\u96f6\u552e\u4ef7\u56e0\u5173\u7a0e\u540c\u6bd4\u98d9\u5347 \u4e3a\u8fd128\u5e74\u6765\u6700\u5927\u6da8\u5e45",
+      "url": "https://www.yangtse.com/news/txs/202509/t20250914_263906.html",
+      "publication_date": "2025-09-14",
+      "days_before_anomaly": 1,
+      "trading_days_before_anomaly": 1,
+      "publication_date_unknown": false,
+      "text_chars": 0,
+      "seen_at": "20250914T120000Z",
+      "session_date": "2025-09-14",
+      "market_report_score": 3,
+      "found_by": "combined search, full window",
+      "passed_gate": false,
+      "n_copies": 1,
+      "syndication_domains": [
+        "yangtse.com"
+      ],
+      "retrieval_score": 0.0,
+      "semantic_score": 0.8177225589752197,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -941,7 +918,7 @@
         "kob.com"
       ],
       "retrieval_score": 0.0567,
-      "semantic_score": 0.856872022151947,
+      "semantic_score": 0.8568720817565918,
       "direction_consistency": "consistent",
       "anomaly_query_score": null
     },
@@ -988,7 +965,7 @@
         "npr.org"
       ],
       "retrieval_score": 0.1005,
-      "semantic_score": 0.8345487117767334,
+      "semantic_score": 0.834548830986023,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -1034,7 +1011,7 @@
         "newsmonkey.be"
       ],
       "retrieval_score": 0.0128,
-      "semantic_score": 0.8536691069602966,
+      "semantic_score": 0.8536692261695862,
       "direction_consistency": "neutral",
       "anomaly_query_score": null
     },
@@ -1046,7 +1023,7 @@
       "days_before_anomaly": 0,
       "trading_days_before_anomaly": 0,
       "publication_date_unknown": false,
-      "text_chars": 3161,
+      "text_chars": 3163,
       "seen_at": "20250915T141500Z",
       "session_date": "2025-09-15",
       "market_report_score": 1,
@@ -1057,7 +1034,7 @@
         "1prime.ru"
       ],
       "retrieval_score": 0.0139,
-      "semantic_score": 0.8100389838218689,
+      "semantic_score": 0.8101294040679932,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -1069,7 +1046,7 @@
       "days_before_anomaly": 5,
       "trading_days_before_anomaly": 3,
       "publication_date_unknown": false,
-      "text_chars": 5287,
+      "text_chars": 5289,
       "seen_at": "20250910T090000Z",
       "session_date": "2025-09-10",
       "market_report_score": 1,
@@ -1080,7 +1057,7 @@
         "1prime.ru"
       ],
       "retrieval_score": 0.0,
-      "semantic_score": 0.8529617786407471,
+      "semantic_score": 0.8551415205001831,
       "direction_consistency": "neutral",
       "anomaly_query_score": null
     },
@@ -1103,7 +1080,7 @@
         "globorural.globo.com"
       ],
       "retrieval_score": 0.0,
-      "semantic_score": 0.8446726202964783,
+      "semantic_score": 0.8444882035255432,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -1126,7 +1103,7 @@
         "marketscreener.com"
       ],
       "retrieval_score": 0.0278,
-      "semantic_score": 0.8230981826782227,
+      "semantic_score": 0.8230984210968018,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -1172,7 +1149,7 @@
         "redepeabirus.com.br"
       ],
       "retrieval_score": 0.0139,
-      "semantic_score": 0.8444931507110596,
+      "semantic_score": 0.8442964553833008,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -1195,7 +1172,7 @@
         "redepeabirus.com.br"
       ],
       "retrieval_score": 0.0,
-      "semantic_score": 0.8609892725944519,
+      "semantic_score": 0.8623695373535156,
       "direction_consistency": "consistent",
       "anomaly_query_score": null
     },
@@ -1218,7 +1195,7 @@
         "veja.abril.com.br"
       ],
       "retrieval_score": 0.0,
-      "semantic_score": 0.8525989651679993,
+      "semantic_score": 0.852599024772644,
       "direction_consistency": "consistent",
       "anomaly_query_score": null
     },
@@ -1241,7 +1218,7 @@
         "ngzt.ru"
       ],
       "retrieval_score": 0.0,
-      "semantic_score": 0.8044137954711914,
+      "semantic_score": 0.804413914680481,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -1264,7 +1241,7 @@
         "marketscreener.com"
       ],
       "retrieval_score": 0.0278,
-      "semantic_score": 0.8090598583221436,
+      "semantic_score": 0.8090599179267883,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -1310,7 +1287,7 @@
         "timesofindia.indiatimes.com"
       ],
       "retrieval_score": 0.1443,
-      "semantic_score": 0.8436964154243469,
+      "semantic_score": 0.8436964750289917,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -1333,7 +1310,7 @@
         "dailycoffeenews.com"
       ],
       "retrieval_score": 0.0332,
-      "semantic_score": 0.8256668448448181,
+      "semantic_score": 0.8256669044494629,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -1357,7 +1334,7 @@
         "baotintuc.vn"
       ],
       "retrieval_score": 0.0139,
-      "semantic_score": 0.8373662233352661,
+      "semantic_score": 0.8373662829399109,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -1380,7 +1357,7 @@
         "portalspozywczy.pl"
       ],
       "retrieval_score": 0.0139,
-      "semantic_score": 0.831993579864502,
+      "semantic_score": 0.8319936990737915,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -1392,7 +1369,7 @@
       "days_before_anomaly": 1,
       "trading_days_before_anomaly": 1,
       "publication_date_unknown": false,
-      "text_chars": 5151,
+      "text_chars": 5161,
       "seen_at": "20250914T143000Z",
       "session_date": "2025-09-14",
       "market_report_score": 2,
@@ -1403,7 +1380,7 @@
         "nairametrics.com"
       ],
       "retrieval_score": 0.1187,
-      "semantic_score": 0.8361141681671143,
+      "semantic_score": 0.8354653120040894,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -1426,7 +1403,7 @@
         "prensalatina.com.br"
       ],
       "retrieval_score": 0.0,
-      "semantic_score": 0.8291196227073669,
+      "semantic_score": 0.8291196823120117,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -1449,7 +1426,7 @@
         "capitalfm.co.ke"
       ],
       "retrieval_score": 0.0493,
-      "semantic_score": 0.8148722648620605,
+      "semantic_score": 0.8148723840713501,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -1495,7 +1472,7 @@
         "globorural.globo.com"
       ],
       "retrieval_score": 0.0,
-      "semantic_score": 0.8123239278793335,
+      "semantic_score": 0.8123239874839783,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -1518,7 +1495,7 @@
         "iz.ru"
       ],
       "retrieval_score": 0.0,
-      "semantic_score": 0.814816951751709,
+      "semantic_score": 0.8148170113563538,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -1541,7 +1518,7 @@
         "foodnavigator-asia.com"
       ],
       "retrieval_score": 0.1689,
-      "semantic_score": 0.8838504552841187,
+      "semantic_score": 0.8838505148887634,
       "direction_consistency": "consistent",
       "anomaly_query_score": null
     },
@@ -1587,7 +1564,7 @@
         "baovanhoa.vn"
       ],
       "retrieval_score": 0.0139,
-      "semantic_score": 0.8228926658630371,
+      "semantic_score": 0.8228927850723267,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -1610,7 +1587,7 @@
         "manilatimes.net"
       ],
       "retrieval_score": 0.1496,
-      "semantic_score": 0.8606396317481995,
+      "semantic_score": 0.8606395721435547,
       "direction_consistency": "inconsistent",
       "anomaly_query_score": null
     },
@@ -1633,7 +1610,7 @@
         "agroemcampo.ig.com.br"
       ],
       "retrieval_score": 0.0,
-      "semantic_score": 0.8457523584365845,
+      "semantic_score": 0.845752477645874,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -1656,7 +1633,7 @@
         "stockbiz.vn"
       ],
       "retrieval_score": 0.0278,
-      "semantic_score": 0.8125649094581604,
+      "semantic_score": 0.8125649690628052,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -1679,7 +1656,7 @@
         "redepeabirus.com.br"
       ],
       "retrieval_score": 0.0,
-      "semantic_score": 0.8353445529937744,
+      "semantic_score": 0.8350669145584106,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -1725,7 +1702,7 @@
         "philstar.com"
       ],
       "retrieval_score": 0.0972,
-      "semantic_score": 0.817694902420044,
+      "semantic_score": 0.8176949620246887,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -1748,7 +1725,7 @@
         "arkansasonline.com"
       ],
       "retrieval_score": 0.0278,
-      "semantic_score": 0.8037794828414917,
+      "semantic_score": 0.8037795424461365,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -1800,7 +1777,7 @@
         "wsls.com"
       ],
       "retrieval_score": 0.1604,
-      "semantic_score": 0.8304246664047241,
+      "semantic_score": 0.8304248452186584,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -1823,7 +1800,7 @@
         "koolfmabilene.com"
       ],
       "retrieval_score": 0.0972,
-      "semantic_score": 0.8095718622207642,
+      "semantic_score": 0.8095719814300537,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -1869,7 +1846,7 @@
         "news.kbs.co.kr"
       ],
       "retrieval_score": 0.0,
-      "semantic_score": 0.8012531995773315,
+      "semantic_score": 0.8012532591819763,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -1892,7 +1869,7 @@
         "phunuonline.com.vn"
       ],
       "retrieval_score": 0.0,
-      "semantic_score": 0.8000164031982422,
+      "semantic_score": 0.8000165224075317,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -1915,7 +1892,7 @@
         "veja.abril.com.br"
       ],
       "retrieval_score": 0.0,
-      "semantic_score": 0.8023658990859985,
+      "semantic_score": 0.8023660182952881,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -1938,7 +1915,7 @@
         "inddist.com"
       ],
       "retrieval_score": 0.0385,
-      "semantic_score": 0.8131536841392517,
+      "semantic_score": 0.8131537437438965,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -1984,7 +1961,7 @@
         "jornalcruzeiro.com.br"
       ],
       "retrieval_score": 0.0,
-      "semantic_score": 0.8160979151725769,
+      "semantic_score": 0.8160980939865112,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -2007,7 +1984,7 @@
         "naslovi.net"
       ],
       "retrieval_score": 0.0,
-      "semantic_score": 0.8060392141342163,
+      "semantic_score": 0.8060393333435059,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -2055,30 +2032,7 @@
         "nbcbayarea.com"
       ],
       "retrieval_score": 0.1165,
-      "semantic_score": 0.8090453743934631,
-      "direction_consistency": null,
-      "anomaly_query_score": null
-    },
-    {
-      "document_id": "e516b36e17c54f2b",
-      "title": "Tariffs push US inflation higher , jobless claims spike highest since 2021 ; Fed faces stagflation test",
-      "url": "https://www.moneycontrol.com/news/business/tariffs-push-us-inflation-higher-jobless-claims-spike-highest-since-2021-fed-faces-stagflation-test-13540705.html",
-      "publication_date": "2025-09-12",
-      "days_before_anomaly": 3,
-      "trading_days_before_anomaly": 2,
-      "publication_date_unknown": false,
-      "text_chars": 4669,
-      "seen_at": "20250912T024500Z",
-      "session_date": "2025-09-11",
-      "market_report_score": 2,
-      "found_by": "combined search, recent days",
-      "passed_gate": false,
-      "n_copies": 1,
-      "syndication_domains": [
-        "moneycontrol.com"
-      ],
-      "retrieval_score": 0.1272,
-      "semantic_score": 0.8094806671142578,
+      "semantic_score": 0.8090454339981079,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -2101,7 +2055,7 @@
         "caracol.com.co"
       ],
       "retrieval_score": 0.0,
-      "semantic_score": 0.8165100812911987,
+      "semantic_score": 0.8165102601051331,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -2170,7 +2124,7 @@
         "redepeabirus.com.br"
       ],
       "retrieval_score": 0.0556,
-      "semantic_score": 0.8476527333259583,
+      "semantic_score": 0.8470144867897034,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -2216,7 +2170,7 @@
         "redepeabirus.com.br"
       ],
       "retrieval_score": 0.0,
-      "semantic_score": 0.8449262976646423,
+      "semantic_score": 0.8443398475646973,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -2239,7 +2193,7 @@
         "oestadoacre.com"
       ],
       "retrieval_score": 0.0,
-      "semantic_score": 0.8073371648788452,
+      "semantic_score": 0.8073372840881348,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -2285,7 +2239,7 @@
         "jdsupra.com"
       ],
       "retrieval_score": 0.0972,
-      "semantic_score": 0.8048933744430542,
+      "semantic_score": 0.804893434047699,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -2303,12 +2257,13 @@
       "market_report_score": 0,
       "found_by": "combined search, recent days",
       "passed_gate": false,
-      "n_copies": 1,
+      "n_copies": 2,
       "syndication_domains": [
-        "news.china.com.cn"
+        "news.china.com.cn",
+        "news.dahe.cn"
       ],
       "retrieval_score": 0.0,
-      "semantic_score": 0.8034039735794067,
+      "semantic_score": 0.8034040927886963,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -2320,7 +2275,7 @@
       "days_before_anomaly": 3,
       "trading_days_before_anomaly": 2,
       "publication_date_unknown": false,
-      "text_chars": 1605,
+      "text_chars": 1783,
       "seen_at": "20250912T001500Z",
       "session_date": "2025-09-11",
       "market_report_score": 2,
@@ -2334,7 +2289,7 @@
         "wyff4.com"
       ],
       "retrieval_score": 0.125,
-      "semantic_score": 0.8183128833770752,
+      "semantic_score": 0.8191194534301758,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -2357,7 +2312,30 @@
         "agroemcampo.ig.com.br"
       ],
       "retrieval_score": 0.0694,
-      "semantic_score": 0.8245596289634705,
+      "semantic_score": 0.8245598077774048,
+      "direction_consistency": null,
+      "anomaly_query_score": null
+    },
+    {
+      "document_id": "8770b785b6ef2bb6",
+      "title": "Novinky . cz - nej\u010dten\u011bj\u0161\u00ed zpr\u00e1vy na \u010desk\u00e9m internetu",
+      "url": "https://www.novinky.cz/?timeline--pageItem=40538874",
+      "publication_date": "2025-09-15",
+      "days_before_anomaly": 0,
+      "trading_days_before_anomaly": 0,
+      "publication_date_unknown": false,
+      "text_chars": 2077,
+      "seen_at": "20250915T113000Z",
+      "session_date": "2025-09-15",
+      "market_report_score": 0,
+      "found_by": "combined search, recent days",
+      "passed_gate": false,
+      "n_copies": 1,
+      "syndication_domains": [
+        "novinky.cz"
+      ],
+      "retrieval_score": 0.0,
+      "semantic_score": 0.8001378774642944,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -2369,7 +2347,7 @@
       "days_before_anomaly": 0,
       "trading_days_before_anomaly": 0,
       "publication_date_unknown": false,
-      "text_chars": 1763,
+      "text_chars": 0,
       "seen_at": "20250915T210000Z",
       "session_date": "2025-09-15",
       "market_report_score": 1,
@@ -2380,7 +2358,7 @@
         "huffingtonpost.es"
       ],
       "retrieval_score": 0.0,
-      "semantic_score": 0.8004952669143677,
+      "semantic_score": 0.8093217611312866,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -2449,13 +2427,680 @@
         "circuitomt.com.br"
       ],
       "retrieval_score": 0.0,
-      "semantic_score": 0.8153395652770996,
+      "semantic_score": 0.8153396844863892,
+      "direction_consistency": null,
+      "anomaly_query_score": null
+    },
+    {
+      "document_id": "f4b2fe068ce6b32c",
+      "title": "Caf\u00e9 opera em alta na bolsa de Nova York atento ao clima no Brasil",
+      "url": "https://globorural.globo.com/cotacoes/noticia/2025/09/cafe-opera-em-alta-na-bolsa-de-nova-york-atento-ao-clima-no-brasil.ghtml",
+      "publication_date": "2025-09-15",
+      "days_before_anomaly": 0,
+      "trading_days_before_anomaly": 0,
+      "publication_date_unknown": false,
+      "text_chars": 2145,
+      "seen_at": "20250915T131500Z",
+      "session_date": "2025-09-15",
+      "market_report_score": 5,
+      "found_by": "combined search, day of the move",
+      "passed_gate": false,
+      "n_copies": 1,
+      "syndication_domains": [
+        "globorural.globo.com"
+      ],
+      "retrieval_score": 0.0,
+      "semantic_score": 0.8393319845199585,
+      "direction_consistency": null,
+      "anomaly_query_score": null
+    },
+    {
+      "document_id": "49115aa0e9f48e21",
+      "title": "Coffee Sellers , Shops Face Rising Prices",
+      "url": "https://www.arkansasbusiness.com/article/coffee-sellers-shops-face-rising-prices/",
+      "publication_date": "2025-09-15",
+      "days_before_anomaly": 0,
+      "trading_days_before_anomaly": 0,
+      "publication_date_unknown": false,
+      "text_chars": 0,
+      "seen_at": "20250915T091500Z",
+      "session_date": "2025-09-15",
+      "market_report_score": 2,
+      "found_by": "combined search, day of the move",
+      "passed_gate": false,
+      "n_copies": 1,
+      "syndication_domains": [
+        "arkansasbusiness.com"
+      ],
+      "retrieval_score": 0.0556,
+      "semantic_score": 0.8305822610855103,
+      "direction_consistency": null,
+      "anomaly_query_score": null
+    },
+    {
+      "document_id": "a051d4c198f82660",
+      "title": "  \u5496\u5561\u901a\u80c0  \u5e2d\u5377\u7f8e\u56fd _ \u5317\u4eac\u5546\u62a5",
+      "url": "https://www.bbtnews.com.cn/2025/0916/570079.shtml",
+      "publication_date": "2025-09-15",
+      "days_before_anomaly": 0,
+      "trading_days_before_anomaly": 0,
+      "publication_date_unknown": false,
+      "text_chars": 0,
+      "seen_at": "20250915T210000Z",
+      "session_date": "2025-09-15",
+      "market_report_score": 1,
+      "found_by": "combined search, day of the move",
+      "passed_gate": false,
+      "n_copies": 1,
+      "syndication_domains": [
+        "bbtnews.com.cn"
+      ],
+      "retrieval_score": 0.0,
+      "semantic_score": 0.8180384039878845,
+      "direction_consistency": null,
+      "anomaly_query_score": null
+    },
+    {
+      "document_id": "2380a3f7b0b04a43",
+      "title": "Exportao de caf\u00e9s especiais do Brasil aos EUA despenca com tarifa\u00e7o de Trump | Economia",
+      "url": "https://odia.ig.com.br/economia/2025/09/7129485-exportacao-de-cafes-especiais-do-brasil-aos-eua-despenca-com-tarifaco-de-trump.html",
+      "publication_date": "2025-09-15",
+      "days_before_anomaly": 0,
+      "trading_days_before_anomaly": 0,
+      "publication_date_unknown": false,
+      "text_chars": 6511,
+      "seen_at": "20250915T200000Z",
+      "session_date": "2025-09-15",
+      "market_report_score": 2,
+      "found_by": "combined search, day of the move",
+      "passed_gate": false,
+      "n_copies": 1,
+      "syndication_domains": [
+        "odia.ig.com.br"
+      ],
+      "retrieval_score": 0.0,
+      "semantic_score": 0.8468485474586487,
+      "direction_consistency": null,
+      "anomaly_query_score": null
+    },
+    {
+      "document_id": "69d6482aa378c4f9",
+      "title": "Here are the biggest Arizona news stories from Sept . 12 - 14",
+      "url": "https://ktar.com/arizona-news/arizona-news-sept-12-14/5750169/",
+      "publication_date": "2025-09-15",
+      "days_before_anomaly": 0,
+      "trading_days_before_anomaly": 1,
+      "publication_date_unknown": false,
+      "text_chars": 3156,
+      "seen_at": "20250915T043000Z",
+      "session_date": "2025-09-14",
+      "market_report_score": 0,
+      "found_by": "combined search, day of the move",
+      "passed_gate": false,
+      "n_copies": 1,
+      "syndication_domains": [
+        "ktar.com"
+      ],
+      "retrieval_score": 0.0417,
+      "semantic_score": 0.8150508403778076,
+      "direction_consistency": null,
+      "anomaly_query_score": null
+    },
+    {
+      "document_id": "fbcf91f997127d7e",
+      "title": "The challenges facing Thailand coffee industry",
+      "url": "https://www.channelnewsasia.com/watch/challenges-facing-thailands-coffee-industry-5349426",
+      "publication_date": "2025-09-15",
+      "days_before_anomaly": 0,
+      "trading_days_before_anomaly": 1,
+      "publication_date_unknown": false,
+      "text_chars": 617,
+      "seen_at": "20250915T041500Z",
+      "session_date": "2025-09-14",
+      "market_report_score": 1,
+      "found_by": "combined search, day of the move",
+      "passed_gate": false,
+      "n_copies": 1,
+      "syndication_domains": [
+        "channelnewsasia.com"
+      ],
+      "retrieval_score": 0.0556,
+      "semantic_score": 0.8262220621109009,
+      "direction_consistency": null,
+      "anomaly_query_score": null
+    },
+    {
+      "document_id": "a73d3916bbb69141",
+      "title": "It A Crisis ! A Whopping 67 Percent Of American Workers Are Living Paycheck To Paycheck In 2025",
+      "url": "http://theeconomiccollapseblog.com/its-a-crisis-a-whopping-67-percent-of-american-workers-are-living-paycheck-to-paycheck-in-2025/",
+      "publication_date": "2025-09-15",
+      "days_before_anomaly": 0,
+      "trading_days_before_anomaly": 1,
+      "publication_date_unknown": false,
+      "text_chars": 8200,
+      "seen_at": "20250915T010000Z",
+      "session_date": "2025-09-14",
+      "market_report_score": 1,
+      "found_by": "combined search, day of the move",
+      "passed_gate": false,
+      "n_copies": 1,
+      "syndication_domains": [
+        "theeconomiccollapseblog.com"
+      ],
+      "retrieval_score": 0.1326,
+      "semantic_score": 0.815542459487915,
+      "direction_consistency": null,
+      "anomaly_query_score": null
+    },
+    {
+      "document_id": "04e3ce234ce4edd6",
+      "title": "Black Rock Coffee sets IPO price at $20 per share",
+      "url": "https://finance.yahoo.com/news/black-rock-coffee-sets-ipo-110721154.html",
+      "publication_date": "2025-09-15",
+      "days_before_anomaly": 0,
+      "trading_days_before_anomaly": 0,
+      "publication_date_unknown": false,
+      "text_chars": 1712,
+      "seen_at": "20250915T114500Z",
+      "session_date": "2025-09-15",
+      "market_report_score": 2,
+      "found_by": "combined search, day of the move",
+      "passed_gate": false,
+      "n_copies": 1,
+      "syndication_domains": [
+        "finance.yahoo.com"
+      ],
+      "retrieval_score": 0.0556,
+      "semantic_score": 0.8313138484954834,
+      "direction_consistency": null,
+      "anomaly_query_score": null
+    },
+    {
+      "document_id": "ea330161b73de79d",
+      "title": "Ethiopia Imposes Stricter Capital Rules on Coffee Exporters",
+      "url": "https://www.2merkato.com/news/trading/8620-ethiopia-imposes-stricter-capital-rules-on-coffee-exporters",
+      "publication_date": "2025-09-15",
+      "days_before_anomaly": 0,
+      "trading_days_before_anomaly": 0,
+      "publication_date_unknown": false,
+      "text_chars": 1163,
+      "seen_at": "20250915T200000Z",
+      "session_date": "2025-09-15",
+      "market_report_score": 1,
+      "found_by": "combined search, day of the move",
+      "passed_gate": false,
+      "n_copies": 1,
+      "syndication_domains": [
+        "2merkato.com"
+      ],
+      "retrieval_score": 0.0609,
+      "semantic_score": 0.8392938375473022,
+      "direction_consistency": null,
+      "anomaly_query_score": null
+    },
+    {
+      "document_id": "7d11efda573c3757",
+      "title": "Peabirus : Caf\u00e9 sol\u00favel : tarifa\u00e7o derruba exportao aos EUA em 60 % ante ago / 24",
+      "url": "http://www.redepeabirus.com.br/redes/form/post?topico_id=120174",
+      "publication_date": "2025-09-15",
+      "days_before_anomaly": 0,
+      "trading_days_before_anomaly": 0,
+      "publication_date_unknown": false,
+      "text_chars": 5967,
+      "seen_at": "20250915T213000Z",
+      "session_date": "2025-09-15",
+      "market_report_score": 2,
+      "found_by": "combined search, day of the move",
+      "passed_gate": false,
+      "n_copies": 1,
+      "syndication_domains": [
+        "redepeabirus.com.br"
+      ],
+      "retrieval_score": 0.0,
+      "semantic_score": 0.843106746673584,
+      "direction_consistency": null,
+      "anomaly_query_score": null
+    },
+    {
+      "document_id": "114d6328ec0ba16a",
+      "title": "Precio Caf\u00e9 Per\u00fa - Hoy 15 / 9 : \u00bf Hora de Comprar ? ( Gr\u00e1fico ) ",
+      "url": "https://es.dailyforex.com/forex-technical-analysis/2025/09/precio-cafe-peru-15-septiembre-2025/234089",
+      "publication_date": "2025-09-15",
+      "days_before_anomaly": 0,
+      "trading_days_before_anomaly": 0,
+      "publication_date_unknown": false,
+      "text_chars": 6498,
+      "seen_at": "20250915T114500Z",
+      "session_date": "2025-09-15",
+      "market_report_score": 2,
+      "found_by": "combined search, day of the move",
+      "passed_gate": false,
+      "n_copies": 1,
+      "syndication_domains": [
+        "es.dailyforex.com"
+      ],
+      "retrieval_score": 0.0,
+      "semantic_score": 0.8335533142089844,
+      "direction_consistency": null,
+      "anomaly_query_score": null
+    },
+    {
+      "document_id": "e5c8c23478aaf9c4",
+      "title": "Midnight Coffee is Expanding Over the Iowa Horizon",
+      "url": "https://dailycoffeenews.com/2025/09/15/midnight-coffee-is-expanding-over-the-iowa-horizon/",
+      "publication_date": "2025-09-15",
+      "days_before_anomaly": 0,
+      "trading_days_before_anomaly": 0,
+      "publication_date_unknown": false,
+      "text_chars": 4033,
+      "seen_at": "20250915T184500Z",
+      "session_date": "2025-09-15",
+      "market_report_score": 1,
+      "found_by": "combined search, day of the move",
+      "passed_gate": false,
+      "n_copies": 1,
+      "syndication_domains": [
+        "dailycoffeenews.com"
+      ],
+      "retrieval_score": 0.125,
+      "semantic_score": 0.8039385080337524,
+      "direction_consistency": null,
+      "anomaly_query_score": null
+    },
+    {
+      "document_id": "0166cd5d90d99d52",
+      "title": "Three - bedroom house on sale for \u00a3400 , 000 leaves home buyers  flabbergasted  after they notice  unhygienic  kitchen detail",
+      "url": "https://www.dailymail.co.uk/femail/article-15099819/three-bedroom-home-sale-baffles-buyers-unhygienic.html",
+      "publication_date": "2025-09-15",
+      "days_before_anomaly": 0,
+      "trading_days_before_anomaly": 0,
+      "publication_date_unknown": false,
+      "text_chars": 5896,
+      "seen_at": "20250915T153000Z",
+      "session_date": "2025-09-15",
+      "market_report_score": 0,
+      "found_by": "combined search, day of the move",
+      "passed_gate": false,
+      "n_copies": 1,
+      "syndication_domains": [
+        "dailymail.co.uk"
+      ],
+      "retrieval_score": 0.1111,
+      "semantic_score": 0.8097131252288818,
+      "direction_consistency": null,
+      "anomaly_query_score": null
+    },
+    {
+      "document_id": "f228b344dbb463ca",
+      "title": "Nestl\u00e9 anuncia investimento de R$ 450 milh\u00f5es em f\u00e1brica em Montes Claros",
+      "url": "http://www.em.com.br/economia/2025/09/7249121-nestle-anuncia-investimento-de-rs-450-milhoes-em-fabrica-em-montes-claros.html",
+      "publication_date": "2025-09-15",
+      "days_before_anomaly": 0,
+      "trading_days_before_anomaly": 0,
+      "publication_date_unknown": false,
+      "text_chars": 3654,
+      "seen_at": "20250915T234500Z",
+      "session_date": "2025-09-15",
+      "market_report_score": 0,
+      "found_by": "combined search, day of the move",
+      "passed_gate": false,
+      "n_copies": 2,
+      "syndication_domains": [
+        "em.com.br"
+      ],
+      "retrieval_score": 0.0,
+      "semantic_score": 0.8138429522514343,
+      "direction_consistency": null,
+      "anomaly_query_score": null
+    },
+    {
+      "document_id": "33c1e184252f98fd",
+      "title": "Amor Perfecto : Caf\u00e9 colombiano l\u00edder en sostenibilidad y econom\u00eda circular para reducir huella de carbono",
+      "url": "https://www.pulzo.com/economia/amor-perfecto-cafe-colombiano-lider-en-sostenibilidad-y-economia-circular-para-reducir-huella-de-carbono-PP4787045A",
+      "publication_date": "2025-09-15",
+      "days_before_anomaly": 0,
+      "trading_days_before_anomaly": 1,
+      "publication_date_unknown": false,
+      "text_chars": 0,
+      "seen_at": "20250915T053000Z",
+      "session_date": "2025-09-14",
+      "market_report_score": 1,
+      "found_by": "combined search, day of the move",
+      "passed_gate": false,
+      "n_copies": 1,
+      "syndication_domains": [
+        "pulzo.com"
+      ],
+      "retrieval_score": 0.0,
+      "semantic_score": 0.8069224953651428,
+      "direction_consistency": null,
+      "anomaly_query_score": null
+    },
+    {
+      "document_id": "48c516d676e01d08",
+      "title": "Bootlegger to be served on FlySafair flights",
+      "url": "https://www.bizcommunity.com/article/bootlegger-to-be-served-on-flysafair-flights-409369a",
+      "publication_date": "2025-09-15",
+      "days_before_anomaly": 0,
+      "trading_days_before_anomaly": 0,
+      "publication_date_unknown": false,
+      "text_chars": 2306,
+      "seen_at": "20250915T143000Z",
+      "session_date": "2025-09-15",
+      "market_report_score": 0,
+      "found_by": "combined search, day of the move",
+      "passed_gate": false,
+      "n_copies": 1,
+      "syndication_domains": [
+        "bizcommunity.com"
+      ],
+      "retrieval_score": 0.0332,
+      "semantic_score": 0.8294086456298828,
+      "direction_consistency": null,
+      "anomaly_query_score": null
+    },
+    {
+      "document_id": "107d4490c160b3fb",
+      "title": "Coffee Production Process : From Seed to Cup",
+      "url": "https://www.newfoodmagazine.com/article/28006/process-coffee-production-seed-cup/",
+      "publication_date": "2025-09-15",
+      "days_before_anomaly": 0,
+      "trading_days_before_anomaly": 0,
+      "publication_date_unknown": false,
+      "text_chars": 6454,
+      "seen_at": "20250915T194500Z",
+      "session_date": "2025-09-15",
+      "market_report_score": 1,
+      "found_by": "combined search, day of the move",
+      "passed_gate": false,
+      "n_copies": 1,
+      "syndication_domains": [
+        "newfoodmagazine.com"
+      ],
+      "retrieval_score": 0.1443,
+      "semantic_score": 0.8322248458862305,
+      "direction_consistency": null,
+      "anomaly_query_score": null
+    },
+    {
+      "document_id": "dd7346334cdaccb3",
+      "title": "Pittsburgh coffee shops face Trump tariff uncertainty",
+      "url": "https://www.wesa.fm/economy-business/2025-09-15/trump-tariff-coffee-shops",
+      "publication_date": "2025-09-15",
+      "days_before_anomaly": 0,
+      "trading_days_before_anomaly": 0,
+      "publication_date_unknown": false,
+      "text_chars": 6862,
+      "seen_at": "20250915T103000Z",
+      "session_date": "2025-09-15",
+      "market_report_score": 1,
+      "found_by": "combined search, day of the move",
+      "passed_gate": true,
+      "n_copies": 1,
+      "syndication_domains": [
+        "wesa.fm"
+      ],
+      "retrieval_score": 0.1711,
+      "semantic_score": 0.85625159740448,
+      "direction_consistency": "consistent",
+      "anomaly_query_score": null
+    },
+    {
+      "document_id": "141d7d3d63699543",
+      "title": "My 3 Favorite Stocks to Buy Right Now",
+      "url": "https://finance.yahoo.com/news/3-favorite-stocks-buy-now-111000782.html",
+      "publication_date": "2025-09-15",
+      "days_before_anomaly": 0,
+      "trading_days_before_anomaly": 0,
+      "publication_date_unknown": false,
+      "text_chars": 6656,
+      "seen_at": "20250915T201500Z",
+      "session_date": "2025-09-15",
+      "market_report_score": 0,
+      "found_by": "combined search, day of the move",
+      "passed_gate": false,
+      "n_copies": 1,
+      "syndication_domains": [
+        "finance.yahoo.com"
+      ],
+      "retrieval_score": 0.108,
+      "semantic_score": 0.812092661857605,
+      "direction_consistency": null,
+      "anomaly_query_score": null
+    },
+    {
+      "document_id": "747e283860f74fe9",
+      "title": "PTG \u0e40\u0e04\u0e32\u0e30\u0e40\u0e1b\u0e49\u0e32\u0e23\u0e32\u0e04\u0e32\u0e2a\u0e39\u0e07\u0e2a\u0e38\u0e14 11 \u0e1a\u0e32\u0e17\u0e15\u0e48\u0e2d\u0e2b\u0e38\u0e49\u0e19 \u0e2b\u0e19\u0e38\u0e19 \u0e18\u0e38\u0e23\u0e01\u0e34\u0e08 Non Oil \u0e0a\u0e39\u0e1e\u0e31\u0e19\u0e18\u0e38\u0e4c\u0e44\u0e17\u0e22\u0e42\u0e15\u0e40\u0e14\u0e48\u0e19",
+      "url": "https://www.bangkokbiznews.com/pr-news/news/prnews/1198797",
+      "publication_date": "2025-09-15",
+      "days_before_anomaly": 0,
+      "trading_days_before_anomaly": 1,
+      "publication_date_unknown": false,
+      "text_chars": 2938,
+      "seen_at": "20250915T051500Z",
+      "session_date": "2025-09-14",
+      "market_report_score": 0,
+      "found_by": "combined search, day of the move",
+      "passed_gate": false,
+      "n_copies": 1,
+      "syndication_domains": [
+        "bangkokbiznews.com"
+      ],
+      "retrieval_score": 0.0,
+      "semantic_score": 0.8030224442481995,
+      "direction_consistency": null,
+      "anomaly_query_score": null
+    },
+    {
+      "document_id": "f958817f4d33342f",
+      "title": "Tokyo power company Looop to set up $20m solar plant in Philippines",
+      "url": "https://www.dealstreetasia.com/stories/looop-solar-plant-in-philippines-456151",
+      "publication_date": "2025-09-15",
+      "days_before_anomaly": 0,
+      "trading_days_before_anomaly": 1,
+      "publication_date_unknown": false,
+      "text_chars": 374,
+      "seen_at": "20250915T004500Z",
+      "session_date": "2025-09-14",
+      "market_report_score": 1,
+      "found_by": "combined search, day of the move",
+      "passed_gate": false,
+      "n_copies": 1,
+      "syndication_domains": [
+        "dealstreetasia.com"
+      ],
+      "retrieval_score": 0.0139,
+      "semantic_score": 0.8017458915710449,
+      "direction_consistency": null,
+      "anomaly_query_score": null
+    },
+    {
+      "document_id": "b4b989cbd528ade3",
+      "title": "Cuiab\u00e1 tem queda na cesta b\u00e1sica , que atinge menor pre\u00e7o do ano",
+      "url": "https://www.diariodecuiaba.com.br/economia/cuiaba-tem-queda-na-cesta-basica-que-atinge-menor-preco-do-ano/718172",
+      "publication_date": "2025-09-15",
+      "days_before_anomaly": 0,
+      "trading_days_before_anomaly": 0,
+      "publication_date_unknown": false,
+      "text_chars": 1981,
+      "seen_at": "20250915T131500Z",
+      "session_date": "2025-09-15",
+      "market_report_score": 2,
+      "found_by": "combined search, day of the move",
+      "passed_gate": false,
+      "n_copies": 1,
+      "syndication_domains": [
+        "diariodecuiaba.com.br"
+      ],
+      "retrieval_score": 0.0,
+      "semantic_score": 0.82459956407547,
+      "direction_consistency": null,
+      "anomaly_query_score": null
+    },
+    {
+      "document_id": "4e4f97dda01ff085",
+      "title": "Sept 15 : DRC - Rwanda Deal , Eq . Guinea Net Cut , US Deportation",
+      "url": "https://www.okayafrica.com/today-in-africa-september-15-2025-drc-rwanda-eye-us-backed-mineral-deal-equatorial-guinea-cuts-island-internet-us-deportations-to-ghana-spark-outcry/1410384",
+      "publication_date": "2025-09-15",
+      "days_before_anomaly": 0,
+      "trading_days_before_anomaly": 0,
+      "publication_date_unknown": false,
+      "text_chars": 2465,
+      "seen_at": "20250915T230000Z",
+      "session_date": "2025-09-15",
+      "market_report_score": 0,
+      "found_by": "combined search, day of the move",
+      "passed_gate": false,
+      "n_copies": 1,
+      "syndication_domains": [
+        "okayafrica.com"
+      ],
+      "retrieval_score": 0.03,
+      "semantic_score": 0.821370542049408,
+      "direction_consistency": null,
+      "anomaly_query_score": null
+    },
+    {
+      "document_id": "1b1b89f0e2485d3f",
+      "title": "Semana de Fed e Copom come\u00e7a com pr\u00e9via do PIB e dados fracos na China",
+      "url": "https://www.infomoney.com.br/mercados/semana-de-fed-e-copom-comeca-com-previa-do-pib-e-dados-fracos-na-china/",
+      "publication_date": "2025-09-15",
+      "days_before_anomaly": 0,
+      "trading_days_before_anomaly": 0,
+      "publication_date_unknown": false,
+      "text_chars": 9618,
+      "seen_at": "20250915T111500Z",
+      "session_date": "2025-09-15",
+      "market_report_score": 0,
+      "found_by": "combined search, day of the move",
+      "passed_gate": false,
+      "n_copies": 1,
+      "syndication_domains": [
+        "infomoney.com.br"
+      ],
+      "retrieval_score": 0.0,
+      "semantic_score": 0.8050433993339539,
+      "direction_consistency": null,
+      "anomaly_query_score": null
+    },
+    {
+      "document_id": "93bc8056581484bf",
+      "title": "We Compared Grocery Bills Across 3 Chains",
+      "url": "https://www.gobankingrates.com/saving-money/food/we-compared-grocery-bills-across-chains-where-to-save-most/",
+      "publication_date": "2025-09-15",
+      "days_before_anomaly": 0,
+      "trading_days_before_anomaly": 0,
+      "publication_date_unknown": false,
+      "text_chars": 9232,
+      "seen_at": "20250915T123000Z",
+      "session_date": "2025-09-15",
+      "market_report_score": 0,
+      "found_by": "combined search, day of the move",
+      "passed_gate": false,
+      "n_copies": 1,
+      "syndication_domains": [
+        "gobankingrates.com"
+      ],
+      "retrieval_score": 0.1026,
+      "semantic_score": 0.8062490224838257,
+      "direction_consistency": null,
+      "anomaly_query_score": null
+    },
+    {
+      "document_id": "a116aa6e42e5e257",
+      "title": "A brazil k\u00e1v\u00e9 a v\u00e1mok miatt N\u00e9metorsz\u00e1gba \u00f6mlik az Egyes\u00fclt \u00c1llamok helyett",
+      "url": "https://www.vg.hu/nemzetkozi-gazdasag/2025/09/brazil-kave-vamok-egyesult-allamok-2",
+      "publication_date": "2025-09-15",
+      "days_before_anomaly": 0,
+      "trading_days_before_anomaly": 1,
+      "publication_date_unknown": false,
+      "text_chars": 4533,
+      "seen_at": "20250915T071500Z",
+      "session_date": "2025-09-14",
+      "market_report_score": 0,
+      "found_by": "combined search, day of the move",
+      "passed_gate": false,
+      "n_copies": 1,
+      "syndication_domains": [
+        "vg.hu"
+      ],
+      "retrieval_score": 0.0054,
+      "semantic_score": 0.83646559715271,
+      "direction_consistency": null,
+      "anomaly_query_score": null
+    },
+    {
+      "document_id": "00f970d8e9eedb6f",
+      "title": "Style ( 09 / 15 / 25 ) - BusinessWorld Online",
+      "url": "https://www.bworldonline.com/arts-and-leisure/2025/09/15/698267/style-09-15-25/",
+      "publication_date": "2025-09-15",
+      "days_before_anomaly": 0,
+      "trading_days_before_anomaly": 1,
+      "publication_date_unknown": false,
+      "text_chars": 3059,
+      "seen_at": "20250915T013000Z",
+      "session_date": "2025-09-14",
+      "market_report_score": 0,
+      "found_by": "combined search, day of the move",
+      "passed_gate": false,
+      "n_copies": 1,
+      "syndication_domains": [
+        "bworldonline.com"
+      ],
+      "retrieval_score": 0.0278,
+      "semantic_score": 0.8070238828659058,
+      "direction_consistency": null,
+      "anomaly_query_score": null
+    },
+    {
+      "document_id": "9522d1d7d725970d",
+      "title": "\u041f\u0440\u043e\u0438\u0437\u0432\u043e\u0434\u0438\u0442\u0435\u043b\u0438\u0442\u0435 \u043d\u0430 \u043a\u0430\u0444\u0435 \u0432 \u041a\u043e\u043d\u0433\u043e \u0441\u0435 \u043e\u043f\u0430\u0441\u044f\u0432\u0430\u0442 , \u0447\u0435 \u0432\u043e\u0439\u043d\u0430\u0442\u0430 \u0449\u0435 \u043e\u0431\u0435\u0437\u0441\u043c\u0438\u0441\u043b\u0438 \u043f\u043e\u0441\u043b\u0435\u0434\u043d\u0438\u0442\u0435 \u043f\u043e\u0441\u0442\u0438\u0436\u0435\u043d\u0438\u044f",
+      "url": "https://manager.bg/%D1%81%D0%B2%D1%8F%D1%82/proizvoditelite-na-kafe-v-kongo-se-opasavat-che-voinata-ste-obezsmisli-poslednite-postizenia",
+      "publication_date": "2025-09-15",
+      "days_before_anomaly": 0,
+      "trading_days_before_anomaly": 0,
+      "publication_date_unknown": false,
+      "text_chars": 2462,
+      "seen_at": "20250915T213000Z",
+      "session_date": "2025-09-15",
+      "market_report_score": 0,
+      "found_by": "combined search, day of the move",
+      "passed_gate": false,
+      "n_copies": 1,
+      "syndication_domains": [
+        "manager.bg"
+      ],
+      "retrieval_score": 0.0,
+      "semantic_score": 0.8017362952232361,
+      "direction_consistency": null,
+      "anomaly_query_score": null
+    },
+    {
+      "document_id": "2f8af81585cb410a",
+      "title": "Fuerte Metals Announces Transformational Acquisition of the Coffee Project from Newmont Corporation",
+      "url": "https://www.juniorminingnetwork.com/junior-miner-news/press-releases/3031-tsx-venture/fmt/187252-fuerte-announces-transformational-acquisition-of-the-coffee-project-from-newmont-corporation.html",
+      "publication_date": "2025-09-15",
+      "days_before_anomaly": 0,
+      "trading_days_before_anomaly": 0,
+      "publication_date_unknown": false,
+      "text_chars": 0,
+      "seen_at": "20250915T120000Z",
+      "session_date": "2025-09-15",
+      "market_report_score": 1,
+      "found_by": "combined search, day of the move",
+      "passed_gate": false,
+      "n_copies": 1,
+      "syndication_domains": [
+        "juniorminingnetwork.com"
+      ],
+      "retrieval_score": 0.0278,
+      "semantic_score": 0.8206512928009033,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
     {
       "document_id": "2e76cd06225de1db",
-      "title": "This is serious: the price of coffee is rising - taxresearch.org.uk",
+      "title": "This is serious: the price of coffee is rising - Funding the Future",
       "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxQZlJkekc1Rk1ITWxkOWlHWkJXRndXblRTRGVNY1dnVEladGQ0TDBYeFpqRGpFY0VqX2ZzY1RBRzJHRE9GNzNsN0M2WGNpWHVwQURzQzVORzhqYmtEd1FBd1ZNOWFPeGM2U0tLODJtOTl0NTFJREdkZVd1Zy1sMlJzeWE0ZTl2YXJZVHpHeVlNUXFock9INjVGSQ?oc=5",
       "publication_date": "2025-09-12",
       "days_before_anomaly": 3,
@@ -2464,7 +3109,7 @@
       "text_chars": 0,
       "seen_at": "20250912T070000Z",
       "session_date": "2025-09-11",
-      "market_report_score": 3,
+      "market_report_score": 5,
       "found_by": "news feed",
       "passed_gate": false,
       "n_copies": 1,
@@ -2472,7 +3117,7 @@
         "news.google.com"
       ],
       "retrieval_score": 0.1111,
-      "semantic_score": 0.8278908729553223,
+      "semantic_score": 0.8294072151184082,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -2500,52 +3145,6 @@
       "anomaly_query_score": null
     },
     {
-      "document_id": "ea272e6bba42a986",
-      "title": "Conab cuts estimate for Brazil's 2025/26 coffee harvest to 55.2 million bags, Robusta production at all-time high of 20.1 million - Comunicaffe International",
-      "url": "https://news.google.com/rss/articles/CBMi5gFBVV95cUxNaWx4Sl95ekVyQmMyc0JoRl9mdW9zZUgwVlJnNXpnSFNsYzJiRmdReU5MUE9jLUFEZ3c5d2pZTGY4YzNjY1RWOXVDQUdmTTlMTVN5alR4N1E3VjVCRXJ1T2hFNE9WSXBRakxYZWpHYXc1bnoxOHhUSVNic1MtZnBabGdRc1NacmlLM1RaOW0tekpHWnZzWUtKMjJQV2VnQVE1NlY2ZDNzZEpiTVFBa1BkcWh0cE9UQ2ltRkZ2azFUUmlnUjFHSjBxZkNhVmx5VFBrS09zLXpSanQ2WUUxTk83MkxKNUtyUQ?oc=5",
-      "publication_date": "2025-09-05",
-      "days_before_anomaly": 10,
-      "trading_days_before_anomaly": 7,
-      "publication_date_unknown": false,
-      "text_chars": 0,
-      "seen_at": "20250905T070000Z",
-      "session_date": "2025-09-04",
-      "market_report_score": 4,
-      "found_by": "news feed",
-      "passed_gate": true,
-      "n_copies": 1,
-      "syndication_domains": [
-        "news.google.com"
-      ],
-      "retrieval_score": 0.233,
-      "semantic_score": 0.8596854209899902,
-      "direction_consistency": "neutral",
-      "anomaly_query_score": null
-    },
-    {
-      "document_id": "b2e27a43ad8e9098",
-      "title": "Coffee Tops $4 for First Time Since April on Supply Concerns - Bloomberg.com",
-      "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPSFlrNU5uNV95RGpBYm9XYkNtZUVzWGstV3IxYnFTWWxQb3V1dUN2V0Z0S3J2OE1kR3JPeGtwOXc4SWh0RVBsMy1fNzNwbkdCbnU3bnVpcHZRVmpNWVZ5VHdCbGdVZGpKcU45eTVfWDBkdzN0ZHktcXNab2xRN092ZlBDWnRzaXdSRGpUa0k1bTN1TkpTRlUteDJacWo3dHJWSUJGcTY5cmZnN3JDS2xZ?oc=5",
-      "publication_date": "2025-09-15",
-      "days_before_anomaly": 0,
-      "trading_days_before_anomaly": 1,
-      "publication_date_unknown": false,
-      "text_chars": 0,
-      "seen_at": "20250915T070000Z",
-      "session_date": "2025-09-14",
-      "market_report_score": 1,
-      "found_by": "news feed",
-      "passed_gate": false,
-      "n_copies": 1,
-      "syndication_domains": [
-        "news.google.com"
-      ],
-      "retrieval_score": 0.1219,
-      "semantic_score": 0.8491431474685669,
-      "direction_consistency": null,
-      "anomaly_query_score": null
-    },
-    {
       "document_id": "390e2967d0e48010",
       "title": "Saudi Arabia Builds Largest Coffee Farm in the Middle East - STiR Coffee and Tea Magazine",
       "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxPMGNnVDZhZ0ZFQXFlVUZjb0ZSSjUtY1dSUUdjUFMwRHE0czVjNWsyXzg5TzF4djl4Q0tLeFVnRmVEbFhGbTQzM1plY255TUJSOGRCbFJEalV0R2ZFam9Ib3lEdG13ckpYelYzMXJUTlRGMlhMdGlJYTdOakRjQ1FiajFla0YzaDZvc2Z3NEZkeGEyRTBfdWVWd2E1ekQtNVZabHNYQVdB?oc=5",
@@ -2564,30 +3163,7 @@
         "news.google.com"
       ],
       "retrieval_score": 0.1111,
-      "semantic_score": 0.8061679601669312,
-      "direction_consistency": null,
-      "anomaly_query_score": null
-    },
-    {
-      "document_id": "df33c5db410f3f19",
-      "title": "Supply Concerns Push Coffee Prices Sharply Higher - inkl",
-      "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNc1BJdWxRXzNpMzBKVm5ZNlFWNEM2Tjl4dlF5NmVQMmZ4aUQ0ZlRUbC01OHNfVDdLbzhyanI5OGtXcDRnSjB2VlJRMU1LNFpZY21ISTI4VEw0Y29MVF9ybXVoWG94TTVIU3pHNkRZWGNWUVl0OXctSWl3RHhLV0wtbFJVeFZUQUtrQUw1RHZnWHRkdXdDcTh6OTZSOWUxX3ctV011UGRfRW5pb1J5bnJlR2pB?oc=5",
-      "publication_date": "2025-09-15",
-      "days_before_anomaly": 0,
-      "trading_days_before_anomaly": 1,
-      "publication_date_unknown": false,
-      "text_chars": 0,
-      "seen_at": "20250915T070000Z",
-      "session_date": "2025-09-14",
-      "market_report_score": 3,
-      "found_by": "news feed",
-      "passed_gate": false,
-      "n_copies": 1,
-      "syndication_domains": [
-        "news.google.com"
-      ],
-      "retrieval_score": 0.1219,
-      "semantic_score": 0.8463855981826782,
+      "semantic_score": 0.8061680197715759,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -2610,30 +3186,7 @@
         "news.google.com"
       ],
       "retrieval_score": 0.1111,
-      "semantic_score": 0.8096612691879272,
-      "direction_consistency": null,
-      "anomaly_query_score": null
-    },
-    {
-      "document_id": "6bb862ce05abaa60",
-      "title": "How Europe\u2019s deforestation law could change global coffee trade - The Jakarta Post",
-      "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxPa3UzOUF5ZjktbmpaMG9aaXgyblJ0REtFeDY2VVNNZG13VWEzbFJ2VzRaZDE2cjJobFB3ekl3M0ZjSERvdWRiMXNnSG00T0tSTGhWeEdaWGsxUk1oVTNkb2xfV3dFdGdXajlNS016VUFvcC1qUEJFanU2cVBURjBaMUJodlRBWUdDRWxkTlVTSnhZdmZNTG1mLV85WGwyTlVkSVhHbW5EcFcwYkRPb1dEMDJn?oc=5",
-      "publication_date": "2025-09-14",
-      "days_before_anomaly": 1,
-      "trading_days_before_anomaly": 1,
-      "publication_date_unknown": false,
-      "text_chars": 0,
-      "seen_at": "20250914T070000Z",
-      "session_date": "2025-09-13",
-      "market_report_score": 1,
-      "found_by": "news feed",
-      "passed_gate": false,
-      "n_copies": 1,
-      "syndication_domains": [
-        "news.google.com"
-      ],
-      "retrieval_score": 0.1111,
-      "semantic_score": 0.8423702120780945,
+      "semantic_score": 0.8096613883972168,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -2656,7 +3209,7 @@
         "news.google.com"
       ],
       "retrieval_score": 0.1111,
-      "semantic_score": 0.8234374523162842,
+      "semantic_score": 0.823437511920929,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -2679,13 +3232,13 @@
         "news.google.com"
       ],
       "retrieval_score": 0.1111,
-      "semantic_score": 0.8610763549804688,
+      "semantic_score": 0.8610765933990479,
       "direction_consistency": "consistent",
       "anomaly_query_score": null
     },
     {
       "document_id": "6bd48cf352d3af3f",
-      "title": "2024 PAM: With grain prices and crops down, value of agricultural production falls for the second year in a row - agenciadenoticias.ibge.gov.br",
+      "title": "2024 PAM: With grain prices and crops down, value of agricultural production falls for the second year in a row - Ag\u00eancia de Not\u00edcias - IBGE",
       "url": "https://news.google.com/rss/articles/CBMimAJBVV95cUxNQ0hjVU9UWlhscE9WcHF4Y0t6ekUzUGlsUnNfWGNrSUlLTXRGdlp1NW1VNGNmYk01V3BlNDdTSWpIOGw0VG41WXUtNG1FZWg2a1NwdHhtZTBVYnhnUEhCSzRrZ29WRW1lSU5pZ2tfRFp4eXJPVEdZQ2ZRNmJ3RHM5MVFWVWpEcXFFTldIenZzYU5CWDZDMkFzS2Y3d3BwRnJzSVd3QkdScGFuSHkwR3QyQ2pvVmZXRGNhcG1Fd01qdHBWcDVVUENnVUhuaWJjdVIxejlhRC1vN0FMbndEakNwdkRHTmtlcHZXdEFjWDhVdGJvUi1RSUJzYXVUM2J0ZEQ1Q0JIVnFhQ29BSG5hNnZHc2cwU3ozWHdG?oc=5",
       "publication_date": "2025-09-11",
       "days_before_anomaly": 4,
@@ -2702,13 +3255,13 @@
         "news.google.com"
       ],
       "retrieval_score": 0.0,
-      "semantic_score": 0.8138594627380371,
+      "semantic_score": 0.8239694833755493,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
     {
       "document_id": "1a138dba39adbcee",
-      "title": "Cherry to cup: The tale of Kodagu coffee - deccanherald.com",
+      "title": "Cherry to cup: The tale of Kodagu coffee - Deccan Herald",
       "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxQam0xcENxUVBzb3hscks3TVF1Mi1XRzRoMldLMEZ5QUJPR29vMmVqVVRub2lNTnlaQUpfV19VVDh5SlV2eDlCaTIzdm1Qbkp4X2hGV2FBR0NJSXJ0ODRjaTlZQ0lWWFhXY2dLSEI4aGFBU3lXSXdKYVJjRnUtSlZsRHBYN1F4Zzk2Rkl0dDN0ellldjlOX2Nj?oc=5",
       "publication_date": "2025-09-11",
       "days_before_anomaly": 4,
@@ -2725,7 +3278,30 @@
         "news.google.com"
       ],
       "retrieval_score": 0.1111,
-      "semantic_score": 0.8291819095611572,
+      "semantic_score": 0.8298633098602295,
+      "direction_consistency": null,
+      "anomaly_query_score": null
+    },
+    {
+      "document_id": "655abe4cfc032b11",
+      "title": "Ethiopian Coffee Hits $1,739 per Kilo in Record-Breaking Auction - Addis Insight",
+      "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxOb3gwNzdoaXRNbzdmbUNZTGFuM2FuZVBWclg4dHlQaWZWWmZjdFJIMjZ3WkRTTEZHY0hxUkF2Tk1mSWJxc2tIRlg4QUtjSzFKWE41c1lzZlhOQjBnUUxxalBfT1pyc3A5bjBJSmJOZGZuZEFfOTRyT1JTNGdKeVRETWxwTkJqejdwbjU2SEU1LXVaeXBIVHMyYWFhX2o0WG45?oc=5",
+      "publication_date": "2025-09-12",
+      "days_before_anomaly": 3,
+      "trading_days_before_anomaly": 2,
+      "publication_date_unknown": false,
+      "text_chars": 0,
+      "seen_at": "20250912T070000Z",
+      "session_date": "2025-09-11",
+      "market_report_score": 2,
+      "found_by": "news feed",
+      "passed_gate": false,
+      "n_copies": 1,
+      "syndication_domains": [
+        "news.google.com"
+      ],
+      "retrieval_score": 0.1111,
+      "semantic_score": 0.8283970355987549,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -2748,7 +3324,7 @@
         "news.google.com"
       ],
       "retrieval_score": 0.1111,
-      "semantic_score": 0.8350701332092285,
+      "semantic_score": 0.8350701928138733,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -2776,29 +3352,6 @@
       "anomaly_query_score": null
     },
     {
-      "document_id": "655abe4cfc032b11",
-      "title": "Ethiopian Coffee Hits $1,739 per Kilo in Record-Breaking Auction - Addis Insight",
-      "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxOb3gwNzdoaXRNbzdmbUNZTGFuM2FuZVBWclg4dHlQaWZWWmZjdFJIMjZ3WkRTTEZHY0hxUkF2Tk1mSWJxc2tIRlg4QUtjSzFKWE41c1lzZlhOQjBnUUxxalBfT1pyc3A5bjBJSmJOZGZuZEFfOTRyT1JTNGdKeVRETWxwTkJqejdwbjU2SEU1LXVaeXBIVHMyYWFhX2o0WG45?oc=5",
-      "publication_date": "2025-09-12",
-      "days_before_anomaly": 3,
-      "trading_days_before_anomaly": 2,
-      "publication_date_unknown": false,
-      "text_chars": 0,
-      "seen_at": "20250912T070000Z",
-      "session_date": "2025-09-11",
-      "market_report_score": 2,
-      "found_by": "news feed",
-      "passed_gate": false,
-      "n_copies": 1,
-      "syndication_domains": [
-        "news.google.com"
-      ],
-      "retrieval_score": 0.1111,
-      "semantic_score": 0.8283967971801758,
-      "direction_consistency": null,
-      "anomaly_query_score": null
-    },
-    {
       "document_id": "fd5600bfed8f3dfc",
       "title": "Are we still freezing coffee? - Perfect Daily Grind",
       "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxOdHdXSHNVYmNiQjBTeHNTdTlvbWFiZ09yYkhfRW9GQksyN2JKV21OclBSdHdsOUJaaGxZWUg5SWxkTkY2V2pIank3aVJQU1Q0bUVpSkItSlFmcEIyeXdHVElMbnk4MlhBaDRTdGVVdm5KSTJyQldnX3VSSlExMXk4MFl6VQ?oc=5",
@@ -2817,14 +3370,14 @@
         "news.google.com"
       ],
       "retrieval_score": 0.1111,
-      "semantic_score": 0.8276932239532471,
+      "semantic_score": 0.8276933431625366,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
     {
-      "document_id": "0d837f39335ef4ac",
-      "title": "Video shows man trying to kidnap barista at bikini coffee stand, police say - WFSB",
-      "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxOUFE0MGktaWVwaGRjZVlaLWw5dkluMzgwbHV3M3VwNk1DOTF3TVNEalJNNmhJT2E1Z2ZUS2xxYjNmdmpFbHdrYUx0OEtjelN3cDQxVnFKbm9BV3FUaXJyVTB3WjdzVWxMcm5Zb1FObmtaRWFucGVlZ016Mlg3Qi0zekNIbWZGRjAtWldCQVJNQVZDR1M5U01EaEtza3dFanpFMnVZ0gG3AUFVX3lxTE1NNU1fMUpiSDlRUUpzVlZmVTRuU2liNll5TEFrcDA0Y0R1NEdFNnlWNFlVS1BhUGlzQTlEdjFFQ1VkaUlqQkxtRVZBX1ZvbjRnNk83Sm1qR3o0d3ZzX2wybkJheXRMaW9xOWF3bjM1cEVZU3NpSjVLMklCOWlPcjhNOUJXMU96dkdBaVQwTWxuWk1MTU9saFp4cFVjR0Q3VVBZVkJFRlkxenF6eEVDdVdaN25yLTZNaw?oc=5",
+      "document_id": "b46aa0ec93895c06",
+      "title": "Video shows man trying to kidnap barista at bikini coffee stand, police say - FOX Carolina News",
+      "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxOaGpOX0NYWU9mSy14NE9VNk5yS1ByWk5KQjJEdHRETVBFMjZ3QUJHSTM0TGFFYlNXbWc2LVRFWUVkUXVRc3lmS29BbkJwNkVkTjhXekJmOG1TVnpoUFZjZVU4cXh0QjZfUW5mVnRBTDR5VXRGck1oc2lUVVRmRWdWb2lMNzVLdnp3U2tlVmJ0S015WW42MUdxS0dhWEoxdXZhQml0XzZhdmhMNXF50gHAAUFVX3lxTFBfZEYtUWtBUXpnbFNtaVNqSlRJdVRJRGQ4SmY2c3BGczZPXzFzajBTN2ROYUx0RGlQczVDVmlMUTVxYTdzNXNnVzF1aWhNLW1ERk5GOHo5cHg0Tk00WGdmRFVjVDZLV3Q5RjhTNFYzS3hUbVU3eE85Uzk3eWk3N0VZRG5MMW1ZdDZhX0Rhdmw2QXR1NWlGMGhIUlFkZWsxMmJCbEpIXzR1RFdmRnRzdWV2TGJEdlJrZzVabm9VOTdHMg?oc=5",
       "publication_date": "2025-09-12",
       "days_before_anomaly": 3,
       "trading_days_before_anomaly": 2,
@@ -2840,7 +3393,30 @@
         "news.google.com"
       ],
       "retrieval_score": 0.1111,
-      "semantic_score": 0.8073008060455322,
+      "semantic_score": 0.8084248304367065,
+      "direction_consistency": null,
+      "anomaly_query_score": null
+    },
+    {
+      "document_id": "25953ba4ebab392a",
+      "title": "Our number one coffee maker now comes in these sophisticated new shades, and I want one in every color - Tom's Guide",
+      "url": "https://news.google.com/rss/articles/CBMi3wFBVV95cUxQSHFNckJGRUsxUVFGeDhoOFlsSE4xc2kzWHNhalZqbnBJYmljYTJDQVJsUml4RHotbksxSGpSc3lnanZlbll1WHk2czdzNmY0UmU2WjI5N2xJZ3h2OVlHQ19BR3NDUlpkZm5TRmtJTXN1bVM5VGNUZk16ZTVJVk54aTY0ZkYyYWRfeVBlUkMzN3J1Yk1YYmdJdkJDS1JhRFg3WUZNbU13UjN5anI0ZU9jbHRRSGFRNXlodjlZWWpTYzFuU0dvRmowYlJXUDViUDBvVnVaYjBmZGYxNDFOTmhz?oc=5",
+      "publication_date": "2025-09-15",
+      "days_before_anomaly": 0,
+      "trading_days_before_anomaly": 1,
+      "publication_date_unknown": false,
+      "text_chars": 0,
+      "seen_at": "20250915T070000Z",
+      "session_date": "2025-09-14",
+      "market_report_score": 1,
+      "found_by": "news feed",
+      "passed_gate": false,
+      "n_copies": 1,
+      "syndication_domains": [
+        "news.google.com"
+      ],
+      "retrieval_score": 0.1111,
+      "semantic_score": 0.8010220527648926,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -2863,7 +3439,7 @@
         "news.google.com"
       ],
       "retrieval_score": 0.1111,
-      "semantic_score": 0.8321703672409058,
+      "semantic_score": 0.8321704864501953,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -2886,7 +3462,7 @@
         "news.google.com"
       ],
       "retrieval_score": 0.233,
-      "semantic_score": 0.871366024017334,
+      "semantic_score": 0.8713661432266235,
       "direction_consistency": "neutral",
       "anomaly_query_score": null
     },
@@ -2909,37 +3485,14 @@
         "news.google.com"
       ],
       "retrieval_score": 0.1111,
-      "semantic_score": 0.8076417446136475,
+      "semantic_score": 0.8076418042182922,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
     {
-      "document_id": "1f9cd5049981c9f9",
-      "title": "Brazil coffee exports surge globally \u2013 except for US - Global Coffee Report",
-      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTFBaTjZnN1RTVjNjaGpuOFA1UG55WDhXbDNTTUZlbnF5T0lfSGZyWXFWWlRSbnBFVWVGcXB2MHJNckZNLUlfMk1qWG56OG1kd2J3NkFfVXJOM1V2ZkdEYTZacVJKMlAxUDcyWmZkaFItTGNweVhtTUtRWFhmTGhDaVk?oc=5",
-      "publication_date": "2025-09-12",
-      "days_before_anomaly": 3,
-      "trading_days_before_anomaly": 2,
-      "publication_date_unknown": false,
-      "text_chars": 0,
-      "seen_at": "20250912T070000Z",
-      "session_date": "2025-09-11",
-      "market_report_score": 3,
-      "found_by": "news feed",
-      "passed_gate": false,
-      "n_copies": 1,
-      "syndication_domains": [
-        "news.google.com"
-      ],
-      "retrieval_score": 0.233,
-      "semantic_score": 0.8498693704605103,
-      "direction_consistency": null,
-      "anomaly_query_score": null
-    },
-    {
-      "document_id": "c40e3dba231ffebc",
-      "title": "Opinion | A Tariff Lesson for Coffee Drinkers - wsj.com",
-      "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPNlAzemt2R0U4OGQtSlRkMUVJQUtmNE4xQ29DS2F3V0x2Mm02UUFtLUk3Q0cyNjA3MFFjdkc4SW5ycE53a3h2em5KcE1sUzZ6SDFMZkJ1VFBCUmc3X3lGRlNkeEQ3a05HR3ZXWTMwMDdScnhhSDdnUlhDX0RxbzZCYmRlZ3JnUmkxOW1qWHFJQWZUX3hpN0E?oc=5",
+      "document_id": "d8d820ca8ec23725",
+      "title": "How Europe\u2019s Deforestation Law Affects The Global Coffee Trade - Honolulu Civil Beat",
+      "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxQMWFOby02WHdQMUxDZzRLRUV5T09PTUFaQlRHZEtMV1JvX3dscW9lbHBJWlV4a2dkaUxHR3dUT3NVd0pMbElYcXZ5dTJzeFlERExFZS1aQjFldklRT01LRGlMeTZrZmJZVTlXN0pUbWU5ZVROV0pEYmVNRUtVZWxkcFNiYTBtWlNQLXJJUHdFRm5xaTBpTUM4VGxBZ29hQQ?oc=5",
       "publication_date": "2025-09-15",
       "days_before_anomaly": 0,
       "trading_days_before_anomaly": 1,
@@ -2954,8 +3507,31 @@
       "syndication_domains": [
         "news.google.com"
       ],
-      "retrieval_score": 0.1219,
-      "semantic_score": 0.8296923637390137,
+      "retrieval_score": 0.1111,
+      "semantic_score": 0.839328408241272,
+      "direction_consistency": null,
+      "anomaly_query_score": null
+    },
+    {
+      "document_id": "1a2761f810ab33de",
+      "title": "Germany overtakes the US as the largest importer of Brazilian coffee - World Coffee Portal",
+      "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxQa2xWZW5QeUhpc1dWQmFCTzI0TDBpcFpIenNzQkZmdllLc19SZmVBb2c2NURvd0Z1a0tFYWN2X1JMTUdEbW1NenlWN2h4RVJ5SkdDZmRNTDB1bFBCNUpDamdWLTMxSG1IT2lfTjJDc1ZTeEtfVEVCRFFPVndVUlcyTGFoX1dJVE9NMVJIOGFrbExVTEZuV0FxRTFBVjJOdno3WXNhd0x4Mk5GanJz?oc=5",
+      "publication_date": "2025-09-11",
+      "days_before_anomaly": 4,
+      "trading_days_before_anomaly": 3,
+      "publication_date_unknown": false,
+      "text_chars": 0,
+      "seen_at": "20250911T070000Z",
+      "session_date": "2025-09-10",
+      "market_report_score": 1,
+      "found_by": "news feed",
+      "passed_gate": false,
+      "n_copies": 1,
+      "syndication_domains": [
+        "news.google.com"
+      ],
+      "retrieval_score": 0.1111,
+      "semantic_score": 0.8361863493919373,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -2978,30 +3554,7 @@
         "news.google.com"
       ],
       "retrieval_score": 0.1111,
-      "semantic_score": 0.8361552953720093,
-      "direction_consistency": null,
-      "anomaly_query_score": null
-    },
-    {
-      "document_id": "95c11a9d7ffb6499",
-      "title": "Yes, Your Morning Coffee Has Gotten More Expensive - The Seattle Times",
-      "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxPdW9zYzRTRWk0Zl9qTWRKLU9MY3Vic3hxMGRUWU8xTG9iUXdBdTJJTnpsS2tUTDJNME1xYzV2TDNtVUJaT1ZSeVg5NGdvdmtKM0s5a25QUzd4NEM3cVluQ2Q2a2M0elJrVHNPMWhCckhoTHZ3b19tZ2FPbHBFM1VyQkpKaDlfc3RSYWZvTWp3Uk96QQ?oc=5",
-      "publication_date": "2025-09-11",
-      "days_before_anomaly": 4,
-      "trading_days_before_anomaly": 3,
-      "publication_date_unknown": false,
-      "text_chars": 0,
-      "seen_at": "20250911T070000Z",
-      "session_date": "2025-09-10",
-      "market_report_score": 1,
-      "found_by": "news feed",
-      "passed_gate": false,
-      "n_copies": 1,
-      "syndication_domains": [
-        "news.google.com"
-      ],
-      "retrieval_score": 0.1111,
-      "semantic_score": 0.8065712451934814,
+      "semantic_score": 0.8361552357673645,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -3024,14 +3577,37 @@
         "news.google.com"
       ],
       "retrieval_score": 0.1111,
-      "semantic_score": 0.8418529629707336,
+      "semantic_score": 0.8418530225753784,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
     {
-      "document_id": "321ec7235aaa3745",
-      "title": "Coffee prices surge due to tariffs - KBTX News 3",
-      "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE9ZN3BEVWNRZTdXejBLNlh2a1p5Z0d1YlZYZVRHZFA3UUt0bG9paGN0X0VqQmZJSFpDNHFvdUlvRWVvX2hmNVpOME1BbE8tR29KaUZHWEdPbF92aktnbm9RNUgxUFhsNXZsdERRZXdtb2Z5QdIBhgFBVV95cUxPd3B1UkJuVkRwQms2VVBSbkVyU1ZHcEg5WDZyV2JVbWtla1VMZm80WkE4SE0zWEd4ZTVIV0xiYTVVZm9yX2JBd0MxNjREb3FpcHUtbFpZU2NGNkNROUlDRzV3bEpmOHIwTC1vdE9aeUNtSGQzTDUzaWdxUVJia1RiYmc0aXlRZw?oc=5",
+      "document_id": "6bb862ce05abaa60",
+      "title": "How Europe\u2019s deforestation law could change global coffee trade - The Jakarta Post",
+      "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxPa3UzOUF5ZjktbmpaMG9aaXgyblJ0REtFeDY2VVNNZG13VWEzbFJ2VzRaZDE2cjJobFB3ekl3M0ZjSERvdWRiMXNnSG00T0tSTGhWeEdaWGsxUk1oVTNkb2xfV3dFdGdXajlNS016VUFvcC1qUEJFanU2cVBURjBaMUJodlRBWUdDRWxkTlVTSnhZdmZNTG1mLV85WGwyTlVkSVhHbW5EcFcwYkRPb1dEMDJn?oc=5",
+      "publication_date": "2025-09-14",
+      "days_before_anomaly": 1,
+      "trading_days_before_anomaly": 1,
+      "publication_date_unknown": false,
+      "text_chars": 0,
+      "seen_at": "20250914T070000Z",
+      "session_date": "2025-09-13",
+      "market_report_score": 1,
+      "found_by": "news feed",
+      "passed_gate": false,
+      "n_copies": 1,
+      "syndication_domains": [
+        "news.google.com"
+      ],
+      "retrieval_score": 0.1111,
+      "semantic_score": 0.8423702716827393,
+      "direction_consistency": null,
+      "anomaly_query_score": null
+    },
+    {
+      "document_id": "1a882e3bd91ba676",
+      "title": "Coffee prices surge due to tariffs - KFYR-TV",
+      "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTFB6N0UzbHVicEptZkxnQ3prNHlLWDczRzZfbXJnd3c2OWlVRElfWHQtaE1DM1JBc0w4X3JSYXh6bjhrdnFNSzZPTXM1ZUFQVFhmNWdHLXRJbEhxWk5TaDNBYi00b3kteHoxdG5ZT0lnLV90TnF20gGIAUFVX3lxTE1NR29ZUGxGV2otRnRka0l3YjdMSnpNbC1PSXNBY1ZmNzFJREZIdGd2cFdObHBUY1RSRHlxaDhkNlF3ZjViLVlOM0hRcEZCNzJGamxwOERjQTZrMjVjR2NtRGliNl9iUHN4b3p2cVJHaEw2d2VKS1dRalFjY0V3Y0RueWpMMm9jTkc?oc=5",
       "publication_date": "2025-09-12",
       "days_before_anomaly": 3,
       "trading_days_before_anomaly": 2,
@@ -3047,7 +3623,7 @@
         "news.google.com"
       ],
       "retrieval_score": 0.1219,
-      "semantic_score": 0.828058660030365,
+      "semantic_score": 0.8274407982826233,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -3070,60 +3646,14 @@
         "news.google.com"
       ],
       "retrieval_score": 0.1111,
-      "semantic_score": 0.813800036907196,
+      "semantic_score": 0.8138001561164856,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
     {
-      "document_id": "521c06ecd81fc58a",
-      "title": "Black Rock Coffee Bar Prices Initial Public Offering of Class A Common Stock at $20.00 per Share - Quiver Quantitative",
-      "url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxNdk9LS0hEbm9aa2NqSmo4eWp0VDJaT1RNVl8wWDhDOERsVlk1cjZDX192WVFQZURvQjN1THc0ZGJOOHdXYVFNVDZKaldtUm45dEZ6V2t5RHFaR3ZuU3B4VTZzeGpma0dDc0VLUmtjRWxLcXhnYjVvMU04VTFmOWQ1a1V3ZjJTay1WVmNSUi1HRVYxMUFmeFVqTlVpNWpyazFIQnFyaU9rNFVsT2hGV1VPZFFvWVpSSUFhRUQzbTI0X0RXNUc0c0dubS1sOA?oc=5",
-      "publication_date": "2025-09-12",
-      "days_before_anomaly": 3,
-      "trading_days_before_anomaly": 2,
-      "publication_date_unknown": false,
-      "text_chars": 0,
-      "seen_at": "20250912T070000Z",
-      "session_date": "2025-09-11",
-      "market_report_score": 2,
-      "found_by": "news feed",
-      "passed_gate": false,
-      "n_copies": 1,
-      "syndication_domains": [
-        "news.google.com"
-      ],
-      "retrieval_score": 0.1111,
-      "semantic_score": 0.8213172554969788,
-      "direction_consistency": null,
-      "anomaly_query_score": null
-    },
-    {
-      "document_id": "17fb033dddb88c2b",
-      "title": "Coffee Prices Spike More Than 20 In Latest Consumer Report - westchester.news12.com",
-      "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxNNzNscUFPNWtiOVdjSzlodVNDcjdKUXVJNmhmMjRkUm9UbjExbnkyVjRwV1h1N0luQ1hRSkpkeW9kZHdNVGo0SFB0N0xtS05LWEJzRllvckV0OFNVUUhhZ1BxYU1jZV9JNWotVlM5UzZzOGo5al9qNDZXSXVUcHVoOGZyNk9OTGZHY0UtUTRkV1ppUGc?oc=5",
-      "publication_date": "2025-09-15",
-      "days_before_anomaly": 0,
-      "trading_days_before_anomaly": 1,
-      "publication_date_unknown": false,
-      "text_chars": 0,
-      "seen_at": "20250915T070000Z",
-      "session_date": "2025-09-14",
-      "market_report_score": 2,
-      "found_by": "news feed",
-      "passed_gate": false,
-      "n_copies": 1,
-      "syndication_domains": [
-        "news.google.com"
-      ],
-      "retrieval_score": 0.1219,
-      "semantic_score": 0.8297152519226074,
-      "direction_consistency": null,
-      "anomaly_query_score": null
-    },
-    {
-      "document_id": "b2a106a7aca14eac",
+      "document_id": "849bad3535cd544c",
       "title": "Coffee Prices Explode as Trump Pushes Crisis to Boiling Point - The Daily Beast",
-      "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxNMXdSRmlDMng5bm8zbDFjWldMS1hQLUF1QkJJQkpLbXZRTVdUMmFKMFFFLXFNbFF2SHYzdjR6anhyUndFNlB2a1hya1ByNkZNT0ZFb1ZCZVdOblNlQkQzNDJteDZVVHhFblhTQm9DbDVtU1AyMW5HSEdpRFFFVG5uTXJibDA2VnQxUTVxNXFkSDFVTW1Sazhj?oc=5",
+      "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPcW42VC1rZ2tocVVjcEJYYnJuM1lDVWJ6Zzlmc2Z4RHI2ekYwWXhvaUFSelRxMjlDVEd0WGlSUFM3aFR6QnBERnR2M0NlOUxrNVdVV292eWR4eGM3ZkNtUnd1R1NkbkNKUHZzaDFiQXlkWlQxZUU1YUFGX3JtNVktNkV3RGUxcWlGeG05bVc1NUFkay1xY0E?oc=5",
       "publication_date": "2025-09-12",
       "days_before_anomaly": 3,
       "trading_days_before_anomaly": 2,
@@ -3139,30 +3669,30 @@
         "news.google.com"
       ],
       "retrieval_score": 0.1219,
-      "semantic_score": 0.8531050086021423,
+      "semantic_score": 0.8531050682067871,
       "direction_consistency": "neutral",
       "anomaly_query_score": null
     },
     {
-      "document_id": "e006b88d2da950cd",
-      "title": "Black Rock Coffee IPO: everything you need to know - Capital.com",
-      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE5mNWZfbTZ3eFFZdEw1OEV1LU4yLW5JVHhjV3k4cHJJWEdfQTZiV0lheTdSOWdHeDZSZkEzTnJxZm80c0x6THZzVFBycnk0R2VESURjWHFRc3c3NGpzelRWa01nbnRPelVvTnc?oc=5",
-      "publication_date": "2025-09-12",
-      "days_before_anomaly": 3,
-      "trading_days_before_anomaly": 2,
+      "document_id": "68438dcb11401748",
+      "title": "Coffee prices spike more than 20% in latest consumer report - News12 | Hudson Valley",
+      "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxQVS11amRGc2Zzbm9ocFVlQ3M5WXRFWFExSlRncEZWaWkxbTZlcjkyQm12czVrdzREUkRheG4zeU1tNkhEYmJDcDY5RjhZSE8zbnBQcmxkaWViakRVRU1OUFRaOTdJdmpZMFY4U1B4NjVYdFJWOTg2LUVZOThsR3pUYlJjNERxd3pJcS1td0N4UDQwbEVETF9BUy1ZN2hQemE3M1U1OWNEV0pqV1lQX0RNTGtxd3Y5Nmk3VWtib2FWV1lSZw?oc=5",
+      "publication_date": "2025-09-15",
+      "days_before_anomaly": 0,
+      "trading_days_before_anomaly": 1,
       "publication_date_unknown": false,
       "text_chars": 0,
-      "seen_at": "20250912T070000Z",
-      "session_date": "2025-09-11",
-      "market_report_score": 1,
+      "seen_at": "20250915T070000Z",
+      "session_date": "2025-09-14",
+      "market_report_score": 2,
       "found_by": "news feed",
       "passed_gate": false,
       "n_copies": 1,
       "syndication_domains": [
         "news.google.com"
       ],
-      "retrieval_score": 0.1111,
-      "semantic_score": 0.8273837566375732,
+      "retrieval_score": 0.1219,
+      "semantic_score": 0.8322460055351257,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -3185,13 +3715,36 @@
         "news.google.com"
       ],
       "retrieval_score": 0.1111,
-      "semantic_score": 0.812232255935669,
+      "semantic_score": 0.8122323751449585,
+      "direction_consistency": null,
+      "anomaly_query_score": null
+    },
+    {
+      "document_id": "eb91c3b8440b361f",
+      "title": "Ongoing Automation and Robotics Revolution Transforms Packaging - Tea & Coffee Trade Journal",
+      "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxPb2luS0tGNXZ5NGU5cEp5TG9DbDJUY3BkTEZuT1pWLTN6N2dMREVWYjQ4UUE0YTVoZGFvWlBCejNpYk1MQkRXaEwxVmwzUFV2VVB5bC1lVHNLazJDWld6M3JEbzk4ODBlZ0JNbWd2MWdkTVE1Wk53RmpINWcyM2VQZEdkMnpkR0FFX3FhcmRRdVotNkU4MjRtZDlrZnZNVHJxdmVoY2E5NjhZTE0?oc=5",
+      "publication_date": "2025-09-11",
+      "days_before_anomaly": 4,
+      "trading_days_before_anomaly": 3,
+      "publication_date_unknown": false,
+      "text_chars": 0,
+      "seen_at": "20250911T070000Z",
+      "session_date": "2025-09-10",
+      "market_report_score": 1,
+      "found_by": "news feed",
+      "passed_gate": false,
+      "n_copies": 1,
+      "syndication_domains": [
+        "news.google.com"
+      ],
+      "retrieval_score": 0.1111,
+      "semantic_score": 0.8165714740753174,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
     {
       "document_id": "d4d1c0dc43f6e3ec",
-      "title": "Connecting Brazil\u2019s Financial Market to Environmental Violations: The Hidden Impacts of Agribusiness on Indigenous Lands - Global Investigative Journalism Network",
+      "title": "Connecting Brazil\u2019s Financial Market to Environmental Violations: The Hidden Impacts of Agribusiness on Indigenous Lands - Global Investigative Journalism Network (GIJN)",
       "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxNakVqV0V2azNxYTJGVzRHYkRVMElNYUR0a1dCQi1uMWJPaW9CSUVFOGJVLWVSb2Z1czRGek1KZW0xZ09QSFJjbkZTNUZmdF83Q2dqYVJlZWJfbWlEYTRHWjB2VC1ONTJSUGZnbXJCN3NtRnN6SmlPWEZjNHc5WnVYaXdGamx3TlFVdmtQWi1R?oc=5",
       "publication_date": "2025-09-12",
       "days_before_anomaly": 3,
@@ -3208,128 +3761,13 @@
         "news.google.com"
       ],
       "retrieval_score": 0.1111,
-      "semantic_score": 0.8228485584259033,
-      "direction_consistency": null,
-      "anomaly_query_score": null
-    },
-    {
-      "document_id": "3d6b6b87f5f27750",
-      "title": "Coffee Island Makes a Bold Entry into Maharashtra with Dual Launch at Pune - PR Newswire",
-      "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxOQklNRUVQX0NpblVidEo3bzZmSG9lSFgyck5zXzVEMWVKQ2tad1hlT2ctU0o5M0ppclR0bm9BeThqY3BFYnZKbVF5MmFmMXlEcTdReXNQRzdhLTF6cWdjVjB6NXE4bnJDdlpyaFVKWEFnak9neHAyS0JHd2d4NlpxSTd1MGhGdGlnRTY3NGhaQlM4NWk0Tl9wWnk1R2FVb0ZMOVIzbmppX1hPb281cWJzZnllbk1QUXd1d2Z4VkkxMmxtNDFteEJNb01McnZQZw?oc=5",
-      "publication_date": "2025-09-12",
-      "days_before_anomaly": 3,
-      "trading_days_before_anomaly": 2,
-      "publication_date_unknown": false,
-      "text_chars": 0,
-      "seen_at": "20250912T070000Z",
-      "session_date": "2025-09-11",
-      "market_report_score": 1,
-      "found_by": "news feed",
-      "passed_gate": false,
-      "n_copies": 1,
-      "syndication_domains": [
-        "news.google.com"
-      ],
-      "retrieval_score": 0.1111,
-      "semantic_score": 0.8007382154464722,
-      "direction_consistency": null,
-      "anomaly_query_score": null
-    },
-    {
-      "document_id": "0d882ea19cb5b1e9",
-      "title": "Coffee Experts Share Their Favorite Way To Make A Single Cup Of Coffee - huffpost.com",
-      "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxQRGZ5ZG82dFprZUxXZmg5ODkwQnJWVk52Uy0yRWt4b0ExZUxQdTFENEthN2tsbm9LM0UySnVkUm5uSXgzQU9udlU3bzRtZnJpWnJaaE5CTHkyMWd4YVNGam5qX1BWd3pJMWlsa3poZjEyQ2hyejcyTDUtNnN3dWFFTDVTYnpsbS0tSGt6SVEtQWhqem1U0gGaAUFVX3lxTE1jd2lpUjU1X1ZHRUZWTXM1cHZ4dW8zRjFkeHZycWZuVXBlVFJaVmZxVDJEMTJuS2dWdmJmNDJncHNPcFp5OVVVTnhRdFF2NzRQRXRpWmN4d0Q0ZmMxUjZBOGZMWjNKZGNWUVhQV3BEX0dWVzBsS0U3Ukh0RmE5WTdpejFOUGRHNDBfSjdLRmZlbjhyZ3Zia21iN0E?oc=5",
-      "publication_date": "2025-09-15",
-      "days_before_anomaly": 0,
-      "trading_days_before_anomaly": 1,
-      "publication_date_unknown": false,
-      "text_chars": 0,
-      "seen_at": "20250915T070000Z",
-      "session_date": "2025-09-14",
-      "market_report_score": 1,
-      "found_by": "news feed",
-      "passed_gate": false,
-      "n_copies": 1,
-      "syndication_domains": [
-        "news.google.com"
-      ],
-      "retrieval_score": 0.1111,
-      "semantic_score": 0.8105284571647644,
-      "direction_consistency": null,
-      "anomaly_query_score": null
-    },
-    {
-      "document_id": "1bd418698e8af05a",
-      "title": "Black Rock Coffee Bar (BRCB) Shares Jump 34% After $294.1 Million IPO - Bloomberg.com",
-      "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxOMmFLc1JRWDNFcnRXQVg5a2dOR0lfZUFhaHhpYjVueTZvY3FRSFYxanFUVWVkVU45SlU2LURSM0JUVHhmSGh4Wjl2TEpFM0NScnRLSlEtXzl0WXRFRnFpRWVQZGd4QmJMZHZaLWE4Tk5JcjVqOHMwY2JLWkkxQ1ZWYUpPMjBCSTNSdUR6NE41cEtqQkR4N3B1cW9DeWxxRXk5WFdGN0FGTm11czRhN21vVw?oc=5",
-      "publication_date": "2025-09-12",
-      "days_before_anomaly": 3,
-      "trading_days_before_anomaly": 2,
-      "publication_date_unknown": false,
-      "text_chars": 0,
-      "seen_at": "20250912T070000Z",
-      "session_date": "2025-09-11",
-      "market_report_score": 4,
-      "found_by": "news feed",
-      "passed_gate": false,
-      "n_copies": 1,
-      "syndication_domains": [
-        "news.google.com"
-      ],
-      "retrieval_score": 0.1111,
-      "semantic_score": 0.810423731803894,
-      "direction_consistency": null,
-      "anomaly_query_score": null
-    },
-    {
-      "document_id": "22bcb3315ae1a67a",
-      "title": "Costa Rica Coffee Growers Struggle with Exchange Rate Policy Effects - ticotimes.net",
-      "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxOWGdBTGZjOHNOcmRLSHNhM3IzVThHNGtOdG5Gd2pJMFFoM3diX1J4Zmx0UF8wWHAxQnczYWN5T1BRTUJlWG9tLWZaNkM3TEtieXV1WUNRUGY5MEhRb0tfMGZUTW5SLUF4ZFF0b1dDTVoxeExONWRQOWZLeHFBcGJheTBHUFplcWdzYXFJUGhseVpBVTdmTXpYN2gyYW43ZkNKU2Fj?oc=5",
-      "publication_date": "2025-09-05",
-      "days_before_anomaly": 10,
-      "trading_days_before_anomaly": 7,
-      "publication_date_unknown": false,
-      "text_chars": 0,
-      "seen_at": "20250905T070000Z",
-      "session_date": "2025-09-04",
-      "market_report_score": 1,
-      "found_by": "news feed",
-      "passed_gate": true,
-      "n_copies": 1,
-      "syndication_domains": [
-        "news.google.com"
-      ],
-      "retrieval_score": 0.1111,
-      "semantic_score": 0.8531172275543213,
-      "direction_consistency": "neutral",
-      "anomaly_query_score": null
-    },
-    {
-      "document_id": "5716ca9d14ff2df0",
-      "title": "Backers of Coffee Unicorn Kopi Kenangan Said to Mull Stake Sales - Bloomberg.com",
-      "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQS0pkQWFieWdzSDd0Sm5vX2VFZEkwbm5TSE5zRkJnV0RfNDNxaEcyZ0xkVy1rdDBab2R0SmNRd21RNXNNaU5MYV9oaFUxbjltVmxOY3N5all6MWptX1ZVLUdwMTBUdlh2SjhxbEJWZjlQV3pKQWN2WS1wZWpnMzJWQmM4akRZY05fdXVmSHd3amNlNHlYNWZqLVh0SkdCRGZpXzVIQTIzeXlGYUVOS3U5cjZ6LUdzUQ?oc=5",
-      "publication_date": "2025-09-11",
-      "days_before_anomaly": 4,
-      "trading_days_before_anomaly": 3,
-      "publication_date_unknown": false,
-      "text_chars": 0,
-      "seen_at": "20250911T070000Z",
-      "session_date": "2025-09-10",
-      "market_report_score": 1,
-      "found_by": "news feed",
-      "passed_gate": false,
-      "n_copies": 1,
-      "syndication_domains": [
-        "news.google.com"
-      ],
-      "retrieval_score": 0.1111,
-      "semantic_score": 0.826765239238739,
+      "semantic_score": 0.8205677270889282,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
     {
       "document_id": "6a3bf08aba0f50a2",
-      "title": "Ethiopia Coffee, Tea Rules - fsxbusiness.com",
+      "title": "Ethiopia Coffee, Tea Rules - FSX Business",
       "url": "https://news.google.com/rss/articles/CBMiY0FVX3lxTFBZN211Q3ZSRzh6SHVScms3WUI5b2NDLVZxVHA0cEZ5WHdGQk5KMHoyaXh0YVU4S1hLdEF5akw3N3phVUp2Y1dUSzlwTHUtV1N6ajEtOE5fcnRiZXBIQzRjc3llWQ?oc=5",
       "publication_date": "2025-09-13",
       "days_before_anomaly": 2,
@@ -3346,30 +3784,7 @@
         "news.google.com"
       ],
       "retrieval_score": 0.1111,
-      "semantic_score": 0.8380063772201538,
-      "direction_consistency": null,
-      "anomaly_query_score": null
-    },
-    {
-      "document_id": "70aa3670d9efa97a",
-      "title": "Coffee Market Trends: Top 10 Coffee Exporters In India - The Dollar Business",
-      "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxPWjlNWi1PcnVtTlBEYW1MeWpKZHRiR3YyMjBsXzFkdktaVzJ3bE9lTGIxQzE0WUFoVGNkX0hYU2pMNWk5dVNCZEVtZTlZdnRYbU4waUZvU05qX1VaT21UYUZvdFVYMURyMm9fYl9KN3lSdmdSb1JaM040Y21OYWhJV3Q2S29yVW9yNGMzb0YzR2FtN3c1X0Q5Q3dtd0xUcVotU1JsNUNxdzM?oc=5",
-      "publication_date": "2025-09-12",
-      "days_before_anomaly": 3,
-      "trading_days_before_anomaly": 2,
-      "publication_date_unknown": false,
-      "text_chars": 0,
-      "seen_at": "20250912T064437Z",
-      "session_date": "2025-09-11",
-      "market_report_score": 2,
-      "found_by": "news feed",
-      "passed_gate": false,
-      "n_copies": 1,
-      "syndication_domains": [
-        "news.google.com"
-      ],
-      "retrieval_score": 0.1111,
-      "semantic_score": 0.8243807554244995,
+      "semantic_score": 0.8371522426605225,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -3392,53 +3807,7 @@
         "news.google.com"
       ],
       "retrieval_score": 0.1111,
-      "semantic_score": 0.8070863485336304,
-      "direction_consistency": null,
-      "anomaly_query_score": null
-    },
-    {
-      "document_id": "f14b18bdca8c3b9d",
-      "title": "Ethiopian Coffee's Opportunity in China (Arhibu China in Amharic) - Modern Ghana",
-      "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxNeWVxb1pMYUIzSmJUeHNzN3czWk1ka2xSYnFvTEdQeUEtS2l6aDdMMmVOSUFoVlRHRjA5WXVmSHZ5TzFtR3IxY3Z0ZXBNOC12NUpnNU5lb0d4bVdhcFMzd1p0Qy00TTBGRXNRM3R4d05Idi1rbG04WjFvQng3bmRfMWI5QUQyQ0pBYWpDSlJhNHhsV3RjSGfSAZQBQVVfeXFMTVlBRnR4WUxJWUlSZ3Jrd3RlY0t0eEJENnJjN0w0ZG9uMnhFRVotUU5CR01DOFg0OEpYUmE3cWMycTRZUjh3U0RwOENDdWc3OU5DRlVqTmhTcnZxSHNodlZ1VC01bEhqLXBZTjR4WEJsbWxDNXNyUUpGdm5mNUdPa01LNlZqeFJ1TXcyZEllRmwxcjBDVA?oc=5",
-      "publication_date": "2025-09-12",
-      "days_before_anomaly": 3,
-      "trading_days_before_anomaly": 2,
-      "publication_date_unknown": false,
-      "text_chars": 0,
-      "seen_at": "20250912T070000Z",
-      "session_date": "2025-09-11",
-      "market_report_score": 1,
-      "found_by": "news feed",
-      "passed_gate": false,
-      "n_copies": 1,
-      "syndication_domains": [
-        "news.google.com"
-      ],
-      "retrieval_score": 0.1111,
-      "semantic_score": 0.8155766725540161,
-      "direction_consistency": null,
-      "anomaly_query_score": null
-    },
-    {
-      "document_id": "93d66985d106dedc",
-      "title": "DMCC Coffee Centre Expands as Dubai Leads $26B Global Coffee Trade - mediaoffice.ae",
-      "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxNY0NkZTNYSFNQZ3QyNDQxOFE4Q01Qb1ViN1lUang1UFVBTTlVNnBOMS1Cb1FMaEo4aEFDbUVJcWREVjMySWY3M2hFOERBMktWaWkwdzhYWU5oMzROVVp3eWxwTVVpcGJuN3dsX2k3OXM5TzlraFRpdXVfZmdsQjc3UlNTZDJua1BVUndLMjJ6Z0VhUUtqUDd2NXRSTm1vMFBfaTdKdVZWQVpVaFJO?oc=5",
-      "publication_date": "2025-09-15",
-      "days_before_anomaly": 0,
-      "trading_days_before_anomaly": 1,
-      "publication_date_unknown": false,
-      "text_chars": 0,
-      "seen_at": "20250915T070000Z",
-      "session_date": "2025-09-14",
-      "market_report_score": 1,
-      "found_by": "news feed",
-      "passed_gate": false,
-      "n_copies": 1,
-      "syndication_domains": [
-        "news.google.com"
-      ],
-      "retrieval_score": 0.1111,
-      "semantic_score": 0.8261678218841553,
+      "semantic_score": 0.8070864677429199,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -3461,7 +3830,7 @@
         "news.google.com"
       ],
       "retrieval_score": 0.1111,
-      "semantic_score": 0.8503642678260803,
+      "semantic_score": 0.8503643274307251,
       "direction_consistency": "neutral",
       "anomaly_query_score": null
     },
@@ -3484,53 +3853,7 @@
         "news.google.com"
       ],
       "retrieval_score": 0.1111,
-      "semantic_score": 0.8267147541046143,
-      "direction_consistency": null,
-      "anomaly_query_score": null
-    },
-    {
-      "document_id": "a39dada263622af1",
-      "title": "The future is our coffeeBy Sintayehu Girma Aytaged - Capital Newspaper",
-      "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxOVWgxU1diT1hfNnF5OXMtY3VKMW5iZDYwY2ViRlNMQXRQaEdkeXJhVXRYWFUyMGdZZWo1MlQwR0FKZGd6ZS16STRqY0NiMVBwbkJaWVh0NG1lNkNudngtMkhCLVh4SjZQT2NwTWlFaXVuR1plY1l1RjBPaTJiUWJrYy1lQ283XzFJX2Nad0VIbldEcVox?oc=5",
-      "publication_date": "2025-09-14",
-      "days_before_anomaly": 1,
-      "trading_days_before_anomaly": 1,
-      "publication_date_unknown": false,
-      "text_chars": 0,
-      "seen_at": "20250914T070000Z",
-      "session_date": "2025-09-13",
-      "market_report_score": 3,
-      "found_by": "news feed",
-      "passed_gate": false,
-      "n_copies": 1,
-      "syndication_domains": [
-        "news.google.com"
-      ],
-      "retrieval_score": 0.0,
-      "semantic_score": 0.8347001075744629,
-      "direction_consistency": null,
-      "anomaly_query_score": null
-    },
-    {
-      "document_id": "f667ac9abb766a77",
-      "title": "Best cozy coffee shops you need to visit in Calgary this fall - Daily Hive",
-      "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE9wR1FKV1BIZ0JxZURwbWF3RzVwNXk1VXFwcEZyTE5ya1BnMk9HV2ZvelIyOFdKRkxxNU1yczJsN2FXNXpJX0dfY1R3dDd0M3htZ0RSV1pjVFpwU2JLUXV5NGhNZjBzMFNHZS12MA?oc=5",
-      "publication_date": "2025-09-11",
-      "days_before_anomaly": 4,
-      "trading_days_before_anomaly": 3,
-      "publication_date_unknown": false,
-      "text_chars": 0,
-      "seen_at": "20250911T070000Z",
-      "session_date": "2025-09-10",
-      "market_report_score": 2,
-      "found_by": "news feed",
-      "passed_gate": false,
-      "n_copies": 1,
-      "syndication_domains": [
-        "news.google.com"
-      ],
-      "retrieval_score": 0.1111,
-      "semantic_score": 0.8011385202407837,
+      "semantic_score": 0.8267148733139038,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -3554,6 +3877,75 @@
       ],
       "retrieval_score": 0.1111,
       "semantic_score": 0.8057011365890503,
+      "direction_consistency": null,
+      "anomaly_query_score": null
+    },
+    {
+      "document_id": "e006b88d2da950cd",
+      "title": "Black Rock Coffee IPO: everything you need to know - Capital.com",
+      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE5mNWZfbTZ3eFFZdEw1OEV1LU4yLW5JVHhjV3k4cHJJWEdfQTZiV0lheTdSOWdHeDZSZkEzTnJxZm80c0x6THZzVFBycnk0R2VESURjWHFRc3c3NGpzelRWa01nbnRPelVvTnc?oc=5",
+      "publication_date": "2025-09-12",
+      "days_before_anomaly": 3,
+      "trading_days_before_anomaly": 2,
+      "publication_date_unknown": false,
+      "text_chars": 0,
+      "seen_at": "20250912T070000Z",
+      "session_date": "2025-09-11",
+      "market_report_score": 1,
+      "found_by": "news feed",
+      "passed_gate": false,
+      "n_copies": 1,
+      "syndication_domains": [
+        "news.google.com"
+      ],
+      "retrieval_score": 0.1111,
+      "semantic_score": 0.8273838758468628,
+      "direction_consistency": null,
+      "anomaly_query_score": null
+    },
+    {
+      "document_id": "9209f1739e22eb55",
+      "title": "11 of the best cozy coffee shops you need to visit in Calgary this fall - Daily Hive",
+      "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE8wRUVRTHlkOWZ1NklyY2p2OWo4VDZuTFhwT04zZG40bnN0LUQ0QUlZSlZjMXpVLWZ5X0NHblIwcGlMZ3ZXYmZmQjMyMkFxNmNGSE44OGFtaXkwQTNfNnJ5dUVWbU80TmFRWDBr?oc=5",
+      "publication_date": "2025-09-11",
+      "days_before_anomaly": 4,
+      "trading_days_before_anomaly": 2,
+      "publication_date_unknown": false,
+      "text_chars": 0,
+      "seen_at": "20250911T213950Z",
+      "session_date": "2025-09-11",
+      "market_report_score": 2,
+      "found_by": "news feed",
+      "passed_gate": false,
+      "n_copies": 1,
+      "syndication_domains": [
+        "news.google.com"
+      ],
+      "retrieval_score": 0.1111,
+      "semantic_score": 0.8015623092651367,
+      "direction_consistency": null,
+      "anomaly_query_score": null
+    },
+    {
+      "document_id": "70aa3670d9efa97a",
+      "title": "Coffee Market Trends: Top 10 Coffee Exporters In India - The Dollar Business",
+      "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxPWjlNWi1PcnVtTlBEYW1MeWpKZHRiR3YyMjBsXzFkdktaVzJ3bE9lTGIxQzE0WUFoVGNkX0hYU2pMNWk5dVNCZEVtZTlZdnRYbU4waUZvU05qX1VaT21UYUZvdFVYMURyMm9fYl9KN3lSdmdSb1JaM040Y21OYWhJV3Q2S29yVW9yNGMzb0YzR2FtN3c1X0Q5Q3dtd0xUcVotU1JsNUNxdzM?oc=5",
+      "publication_date": "2025-09-12",
+      "days_before_anomaly": 3,
+      "trading_days_before_anomaly": 2,
+      "publication_date_unknown": false,
+      "text_chars": 0,
+      "seen_at": "20250912T064437Z",
+      "session_date": "2025-09-11",
+      "market_report_score": 2,
+      "found_by": "news feed",
+      "passed_gate": false,
+      "n_copies": 1,
+      "syndication_domains": [
+        "news.google.com"
+      ],
+      "retrieval_score": 0.1111,
+      "semantic_score": 0.8243808746337891,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -3599,21 +3991,21 @@
         "news.google.com"
       ],
       "retrieval_score": 0.1111,
-      "semantic_score": 0.8258112668991089,
+      "semantic_score": 0.8258113265037537,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
     {
-      "document_id": "e9254e35b5e93c9a",
-      "title": "Egyptians cut back on expenses, but not on their coffee - en.majalla.com",
-      "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxQRjBVSFdReXVDd0pyd0NvQ0NwUVloNHUwbHVsZktTSGlLMVRYaGFKakdyV2hzUUVINjI0ZVZ6TDBsdWRoXzZfVnN4aEpnN2tLaHB1NGpIb01BTWVNd3RsUEM1NUVTcFQ2V1VOcFJqbjFseUFGZ2d1RUE2dGJ0UXhkRnl5aUQ5VzRCYU5sMGNEbVBMS1ZqWG1VM0hQY00?oc=5",
-      "publication_date": "2025-09-15",
-      "days_before_anomaly": 0,
-      "trading_days_before_anomaly": 1,
+      "document_id": "04c7dbc438dacb59",
+      "title": "Commitment to coffee remains strong among Americans - Beverage Industry",
+      "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxQaUFneGV3RzZWZnliUl9mQjNZeXpuVXhMeU5KVUdhdnp3QVZDdnNyYTcwVVU2WVNHYjlYdm9uYU5NQUYxcTdkN21jakFUOWpOaEJPSmFSNUEyODNoN1NmREpJVGtSdm1QNmpuNUxoSm42dlJXazJGTlRFLUtIRjVDY0xxWE1GaXVaRFNGVlVGMVBxWExiNGJwSnh3?oc=5",
+      "publication_date": "2025-09-12",
+      "days_before_anomaly": 3,
+      "trading_days_before_anomaly": 2,
       "publication_date_unknown": false,
       "text_chars": 0,
-      "seen_at": "20250915T070000Z",
-      "session_date": "2025-09-14",
+      "seen_at": "20250912T070000Z",
+      "session_date": "2025-09-11",
       "market_report_score": 1,
       "found_by": "news feed",
       "passed_gate": false,
@@ -3622,7 +4014,7 @@
         "news.google.com"
       ],
       "retrieval_score": 0.1111,
-      "semantic_score": 0.8044800162315369,
+      "semantic_score": 0.8005636930465698,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -3645,7 +4037,7 @@
         "news.google.com"
       ],
       "retrieval_score": 0.1111,
-      "semantic_score": 0.8149600028991699,
+      "semantic_score": 0.8149601221084595,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -3668,7 +4060,7 @@
         "news.google.com"
       ],
       "retrieval_score": 0.1111,
-      "semantic_score": 0.83219975233078,
+      "semantic_score": 0.8321998119354248,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
@@ -3691,13 +4083,13 @@
         "news.google.com"
       ],
       "retrieval_score": 0.1111,
-      "semantic_score": 0.8267713189125061,
+      "semantic_score": 0.8267713785171509,
       "direction_consistency": null,
       "anomaly_query_score": null
     },
     {
       "document_id": "b279591f0288a44f",
-      "title": "Starbucks Gets Behind \u2018Proffee\u2019 Craze - foodinstitute.com",
+      "title": "Starbucks Gets Behind \u2018Proffee\u2019 Craze - The Food Institute",
       "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE14WGJIaXN1ckstRDU4N2QyZEItWXNxWFZSSDlpWnpmalRocHU4Tkk3MVZyd0NuUFN1OG5oLWtaYk9jXzROTFNCTTFicUlod18ydEJzN1NZc1FQdkc4cWRjd0llY2x6ZmJ1RDI5ZVBwOGdNcW0tNFZr?oc=5",
       "publication_date": "2025-09-15",
       "days_before_anomaly": 0,
@@ -3714,61 +4106,193 @@
         "news.google.com"
       ],
       "retrieval_score": 0.0,
-      "semantic_score": 0.8221467733383179,
+      "semantic_score": 0.8254246115684509,
+      "direction_consistency": null,
+      "anomaly_query_score": null
+    },
+    {
+      "document_id": "f14b18bdca8c3b9d",
+      "title": "Ethiopian Coffee's Opportunity in China (Arhibu China in Amharic) - Modern Ghana",
+      "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxNeWVxb1pMYUIzSmJUeHNzN3czWk1ka2xSYnFvTEdQeUEtS2l6aDdMMmVOSUFoVlRHRjA5WXVmSHZ5TzFtR3IxY3Z0ZXBNOC12NUpnNU5lb0d4bVdhcFMzd1p0Qy00TTBGRXNRM3R4d05Idi1rbG04WjFvQng3bmRfMWI5QUQyQ0pBYWpDSlJhNHhsV3RjSGfSAZQBQVVfeXFMTVlBRnR4WUxJWUlSZ3Jrd3RlY0t0eEJENnJjN0w0ZG9uMnhFRVotUU5CR01DOFg0OEpYUmE3cWMycTRZUjh3U0RwOENDdWc3OU5DRlVqTmhTcnZxSHNodlZ1VC01bEhqLXBZTjR4WEJsbWxDNXNyUUpGdm5mNUdPa01LNlZqeFJ1TXcyZEllRmwxcjBDVA?oc=5",
+      "publication_date": "2025-09-12",
+      "days_before_anomaly": 3,
+      "trading_days_before_anomaly": 2,
+      "publication_date_unknown": false,
+      "text_chars": 0,
+      "seen_at": "20250912T070000Z",
+      "session_date": "2025-09-11",
+      "market_report_score": 1,
+      "found_by": "news feed",
+      "passed_gate": false,
+      "n_copies": 1,
+      "syndication_domains": [
+        "news.google.com"
+      ],
+      "retrieval_score": 0.1111,
+      "semantic_score": 0.8155766725540161,
+      "direction_consistency": null,
+      "anomaly_query_score": null
+    },
+    {
+      "document_id": "b52f30959ca75a52",
+      "title": "United Food Group develops solution for high-volume coffee catering - Vending Times",
+      "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxNUEhzQ20wbEtXbkt0d1lTODRoSG9JNHA1bWZnNmJMMlNmSXBsWmpYVDdrSEVfeWFyVDVPR1IxSkE0aXV5d3JtcU5mQVZkaGgzaTVYWUZTekhkcU5ITE9EVlk2T21ONlNRdVAxMnByLTdQNzdsSDFEZXFoeHVxOHcxRjk4ZGs0Nm9OUE4yWlhXcTJ6UTBIRmJpRHgtNjNzcGVjQ1ZyMw?oc=5",
+      "publication_date": "2025-09-12",
+      "days_before_anomaly": 3,
+      "trading_days_before_anomaly": 2,
+      "publication_date_unknown": false,
+      "text_chars": 0,
+      "seen_at": "20250912T070000Z",
+      "session_date": "2025-09-11",
+      "market_report_score": 2,
+      "found_by": "news feed",
+      "passed_gate": false,
+      "n_copies": 1,
+      "syndication_domains": [
+        "news.google.com"
+      ],
+      "retrieval_score": 0.1111,
+      "semantic_score": 0.8150492310523987,
+      "direction_consistency": null,
+      "anomaly_query_score": null
+    },
+    {
+      "document_id": "45fbd843e62840fc",
+      "title": "\ud835\udc05\ud835\udc1a\ud835\udc2b\ud835\udc26\ud835\udc1e\ud835\udc2b\ud835\udc2c \ud835\udc1e\ud835\udc1a\ud835\udc2b\ud835\udc27 \ud835\udc12\ud835\udc21\ud835\udfd6\ud835\udfd2\ud835\udfd5 \ud835\udc26\ud835\udc22\ud835\udc25\ud835\udc25\ud835\udc22\ud835\udc28\ud835\udc27 \ud835\udc1f\ud835\udc2b\ud835\udc28\ud835\udc26 \ud835\udc1c\ud835\udc28\ud835\udc1f\ud835\udc1f\ud835\udc1e\ud835\udc1e \ud835\udc1a\ud835\udc2e\ud835\udc1c\ud835\udc2d\ud835\udc22\ud835\udc28\ud835\udc27 Trading at the Nairobi Coffee Exchange (NCE) this week remained strong with 12, 762 bags of coffee fetching Sh847 million. In the weekly auction conducted at Ukulima House, Nairobi, the - Facebook",
+      "url": "https://news.google.com/rss/articles/CBMiqAZBVV95cUxQTUxrWEhSU2JaOTR1UWxTYmhMaHB5MjNkX0hzSUJWaHEtSWROeE11ZkZqMW11UDE2b1pYX0RMM213akhMSjh2eWh0dHpaRnNqR1daU0tfdzhleWFtSlNsNm1PNjY5Mlo4dU42ajhSUzNQVFZtS2pBR1p5UFZtWVNxUHZ3RVRVc2RFT1M5MEMtTE9DSXpsUURXMjQ5OEhBaVRmMXkya0tzOTlTVjdpWFV5Uk5uWkJSck5ERWt0cVBpcDRldEJGSld2SVFLWkkzLVZDYnY2OXdicjVueDMtV0ZaakhtRWl3Nkk1WmhLblBkMHZuci1Vc1I2VHBOTjJWMlI2ZFhCT05NSVNSa1R4cXQwOE4yS3Bzc3lSU1ZndEZJOHdxVWw4ZHN0SDBsRW10Wk1HNGdReVdkc3RQTEh4UWhjVlRRUmxpVWVyRF92SElJTFNFQ3JxNEg3NnotSEFnUjZHdk9kaGZrU0ljZUFZMTVfU0Q3TnZwR1pxNFpyZkJiZXlUVVJkc1l1R3dXaWtrUXg0N1hpc05ockxPVW85aGN4VzUyeDNsMzhvRmxxS0hHck9MbTdvVW9DTjc5bl9CSGpJSEZ2cGphUks0eXBfWVBlbEZTelRsekdtWENNX1ZjLTNSVm9xUEtmUnVocVA3MVRDUGxrMmpXZGRqVkhPLWJkMklXSFVUdm5fNllNTHNXenp4NFM3dDRCNlhMNFFhQy1Dc3NKMVJFTXh0NVhTdmFsUkUxX2wyREVJYzl6RVV0bEhMNkx4ekd1UVY3RjdkblVMU21wUVh4SGpIbmhPYWl5RDFSRGJlbE5BOW1GSHZNNk1ZMVBaVzRoSFpxUWxFOWdEMUZybkktLTkwUUhhbmpVZFRMRDQzUTdRS2JNUW9vcTFOc2IzaV96UU83RnRLY0RIN1ZuNUlybVd4THlNLW9iSDNydGkwRzhoVTVyemJQMXU4bEJoa0pKNEVJaHhJa1RRZHo3WmlvYzU3R0loZWVRcTRfNGh3ZXJ2b0N1WWhrNDVJU2wxQXhUNWY2VW9sVGw4VVRuclVxWFloTkpucFZ1Zkt3dWR2RWFW?oc=5",
+      "publication_date": "2025-09-12",
+      "days_before_anomaly": 3,
+      "trading_days_before_anomaly": 2,
+      "publication_date_unknown": false,
+      "text_chars": 0,
+      "seen_at": "20250912T070000Z",
+      "session_date": "2025-09-11",
+      "market_report_score": 1,
+      "found_by": "news feed",
+      "passed_gate": false,
+      "n_copies": 1,
+      "syndication_domains": [
+        "news.google.com"
+      ],
+      "retrieval_score": 0.1111,
+      "semantic_score": 0.8072882890701294,
+      "direction_consistency": null,
+      "anomaly_query_score": null
+    },
+    {
+      "document_id": "1f9cd5049981c9f9",
+      "title": "Brazil coffee exports surge globally \u2013 except for US - Global Coffee Report",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTFBaTjZnN1RTVjNjaGpuOFA1UG55WDhXbDNTTUZlbnF5T0lfSGZyWXFWWlRSbnBFVWVGcXB2MHJNckZNLUlfMk1qWG56OG1kd2J3NkFfVXJOM1V2ZkdEYTZacVJKMlAxUDcyWmZkaFItTGNweVhtTUtRWFhmTGhDaVk?oc=5",
+      "publication_date": "2025-09-12",
+      "days_before_anomaly": 3,
+      "trading_days_before_anomaly": 2,
+      "publication_date_unknown": false,
+      "text_chars": 0,
+      "seen_at": "20250912T070000Z",
+      "session_date": "2025-09-11",
+      "market_report_score": 3,
+      "found_by": "news feed",
+      "passed_gate": false,
+      "n_copies": 1,
+      "syndication_domains": [
+        "news.google.com"
+      ],
+      "retrieval_score": 0.233,
+      "semantic_score": 0.8498695492744446,
       "direction_consistency": null,
       "anomaly_query_score": null
     }
   ],
   "decision_mode": "blind",
   "direction_summary": {
-    "consistent": 1,
+    "consistent": 2,
     "inconsistent": 0,
-    "neutral": 10
+    "neutral": 9
   },
   "direction_summary_wordlist": {
-    "consistent": 10,
-    "neutral": 7,
+    "consistent": 12,
+    "neutral": 5,
     "inconsistent": 3
   },
   "guard_rule": null,
   "evidence_recency": {
     "n_dated": 20,
-    "n_fresh": 12,
+    "n_fresh": 14,
     "fresh_within_days": 2,
     "newest_days_before": 0,
-    "median_days_before": 1.5
+    "median_days_before": 1.0
   },
   "explanation_result": {
     "decision": "EXPLAINED",
-    "explanation": "The +5.3% day-over-day move (z-score 2.14) on 2025-09-15 is matched by 1 report published that day that gives a reason for prices rising: low stocks and climate concerns (source: 69d600ac6eb72dbd).",
+    "explanation": "+5.3% day-over-day move (z-score 2.14) on 2025-09-15. Reasons given by 2 reports from that day:\n- \"Caf\u00e9 opera em alta na bolsa de Nova York atento ao clima no Brasil\" (globorural.globo.com, 2025-09-15). Reported move: up 3.38%. Reason: lack of rains in Brazil's coffee producing regions. Quote: \"a falta de chuvas nas regi\u00f5es produtoras de caf\u00e9 do Brasil\" (source: f4b2fe068ce6b32c)\n- \"Peabirus : Caf\u00e9 tem alta de mais de 3 % com estoques baixos e preocupaes clim\u00e1ticas\" (redepeabirus.com.br, 2025-09-15). Reported move: up, size not stated. Reason: low stocks and climate concerns. Quote: \"Caf\u00e9 tem alta de mais de 3% com estoques baixos e preocupa\u00e7\u00f5es clim\u00e1ticas\" (source: 69d600ac6eb72dbd)",
     "citations": [
       {
+        "document_id": "f4b2fe068ce6b32c",
+        "title": "Caf\u00e9 opera em alta na bolsa de Nova York atento ao clima no Brasil",
+        "outlet": "globorural.globo.com",
+        "url": "https://globorural.globo.com/cotacoes/noticia/2025/09/cafe-opera-em-alta-na-bolsa-de-nova-york-atento-ao-clima-no-brasil.ghtml",
+        "publication_date": "2025-09-15",
+        "reported_move": "up 3.38%",
+        "supports": "lack of rains in Brazil's coffee producing regions",
+        "quote": "a falta de chuvas nas regi\u00f5es produtoras de caf\u00e9 do Brasil"
+      },
+      {
         "document_id": "69d600ac6eb72dbd",
+        "title": "Peabirus : Caf\u00e9 tem alta de mais de 3 % com estoques baixos e preocupaes clim\u00e1ticas",
+        "outlet": "redepeabirus.com.br",
+        "url": "http://www.redepeabirus.com.br/redes/form/post?topico_id=120158",
+        "publication_date": "2025-09-15",
+        "reported_move": "up, size not stated",
         "supports": "low stocks and climate concerns",
         "quote": "Caf\u00e9 tem alta de mais de 3% com estoques baixos e preocupa\u00e7\u00f5es clim\u00e1ticas"
       }
     ],
-    "confidence": "medium",
+    "confidence": "high",
     "reason": null,
     "blind_evidence": {
       "rule": "freshest",
       "variants": [
-        "current_moves"
+        "current_moves",
+        "this_market",
+        "event_reasons",
+        "sized_support"
       ],
       "fresh_trading_days": 2,
       "max_age_trading_days": 3,
-      "n_recent_documents": 152,
+      "n_recent_documents": 175,
       "readings": [
         {
-          "document_id": "e89058580ff7d343",
+          "document_id": "f4b2fe068ce6b32c",
           "trading_days_before": 0,
           "price_move": "up",
-          "pressure": "none",
+          "pressure": "up",
           "direction": "up",
           "kind": "report",
           "when": "same_day",
-          "move_pct": 21.0,
+          "move_pct": 3.38,
+          "move_size": "large",
+          "this_market": true,
+          "cause": "lack of rains in Brazil's coffee producing regions",
+          "cause_type": "event",
+          "quote": "a falta de chuvas nas regi\u00f5es produtoras de caf\u00e9 do Brasil",
+          "quote_found": true,
+          "read": true,
+          "passed_gate": false,
+          "seen_before_open": false
+        },
+        {
+          "document_id": "e89058580ff7d343",
+          "trading_days_before": 0,
+          "price_move": "none",
+          "pressure": "none",
+          "direction": null,
+          "kind": null,
+          "when": "unclear",
+          "move_pct": null,
+          "move_size": "unstated",
+          "this_market": false,
           "cause": null,
+          "cause_type": null,
           "quote": null,
           "quote_found": false,
           "read": true,
@@ -3778,13 +4302,16 @@
         {
           "document_id": "00a66faabb793a3f",
           "trading_days_before": 0,
-          "price_move": "down",
+          "price_move": "none",
           "pressure": "none",
-          "direction": "down",
-          "kind": "report",
-          "when": "same_day",
+          "direction": null,
+          "kind": null,
+          "when": "unclear",
           "move_pct": null,
+          "move_size": "unstated",
+          "this_market": false,
           "cause": null,
+          "cause_type": null,
           "quote": null,
           "quote_found": false,
           "read": true,
@@ -3794,15 +4321,18 @@
         {
           "document_id": "e4f3566f8706d5ce",
           "trading_days_before": 0,
-          "price_move": "up",
-          "pressure": "up",
-          "direction": "up",
-          "kind": "report",
-          "when": "earlier",
-          "move_pct": 21.0,
-          "cause": "new tax policy of President Donald Trump",
-          "quote": "ch\u00ednh s\u00e1ch thu\u1ebf m\u1edbi c\u1ee7a T\u1ed5ng th\u1ed1ng Donald Trump \u0111\u00e3 nhanh ch\u00f3ng t\u00e1c \u0111\u1ed9ng \u0111\u1ebfn gi\u00e1 b\u00e1n l\u1ebb.",
-          "quote_found": true,
+          "price_move": "none",
+          "pressure": "none",
+          "direction": null,
+          "kind": null,
+          "when": "unclear",
+          "move_pct": null,
+          "move_size": "unstated",
+          "this_market": false,
+          "cause": null,
+          "cause_type": null,
+          "quote": null,
+          "quote_found": false,
           "read": true,
           "passed_gate": false,
           "seen_before_open": false
@@ -3816,11 +4346,33 @@
           "kind": "report",
           "when": "same_day",
           "move_pct": null,
+          "move_size": "large",
+          "this_market": true,
           "cause": "low stocks and climate concerns",
+          "cause_type": "event",
           "quote": "Caf\u00e9 tem alta de mais de 3% com estoques baixos e preocupa\u00e7\u00f5es clim\u00e1ticas",
           "quote_found": true,
           "read": true,
           "passed_gate": true,
+          "seen_before_open": false
+        },
+        {
+          "document_id": "6ca5269faafab4bb",
+          "trading_days_before": 0,
+          "price_move": "none",
+          "pressure": "none",
+          "direction": null,
+          "kind": null,
+          "when": "unclear",
+          "move_pct": null,
+          "move_size": "unstated",
+          "this_market": false,
+          "cause": null,
+          "cause_type": null,
+          "quote": null,
+          "quote_found": false,
+          "read": true,
+          "passed_gate": false,
           "seen_before_open": false
         },
         {
@@ -3832,8 +4384,11 @@
           "kind": "report",
           "when": "same_day",
           "move_pct": 2.78,
-          "cause": "lack of rain in Brazil's coffee regions",
-          "quote": "falta de chuvas nas regi\u00f5es produtoras de caf\u00e9 do Brasil",
+          "move_size": "large",
+          "this_market": true,
+          "cause": "lack of rain in Brazil's coffee regions and real appreciation",
+          "cause_type": "event",
+          "quote": "devido \u00e0 falta de chuvas nas regi\u00f5es produtoras de caf\u00e9 do Brasil, antes do in\u00edcio da flora\u00e7\u00e3o dos cafeeiros.",
           "quote_found": true,
           "read": true,
           "passed_gate": false,
@@ -3846,10 +4401,13 @@
           "pressure": "up",
           "direction": "up",
           "kind": "report",
-          "when": "same_day",
+          "when": "previous_day",
           "move_pct": 2.78,
-          "cause": "lack of rain in Brazil's coffee regions",
-          "quote": "impulsionado pela falta de chuvas nas regi\u00f5es produtoras do Brasil",
+          "move_size": "large",
+          "this_market": true,
+          "cause": "lack of rain in Brazil's coffee producing regions",
+          "cause_type": "event",
+          "quote": "impulsado pela falta de chuvas nas regi\u00f5es produtoras do Brasil, afetando a pr\u00f3xima flora\u00e7\u00e3o dos cafezais.",
           "quote_found": true,
           "read": true,
           "passed_gate": false,
@@ -3858,50 +4416,21 @@
         {
           "document_id": "106633c8c76eaede",
           "trading_days_before": 1,
-          "price_move": "up",
-          "pressure": "up",
-          "direction": "up",
-          "kind": "report",
-          "when": "earlier",
-          "move_pct": 20.9,
-          "cause": "tariffs",
-          "quote": "Los precios del caf\u00e9 en Estados Unidos suben 20, 9 % por los aranceles",
-          "quote_found": true,
+          "price_move": "none",
+          "pressure": "none",
+          "direction": null,
+          "kind": null,
+          "when": "unclear",
+          "move_pct": null,
+          "move_size": "unstated",
+          "this_market": false,
+          "cause": null,
+          "cause_type": null,
+          "quote": null,
+          "quote_found": false,
           "read": true,
           "passed_gate": false,
           "seen_before_open": true
-        },
-        {
-          "document_id": "01ab1cccfd0a4d5c",
-          "trading_days_before": 1,
-          "price_move": "none",
-          "pressure": "none",
-          "direction": null,
-          "kind": null,
-          "when": "unclear",
-          "move_pct": null,
-          "cause": null,
-          "quote": null,
-          "quote_found": false,
-          "read": false,
-          "passed_gate": true,
-          "seen_before_open": false
-        },
-        {
-          "document_id": "4712525a08be8d00",
-          "trading_days_before": 1,
-          "price_move": "none",
-          "pressure": "none",
-          "direction": null,
-          "kind": null,
-          "when": "unclear",
-          "move_pct": null,
-          "cause": null,
-          "quote": null,
-          "quote_found": false,
-          "read": false,
-          "passed_gate": false,
-          "seen_before_open": false
         },
         {
           "document_id": "bf666050cfe98a45",
@@ -3912,10 +4441,13 @@
           "kind": null,
           "when": "unclear",
           "move_pct": null,
+          "move_size": "unstated",
+          "this_market": false,
           "cause": null,
+          "cause_type": null,
           "quote": null,
           "quote_found": false,
-          "read": false,
+          "read": true,
           "passed_gate": true,
           "seen_before_open": false
         },
@@ -3928,10 +4460,13 @@
           "kind": null,
           "when": "unclear",
           "move_pct": null,
+          "move_size": "unstated",
+          "this_market": false,
           "cause": null,
+          "cause_type": null,
           "quote": null,
           "quote_found": false,
-          "read": false,
+          "read": true,
           "passed_gate": true,
           "seen_before_open": false
         }
@@ -3939,24 +4474,26 @@
       "deciding_age": 0,
       "deciding_kind": "report",
       "supporting": [
+        "f4b2fe068ce6b32c",
         "69d600ac6eb72dbd"
       ],
-      "opposing": []
+      "opposing": [],
+      "set_aside": []
     },
     "model_used": "openai/gpt-oss-120b",
     "provider": "groq",
-    "prompt_version": "blind-v3",
-    "latency_ms": 7799,
+    "prompt_version": "blind-v4",
+    "latency_ms": 7842,
     "evidence_document_ids": [
+      "f4b2fe068ce6b32c",
       "e89058580ff7d343",
       "00a66faabb793a3f",
       "e4f3566f8706d5ce",
       "69d600ac6eb72dbd",
+      "6ca5269faafab4bb",
       "c71952ee810aefe5",
       "de29f428a865ad46",
       "106633c8c76eaede",
-      "01ab1cccfd0a4d5c",
-      "4712525a08be8d00",
       "bf666050cfe98a45",
       "f09e0d16208b39a4"
     ],
@@ -3964,27 +4501,51 @@
       "n_input": 12,
       "n_packed": 11,
       "excerpt_chars": 600,
-      "estimated_tokens": 2875,
-      "max_tokens": 3158,
+      "estimated_tokens": 2903,
+      "max_tokens": 2905,
       "dropped_document_ids": [
-        "56944df4f829e430"
+        "dd7346334cdaccb3"
       ],
       "truncated": true
+    },
+    "reading_calls": {
+      "unread_after_first_answer": 5,
+      "output_tokens": 3000,
+      "output_limit": 3000,
+      "follow_ups": [
+        {
+          "documents": 5,
+          "read": 5
+        }
+      ],
+      "unread_at_the_end": 0
     }
   },
   "faithfulness_report": {
-    "n_citations": 1,
+    "n_citations": 2,
     "n_ok": 1,
     "n_weak_support": 0,
-    "n_low_rank": 0,
+    "n_low_rank": 1,
     "n_missing_document": 0,
     "unresolved_inline_source_ids": [],
     "citations_resolve": true,
     "per_citation": [
       {
+        "document_id": "f4b2fe068ce6b32c",
+        "id_found": true,
+        "support_score": 0.811,
+        "support_method": "semantic",
+        "shared_numbers": [],
+        "flag": "low_rank",
+        "support_rank": 6,
+        "support_rank_of": 11,
+        "support_rank_method": "semantic",
+        "closest_document_id": "69d600ac6eb72dbd"
+      },
+      {
         "document_id": "69d600ac6eb72dbd",
         "id_found": true,
-        "support_score": 0.833,
+        "support_score": 0.834,
         "support_method": "semantic",
         "shared_numbers": [],
         "flag": "ok",

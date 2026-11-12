@@ -1,0 +1,69 @@
+{
+  "pipeline_version": "11",
+  "anomaly": {
+    "date": "2026-02-17",
+    "price": 284.6000061035156,
+    "z_score": -2.250516413070415,
+    "anomaly_flag": true,
+    "anomaly_type": "shock",
+    "pct_move": -5.149135916683805,
+    "cumulative_pct_move": -14.59864783090303,
+    "cumulative_z_score": -1.6535006225073174,
+    "direction": "down"
+  },
+  "price_description": "-5.1% day-over-day move (z-score -2.25)",
+  "outcome": {
+    "tier": "RETRIEVAL_FAILED",
+    "label": "Could not retrieve evidence (retrieval outage)",
+    "headline": "Evidence could not be retrieved - the news source did not respond.",
+    "detail": "Every news query failed to return (3 of 3 live attempts errored, no cached or fallback articles were available). This is a retrieval outage, not a refusal: the system had nothing to evaluate. It says nothing about whether news for this date exists.",
+    "is_refusal": false,
+    "is_fault": true
+  },
+  "retrieval_meta": {
+    "queries_attempted": 3,
+    "network_attempts": 3,
+    "network_failures": 3,
+    "network_successes": 0,
+    "cache_hits": 0,
+    "reused_cache_hits": 0,
+    "fallback_added": 0,
+    "documents_returned": 0,
+    "dropped_out_of_window": 0,
+    "collapsed_duplicates": 0,
+    "retrieval_ran": false
+  },
+  "gate_result": {
+    "decision": "INSUFFICIENT_EVIDENCE",
+    "reason": "no_documents_retrieved",
+    "best_score": 0.0,
+    "accepted_document_count": 0,
+    "accepted_document_ids": [],
+    "total_documents_considered": 0,
+    "keyword_threshold_used": 0.4,
+    "semantic_threshold_used": 0.85,
+    "evaluated_at_utc": "2026-10-27T07:42:55.796202+00:00"
+  },
+  "documents_retrieved": 0,
+  "documents_retrieved_recent": 0,
+  "sources": [],
+  "decision_mode": "blind",
+  "direction_summary": {},
+  "direction_summary_wordlist": {},
+  "guard_rule": null,
+  "evidence_recency": {
+    "n_dated": 0,
+    "n_fresh": 0,
+    "fresh_within_days": 2,
+    "newest_days_before": null,
+    "median_days_before": null
+  },
+  "explanation_result": {
+    "decision": "INSUFFICIENT_EVIDENCE",
+    "explanation": null,
+    "citations": [],
+    "confidence": null,
+    "reason": "gate_rejected: no_documents_retrieved"
+  },
+  "faithfulness_report": null
+}
