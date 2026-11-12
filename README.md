@@ -293,6 +293,17 @@ results/                      pipeline outputs and evaluation reports
 
 ## Limits
 
+- **Sugar, 2023 India export curbs: missed by the detector (0 of 20 days flagged).** The window
+  (16 Oct - 10 Nov 2023) was set from the dates of the news coverage: India's indefinite extension of
+  export curbs on 18 October and the 12-year high on 7 November. In the price series, that window is a
+  plateau: sugar traded between 26.75 and 27.95 US cents/lb, with no daily |z| above 1.6 and no 10-day
+  |z| above 1.2. The large move came earlier: sugar rose about 14% between 22 August and 5 September
+  2023, starting the day Reuters reported that India was considering an export ban, and the detector
+  flagged it on 5-7 September through the 10-day cumulative check (z = 2.76, 2.28, 2.14). The miss
+  reflects a window chosen from headline dates rather than from price behaviour. The window was not
+  moved after this result, because that would fit the test to the outcome. Future event windows should
+  be chosen from the market reports describing the move, before the detector is run.
+
 - **Sample size.** 18 dates have been run under version 9; 16 are graded and none of them is a should-refuse date. The refusal test is a dozen quiet days. The 94-date set in `data/eval/eval_dates.csv` has been run in full only under version 3. No rate here can be quoted without its interval.
 - **The refusal claim failed its first test, and the fix is unmeasured.** Version 10 explained 5 of 12 invented moves. Version 11's rule was built on those days and has not been run on the labelled dates or on other quiet days; on stored readings it costs up to five of the twelve real explanations.
 - **Version 9's score is in-sample.** Version 9 was designed on the 16 dates it scores 12 of 16 on. The 24 dates in `data/labeling/dates_to_label.csv` are the held-out test, and their proposed labels have not been checked. Versions 10 and 11 have not been run on the labelled dates. Outputs carry a `pipeline_version`; the metrics report warns when versions are mixed.
