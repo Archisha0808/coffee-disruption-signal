@@ -210,6 +210,8 @@ python -m scripts.calibrate_thresholds               # results/relevance_gate_ca
 python -m scripts.evaluate_retrieval                 # results/retrieval_evaluation.md
 python -m scripts.ops_report                         # results/ops_report.md
 python -m scripts.evaluate_detector --all            # results/detector_evaluation.md
+python -m scripts.multi_commodity_report             # results/multi_commodity_report.md
+python -m src.analysis.inflation                     # results/inflation_comparison.md
 
 # Needs the embedding model
 python -m src.evaluation.ablation_study              # results/ablation_study_report.md
@@ -227,6 +229,33 @@ python -m scripts.collect_labeling_set --n 200       # then label, then calibrat
 ```
 
 `python -m scripts.run_all_evaluations` runs the offline set in order; add `--live` for the rest.
+
+## Five commodities
+
+Coffee is the reference commodity: the only one with a labelled answer key and
+an evaluated explanation stage. Crude oil, wheat, cocoa and sugar share the same
+detector, retrieval and blind-reading code through `src/config/commodities.py`.
+
+| | Coffee | Crude oil | Wheat | Cocoa | Sugar |
+|---|---|---|---|---|---|
+| Price series and detector | yes | yes | yes | fetch first | fetch first |
+| Cited known events | 4 | 5 | 4 | 2 | 2 |
+| Control period verified | yes | yes | yes | no | no |
+| Contract-switch list | yes | no | no | no | no |
+| Headline scoring knows its name | yes | yes | yes | yes | yes |
+| Labelled dates (answer key) | 16 | none | none | none | none |
+| Briefing, outlook, market brief | yes | no | no | no | no |
+
+No explanation figure exists for any commodity but coffee: without labelled
+dates there is nothing to score against, and "always explain" cannot be ruled
+out as a baseline. `scripts/multi_commodity_report.py` reports the detector at
+z = 2.0, 2.5 and 3.0 side by side (as sensitivity; every labelled date was drawn
+at 2.0), lists fully quiet quarters to choose control periods from, and counts
+days on which several markets moved at once. `src/analysis/inflation.py`
+deflates every series by US CPI and shows that deflating changes the
+detector's flag on only a handful of days, each within a few hundredths of the
+cut-off: inflation matters for statements about price levels, not for the
+detector.
 
 ## Project layout
 

@@ -1,0 +1,19 @@
+name: tests
+
+# The suite is offline by design: tests/conftest.py makes any real model call
+# raise, and no API key or network access is needed. No secrets are used here.
+on:
+  push:
+  pull_request:
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -r requirements-dev.txt
+      - run: python -m pytest -q

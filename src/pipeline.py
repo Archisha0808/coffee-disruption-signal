@@ -737,7 +737,7 @@ def save_shown_documents(directory, date: str, commodity: str, result: dict,
               "publication_date": by_id[doc_id].get("publication_date", ""),
               "url": by_id[doc_id].get("url", ""),
               "passed_gate": bool(by_id[doc_id].get("passed_gate", True)),
-              "text": blind_evidence.as_shown(by_id[doc_id])["text"][:excerpt]}
+              "text": blind_evidence.as_shown(by_id[doc_id], commodity)["text"][:excerpt]}
              for doc_id in result["evidence_document_ids"] if doc_id in by_id]
     try:
         path = Path(directory) / f"{commodity.replace(' ', '_')}_{date}.json"
@@ -769,24 +769,24 @@ def reading_candidates(documents: list, accepted: list, anomaly_date: str) -> li
     return out
 
 
-def preview_reading(anomaly: dict, documents: list) -> list:
+def preview_reading(anomaly: dict, documents: list, commodity: str = "coffee") -> list:
     """Print, and return, the documents the blind reading would be shown for
     this date, in order - without calling a model. What gets read decides
     what can be found, and this is the cheap way to look at it."""
     gate_result = gate_documents(documents)
     candidates = reading_candidates(documents, gate_result.accepted_documents, anomaly["date"])
-    order = blind_evidence.recent_documents(candidates, anomaly["date"])
+    order = blind_evidence.recent_documents(candidates, anomaly["date"], commodity=commodity)
     shown = order[:blind_evidence.MAX_DOCUMENTS_READ]
     reports = sum(1 for d in order
-                  if market_report.market_report_score(d) >= market_report.REPORT_SCORE)
+                  if market_report.market_report_score(d, commodity) >= market_report.REPORT_SCORE)
     print(f"\n--- Reading preview for {anomaly['date']} (no model call, nothing saved) ---")
     print(f"{len(documents)} retrieved, {len(candidates)} relevant enough to read, "
           f"{len(order)} of those recent, {reports} that look like market reports. "
           f"The first {len(shown)} would be read:")
     for i, doc in enumerate(shown, 1):
-        focused = blind_evidence.as_shown(doc)["text"]
+        focused = blind_evidence.as_shown(doc, commodity)["text"]
         print(f"  {i:>2}. session -{doc.get('trading_days_before_anomaly')}  "
-              f"report score {market_report.market_report_score(doc)}  "
+              f"report score {market_report.market_report_score(doc, commodity)}  "
               f"seen {doc.get('seen_at') or '?'}  text {len(doc.get('text') or '')} chars"
               f"{' (passages chosen)' if focused != (doc.get('text') or '') else ''}"
               f"\n      {doc.get('title', '')[:110]}")
@@ -820,7 +820,7 @@ def describe_move(anomaly: dict) -> str:
     return daily
 
 
-def _source_record(doc: dict) -> dict:
+def _source_record(doc: dict, commodity: str = "coffee") -> dict:
     return {
         "document_id": doc.get("document_id"),
         "title": doc.get("title", ""),
@@ -832,7 +832,7 @@ def _source_record(doc: dict) -> dict:
         "text_chars": len(doc.get("text") or ""),   # 0 = the model saw the headline only
         "seen_at": doc.get("seen_at"),
         "session_date": doc.get("session_date"),
-        "market_report_score": market_report.market_report_score(doc),
+        "market_report_score": market_report.market_report_score(doc, commodity),
         "found_by": doc.get("found_by"),
         "passed_gate": bool(doc.get("passed_gate", True)),
         "n_copies": doc.get("n_copies", 1),
@@ -1022,8 +1022,8 @@ def explain_from_documents(anomaly: dict, documents: list, retrieval_meta=None, 
         # In blind mode: every document that could be read (those that cleared
         # the gate and those read as recent and near it; "passed_gate" says
         # which). In legacy mode: the documents the gate accepted.
-        "sources": [_source_record(d) for d in ((candidates if mode == "blind" else accepted)
-                                                 or [])],
+        "sources": [_source_record(d, commodity_name)
+                    for d in ((candidates if mode == "blind" else accepted) or [])],
         "decision_mode": mode,
         "direction_summary": direction_summary,
         "direction_summary_wordlist": wordlist_summary,
@@ -1120,7 +1120,7 @@ def main():
             print(f"  kw={kw:.3f}  sem={sem_str}  {d['title'][:70]}")
 
     if args.preview_reading:
-        preview_reading(anomaly, documents)
+        preview_reading(anomaly, documents, cfg.key)
         return
 
     output = explain_from_documents(
