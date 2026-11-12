@@ -34,3 +34,7 @@ venv/
 # OS cruft
 .DS_Store
 Thumbs.db
+
+# Reading audit sheet: holds excerpts of other publishers' articles (see data/text_cache/).
+# The scored result, results/reading_audit.md, is committed instead.
+data/labeling/reading_audit_sheet.csv
