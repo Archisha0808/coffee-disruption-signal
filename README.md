@@ -1,4 +1,4 @@
-# Coffee Disruption Signal & Explanation System
+# Commodity Disruption Signal & Explanation System
 
 Detects unusual moves in coffee futures, retrieves the news from the days before each move, and either explains the move with cited evidence or declines to.
 
