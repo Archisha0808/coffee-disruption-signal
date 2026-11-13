@@ -118,7 +118,8 @@ Where the refused dates stopped:
 | Nothing recent was found | 0.0% (0/44; 95% CI 0.0-8.0%) |
 | Recent articles found, none relevant enough to read | 0.0% (0/44; 95% CI 0.0-8.0%) |
 | Recent articles read, none gave a reason with a quote | 52.3% (23/44; 95% CI 37.9-66.2%) |
-| A reason was found, for the opposite move | 47.7% (21/44; 95% CI 33.8-62.1%) |
+| A reason was found for this move, but did not fit it (trading reason, or not a move of this size) | 36.4% (16/44; 95% CI 23.8-51.1%) |
+| A reason was found, for the opposite move | 11.4% (5/44; 95% CI 5.0-24.0%) |
 
 The first two rows are search and filtering: no change to the reading or the rule can explain a date for which nothing recent and relevant was retrieved.
 
@@ -126,12 +127,12 @@ Dates labelled as explainable that were refused:
 
 | Date | Stopped at | Retrieved | Of those recent | Relevant enough to read |
 |---|---|---|---|---|
-| 2023-01-31 | A reason was found, for the opposite move | 584 | 396 | 142 |
-| 2024-04-30 | A reason was found, for the opposite move | 630 | 432 | 171 |
-| 2024-09-23 | A reason was found, for the opposite move | 500 | 333 | 168 |
-| 2024-12-02 | A reason was found, for the opposite move | 578 | 429 | 270 |
-| 2025-04-07 | A reason was found, for the opposite move | 644 | 434 | 211 |
-| 2025-08-15 | A reason was found, for the opposite move | 660 | 334 | 163 |
+| 2023-01-31 | A reason was found for this move, but did not fit it (trading reason, or not a move of this size) | 584 | 396 | 142 |
+| 2024-04-30 | A reason was found for this move, but did not fit it (trading reason, or not a move of this size) | 630 | 432 | 171 |
+| 2024-09-23 | A reason was found for this move, but did not fit it (trading reason, or not a move of this size) | 500 | 333 | 168 |
+| 2024-12-02 | A reason was found for this move, but did not fit it (trading reason, or not a move of this size) | 578 | 429 | 270 |
+| 2025-04-07 | A reason was found for this move, but did not fit it (trading reason, or not a move of this size) | 644 | 434 | 211 |
+| 2025-08-15 | A reason was found for this move, but did not fit it (trading reason, or not a move of this size) | 660 | 334 | 163 |
 
 The same stored readings under other settings of the rule (no model is called again). The first row is the pipeline's setting. If the rows differ a lot, the setting is doing the work and the result should not be trusted; "pooled" counts every recent reading equally, the shape of rule that made the earlier guard refuse most down days.
 

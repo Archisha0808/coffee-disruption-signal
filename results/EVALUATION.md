@@ -305,6 +305,45 @@ The five labelled dates lost in that table are 2021-05-05, 2021-07-30, 2025-04-0
 
 **Limits of the test itself.** 12 days and one model: the interval on 5 of 12 runs from about a fifth to about two thirds. A quiet day is the easy case for a size check, because its reports describe an ordinary day. The harder case is a real large move that the news of the day does not explain; the two should-refuse dates among the unchecked labels (2018-11-30, 2019-11-11) are of that kind and have not been run.
 
+## 9g. Version 11, run
+
+Both runs that section 9f said would confirm or refute the rule have been made. The labelled-date outputs are `results/pipeline_output_coffee_<date>.json` (pipeline_version 11; version 9's are kept in `results/archive/pipeline_v9/`); the invented-move report is `results/robustness_report.md`, seed 11, with seed 7's archived under `results/archive/robustness/`.
+
+| | Version 9 / 10 | Version 11 | Explain every date |
+|---|---|---|---|
+| Labelled dates explained (16, all should be) | 12/16 (75.0%; CI 50.5-89.8%), version 9 | 10/16 (62.5%; CI 38.6-81.5%) | 16/16 |
+| Invented moves explained (12 quiet days, none should be) | 5/12 (41.7%; CI 19.3-68.0%), version 10, seed 7 | 2/12 (16.7%; CI 4.7-44.8%), seed 11 | 12/12 |
+| Models that answered, labelled dates | gpt-oss-120b 16 | gpt-oss-120b 13, qwen3.8-27b 3 | |
+| Models that answered, invented moves | gpt-oss-120b 12 | gpt-oss-120b 11, qwen3.8-27b 1 | |
+
+**Labelled dates.** Version 11 kept 10 of version 9's 12 explanations and gained none. The two lost are 2025-04-07 and 2025-08-15; the four version 9 refused (2023-01-31, 2024-04-30, 2024-09-23, 2024-12-02) are still refused. Section 9f expected between 7 and 11; 2025-08-15 was predicted lost. Of the five that the numbers-only rescoring lost, three came back (2021-05-05, 2021-07-30, 2025-09-15) once size in words was read. qwen3.8-27b answered 2021-07-30 and 2024-10-07 (explained) and 2023-01-31 (refused).
+
+**Why the six were refused.** Not because the evidence pointed the other way: on every one a report pointing the way prices went was read, and the version 11 checks set it aside. (The first report generated after the run counted these under "a reason was found, for the opposite move"; `src/evaluation/metrics.py` now has a stage of its own for them.)
+
+| Date | Flagged move | Report set aside | Why |
+|---|---|---|---|
+| 2024-12-02 | -7.0% | "Café ensaia correção e preço cai quase 7 % em Nova York" | the article's own reason is trading: "movimentação dos especuladores" (speculators' moves); the answer key's cause, the exchange raising margin requirements, is in reports that were not among the 12 read |
+| 2024-04-30 | -5.5% | "Commodities agrícolas têm forte queda em Nova York" (2.11%) | the article's own reason is trading: "após investidores embolsarem lucros" (after investors took profits); the key's cause, a stronger dollar and raised crop forecasts, is in reports that were not read |
+| 2025-04-07 | -5.7% | "Preço do algodão sobe e do café cai em Nova York diante das tarifas comerciais" (1.34%) | stated move under a quarter of the flagged one (needs 1.43%) |
+| 2025-08-15 | +4.6% | "Café opera em alta na bolsa de Nova York , e cacau amplia quedas" (1.11%) | stated move under a quarter of the flagged one (needs 1.15%) |
+| 2023-01-31 | +6.7% | "Peabirus : Café continua em alta , mercado é comprador , mas produtor ainda limita" | no size stated, words not read as large |
+| 2024-09-23 | +5.1% | "العقود الآجلة للقهوة تواصل الارتفاع مع تقلبات عنيفة للطقس" ("coffee futures keep rising amid violent weather swings") | no size stated, words not read as large |
+
+Two refusals rest on the article read giving only a trading reason, which is what those articles say: the rule did its job on the evidence it had, and the miss is in which 12 articles were read. Two rest on the quarter-size threshold, by under a tenth of a point. Two rest on whether "keeps rising" describes a large move. All six are readings a person can check; `scripts/audit_readings.py` puts every reading that could have decided them in its sheet. Changing the threshold or the wording rule to recover them would be fitting the rule to these dates.
+
+**Invented moves.** 2 of 12 explained, on days the rule was not built on:
+
+- 2019-09-12, invented +7.8%: a same-day report "Café arábica sobe mais de 250 pts nesta tarde de 4ª feira em NY com foco no Brasil", size not stated as a number and read as large, reason "com foco no Brasil".
+- 2025-06-11, invented -3.7%: a report headed on cocoa ("Cacau sobe em Nova York após ajustes técnicos") whose coffee passage gives arabica down 1.24% on Brazil's harvest progress. 1.24% is above a quarter of 3.7%, and harvest progress is an event, so it passed every check.
+
+On the same stored readings, admitting only articles that cleared the relevance filter itself would have explained 1 of 12 (`results/robustness_report.md`); that row was not chosen in advance and is not adopted.
+
+**Language of the reasons.** The prompt asks for the reason in English; about a quarter of the reasons in the version 11 readings came back in the article's language (65 of 264 by a word-list check: "geada", "movimentação dos especuladores", Arabic). No decision depends on it: the rule uses whether a reason exists, its type and its quote, never the wording. It shows only in the explanation text, next to the quote. Changing the prompt would make version 12 and require re-running both tests above, so it is left for the next version change rather than made alone.
+
+**Publication dates.** Of the 80 documents that took part in a version 11 decision, 77 came from GDELT, whose listed date is its crawl time and so cannot be earlier than the article; `python -m scripts.audit_publication_dates` checks them against each page's own date. 3 came from Google News, whose redirect links carry no page to check. The one of those that supported an explanation, Reuters' "Coffee futures in New York jump 6% to new record amid 'panic buying'" on 2025-02-10, reports that Monday's move and was published that day. From now on the pipeline also drops any fetched article whose own page gives a date after the move.
+
+**What this does and does not show.** Version 11 explains fewer moves of both kinds. On the invented-move test, 2 of 12 against 5 of 12 is a smaller false-explanation rate on days the rule was not designed on, but the two tests used different days and their intervals overlap; it is evidence in the right direction, not a measured improvement. On the labelled dates the score is in-sample and below the always-explain baseline by construction of the key. Neither figure is single-model. The held-out dates (`data/labeling/dates_to_label.csv`), which include two where refusing is right, are the test that can show whether the trade is worth it.
+
 ## 10. Ablation
 
 `ablation_study_report.md`, 26 dates with cached retrieval. Every configuration gates the same scored documents, so only the named component differs. No model is called; this measures the gate.

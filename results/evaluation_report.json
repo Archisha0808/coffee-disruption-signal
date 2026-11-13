@@ -920,55 +920,64 @@
           66.2
         ]
       },
-      "reason_points_other_way": {
-        "k": 21,
+      "reason_set_aside": {
+        "k": 16,
         "n": 44,
-        "pct": 47.7,
+        "pct": 36.4,
         "ci95": [
-          33.8,
-          62.1
+          23.8,
+          51.1
+        ]
+      },
+      "reason_points_other_way": {
+        "k": 5,
+        "n": 44,
+        "pct": 11.4,
+        "ci95": [
+          5.0,
+          24.0
         ]
       }
     },
     "refused_but_should_explain": [
       {
         "date": "2023-01-31",
-        "stage": "reason_points_other_way",
+        "stage": "reason_set_aside",
         "retrieved": 584,
         "retrieved_recent": 396,
         "accepted": 142
       },
       {
         "date": "2024-04-30",
-        "stage": "reason_points_other_way",
+        "stage": "reason_set_aside",
         "retrieved": 630,
         "retrieved_recent": 432,
         "accepted": 171
       },
       {
         "date": "2024-09-23",
-        "stage": "reason_points_other_way",
+        "stage": "reason_set_aside",
         "retrieved": 500,
         "retrieved_recent": 333,
         "accepted": 168
       },
       {
         "date": "2024-12-02",
-        "stage": "reason_points_other_way",
+        "stage": "reason_set_aside",
         "retrieved": 578,
         "retrieved_recent": 429,
         "accepted": 270
       },
       {
         "date": "2025-04-07",
-        "stage": "reason_points_other_way",
+        "stage": "reason_set_aside",
         "retrieved": 644,
         "retrieved_recent": 434,
         "accepted": 211
       },
       {
         "date": "2025-08-15",
-        "stage": "reason_points_other_way",
+        "stage": "reason_set_aside",
         "retrieved": 660,
         "retrieved_recent": 334,
         "accepted": 163
