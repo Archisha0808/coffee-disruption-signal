@@ -31,6 +31,11 @@ from urllib.parse import urlparse
 import requests
 import trafilatura
 
+try:
+    import htmldate                     # installed with trafilatura
+except ImportError:                     # pragma: no cover - optional
+    htmldate = None
+
 FETCH_TIMEOUT_SECONDS = 20  # arbitrary news sites, not GDELT's own slow API
 CONNECT_TIMEOUT_SECONDS = 6  # a host that has not answered a connect in this
                              # long is down; waiting the full read timeout for
@@ -58,6 +63,46 @@ def _text_cache_key(url: str) -> str:
     return hashlib.sha256(url.encode("utf-8")).hexdigest()[:24]
 
 
+def page_date(html: str, url: str = None) -> Optional[str]:
+    """The publication date the page states about itself (YYYY-MM-DD), or None.
+
+    Why: the listed date of a document comes from the search (GDELT's
+    crawl time, or the pubDate Google News puts in its feed), not from the
+    article. An article dated 3 September by the article itself has appeared
+    as current news, so a listed date can be wrong; if it is earlier than the
+    real one, an article written after the move could pass the "nothing after
+    the anomaly date" filter. original_date=True asks for the first-published
+    date, not the last-modified one."""
+    if not html or htmldate is None:
+        return None
+    try:
+        found = htmldate.find_date(html, original_date=True, extensive_search=False,
+                                   outputformat="%Y-%m-%d", url=url)
+    except Exception:  # noqa: BLE001 - a page that will not parse has no date
+        return None
+    # A page with no date of its own can come back dated today (the audit of
+    # the version 11 runs found an Arabic page dated the day it was fetched,
+    # for a 2021 move). Today is never a real publication date for a past
+    # move, so it counts as no date.
+    from datetime import datetime, timezone
+    if found and found >= datetime.now(timezone.utc).strftime("%Y-%m-%d"):
+        return None
+    return found
+
+
+def cached_article_date(url: str) -> Optional[str]:
+    """The page's own date as recorded when its text was fetched, or None
+    (not fetched, fetched before dates were recorded, or no date found)."""
+    path = TEXT_CACHE_DIR / f"{_text_cache_key(url)}.json"
+    if not path.exists():
+        return None
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            return json.load(f).get("own_date")
+    except (ValueError, OSError):
+        return None
+
+
 def _text_cache_get(url: str) -> Optional[str]:
     """Return cached extracted text for this URL, or None on miss."""
     path = TEXT_CACHE_DIR / f"{_text_cache_key(url)}.json"
@@ -78,13 +123,13 @@ def cached_article_text(url: str) -> Optional[str]:
     return _text_cache_get(url)
 
 
-def _text_cache_put(url: str, text: str) -> None:
+def _text_cache_put(url: str, text: str, own_date: Optional[str] = None) -> None:
     """Cache a successful text extraction. Best-effort — never crashes."""
     try:
         TEXT_CACHE_DIR.mkdir(parents=True, exist_ok=True)
         path = TEXT_CACHE_DIR / f"{_text_cache_key(url)}.json"
         with open(path, "w", encoding="utf-8") as f:
-            json.dump({"url": url, "text": text}, f)
+            json.dump({"url": url, "text": text, "own_date": own_date}, f)
     except OSError:
         pass
 
@@ -160,7 +205,7 @@ def fetch_article_text(url: str, verbose: bool = False) -> tuple[str, Optional[s
             extracted = trafilatura.extract(resp.text, include_comments=False)
             if extracted and extracted.strip():
                 text = extracted.strip()
-                _text_cache_put(url, text)  # cache the success
+                _text_cache_put(url, text, page_date(resp.text, url))  # cache the success
                 return text, None
             last_error = "fetched OK but no extractable body text (paywall/JS/empty page?)"
             break  # a successful-but-empty fetch is not worth retrying

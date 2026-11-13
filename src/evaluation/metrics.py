@@ -569,6 +569,13 @@ STOP_STAGES = (
     ("nothing_recent_found", "Nothing recent was found"),
     ("recent_found_none_relevant", "Recent articles found, none relevant enough to read"),
     ("read_no_quoted_reason", "Recent articles read, none gave a reason with a quote"),
+    # Version 11: a report pointing the way prices went was found, but the rule
+    # set it aside (the reason only describes trading, or the report does not
+    # describe a move of this size). Before this stage existed such dates were
+    # counted as "for the opposite move", which is what the first version 11
+    # report said of all six refused labelled dates; none of them was.
+    ("reason_set_aside", "A reason was found for this move, but did not fit it "
+                         "(trading reason, or not a move of this size)"),
     ("reason_points_other_way", "A reason was found, for the opposite move"),
 )
 
@@ -593,8 +600,14 @@ def stop_stage(run: dict) -> str:
         return "recent_found_none_relevant"
     readings = ((run.get("explanation_result") or {}).get("blind_evidence") or {}) \
         .get("readings") or []
-    if not blind_evidence.usable(readings, fresh, variants=run_variants(run)):
+    variants = run_variants(run)
+    if not blind_evidence.usable(readings, fresh, variants=variants):
         return "read_no_quoted_reason"
+    decided = blind_evidence.decide(readings, (run.get("anomaly") or {}).get("direction"),
+                                    fresh, variants=variants,
+                                    actual_pct=blind_evidence.flagged_day_move(run.get("anomaly")))
+    if decided.get("reason") == blind_evidence.NO_FITTING_REPORT:
+        return "reason_set_aside"
     return "reason_points_other_way"
 
 

@@ -333,9 +333,13 @@ def test_refused_dates_are_sorted_by_where_they_stopped():
         refused("2020-01-04", 7, [fresh], [_reading(0, "down")]),          # reason for the other direction
         _blind_run("2020-01-05", "up", [_reading(0, "up")], "EXPLAINED", oc.EXPLAINED_TENTATIVE),
     ]
+    # version 11: a same-day report for the move, set aside as only describing trading
+    trading = refused("2020-01-06", 7, [fresh], [{**_reading(0, "up"), "cause_type": "trading"}])
+    trading["explanation_result"]["blind_evidence"]["variants"] = ["event_reasons"]
+    runs.append(trading)
     assert [m.stop_stage(r) for r in runs] == [
         "nothing_recent_found", "recent_found_none_relevant", "read_no_quoted_reason",
-        "reason_points_other_way", "explained"]
+        "reason_points_other_way", "explained", "reason_set_aside"]
     labels = {"2020-01-02": {"expected_outcome": "EXPLAIN"}}
     b = m.blind_section(runs, labels)
     assert all(b["refusal_stages"][key]["k"] == 1 for key, _ in m.STOP_STAGES)

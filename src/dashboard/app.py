@@ -11,6 +11,7 @@ Usage:
 
 import hashlib
 import json
+from collections import Counter
 import os
 import re
 import subprocess
@@ -43,9 +44,12 @@ st.set_page_config(page_title="Commodity Market Intelligence", layout="centered"
 # others share the price chart, the detector and the explain-a-day section;
 # the briefing, outlook and market brief are built on coffee-only inputs
 # (Brazil weather, the real, coffee news feeds) and are shown for coffee only.
-COMMODITY_KEY = st.sidebar.selectbox(
+# On the page itself, not in the sidebar: Streamlit collapses the sidebar on
+# narrow windows, and a reviewer looking for the other commodities did not
+# find them there.
+COMMODITY_KEY = st.radio(
     "Commodity", list(COMMODITIES), index=list(COMMODITIES).index("coffee"),
-    format_func=lambda k: COMMODITIES[k].display_name)
+    format_func=lambda k: COMMODITIES[k].display_name.split(" (")[0], horizontal=True)
 cfg = get_commodity(COMMODITY_KEY)
 PRICE_UNIT = cfg.price_unit or "price"
 TITLE = f"{cfg.display_name.split(' (')[0]} Market Intelligence"
@@ -937,6 +941,97 @@ st.divider()
 
 
 # ═══════════════════════════════════════════════════════════════════════════
+# SECTION 2b: INFLATION AND DETECTOR SETTINGS
+# ═══════════════════════════════════════════════════════════════════════════
+# Both read files only (data/raw/us_cpi_monthly.csv and the two reports in
+# results/), so they cost no quota and work in READ_ONLY mode. The reports
+# are written by `python -m src.analysis.inflation` and
+# `python -m scripts.multi_commodity_report`.
+
+st.subheader("Adjusted for Inflation")
+try:
+    from src.analysis import inflation as _infl
+    _cpi = _infl.load_cpi()
+    _real = _infl.deflate(prices[["date", "price"]].dropna(), _cpi)
+    _base = str(_cpi["month"].iloc[-1])
+    _fig = go.Figure()
+    _fig.add_trace(go.Scatter(x=_real["date"], y=_real["price"], mode="lines", name="As traded",
+                              line=dict(color="#AAB7C4", width=1.1)))
+    _fig.add_trace(go.Scatter(x=_real["date"], y=_real["real_price"], mode="lines",
+                              name=f"In dollars of {_base}", line=dict(color="#1F5FA8", width=1.4)))
+    _fig.update_layout(template="plotly_white", height=300, margin=dict(l=10, r=10, t=10, b=10),
+                       hovermode="x unified", yaxis_title=f"Price ({PRICE_UNIT})",
+                       legend=dict(orientation="h", y=1.02))
+    st.plotly_chart(_fig, use_container_width=True)
+    _w = _infl.whole_period(_real)
+    i1, i2, i3 = st.columns(3)
+    i1.metric("Change as traded", f"{_w['nominal_change_pct']:+.1f}%")
+    i2.metric("US consumer prices", f"{_w['cpi_change_pct']:+.1f}%")
+    i3.metric("Change after inflation", f"{_w['real_change_pct']:+.1f}%")
+    _same_high = _w["nominal_high"]["date"][:4] == _w["real_high"]["date"][:4]
+    st.caption(
+        f"{_w['start']} to {_w['end']}, deflated by US CPI (BLS CPI-U, seasonally adjusted). "
+        f"Highest price as traded: {_w['nominal_high']['date']}; highest after inflation: "
+        f"{_w['real_high']['date']}" + ("." if _same_high else
+                                        " - the record as traded is not a record in real terms."))
+    _years = _infl.by_year(_real, _cpi)
+    if _years:
+        _beat = sum(1 for y in _years if y["beat_inflation"])
+        with st.expander(f"Year by year: rose faster than consumer prices in {_beat} of {len(_years)} years"):
+            st.dataframe(pd.DataFrame(_years).rename(columns={
+                "year": "Year", "nominal_pct": "As traded (%)", "cpi_pct": "US CPI (%)",
+                "real_pct": "After inflation (%)", "beat_inflation": "Beat inflation"}),
+                hide_index=True, use_container_width=True)
+    _d = _infl.detector_with_and_without_inflation(_real, load_contract_switches(COMMODITY_KEY))
+    st.caption(
+        f"Inflation does not change what the detector flags: run on inflation-adjusted prices, "
+        f"{_d['days_that_differ']} of {_d['days']} days change flag"
+        + (f", each within {_d['max_distance_from_threshold']} of the cut-off" if _d['days_that_differ'] else "")
+        + f". Consumer prices move about {_d['median_abs_daily_cpi_drift_pct']:.3f}% a day; this market "
+        f"typically moves {_d['median_abs_daily_return_pct']:.2f}%. Inflation matters for comparing price "
+        f"levels across years, not for spotting an unusual day.")
+except SystemExit:
+    st.info("No CPI file yet. Run `python -m src.analysis.inflation --refresh-cpi`.")
+except Exception as e:  # noqa: BLE001 - a broken analysis must not take the page down
+    st.warning(f"The inflation view could not be built: {e}")
+
+
+st.subheader("How Unusual Is Unusual?")
+_mc_path = RESULTS_DIR / "multi_commodity_report.json"
+if _mc_path.exists():
+    try:
+        _mc = json.loads(_mc_path.read_text(encoding="utf-8"))
+        _rows = []
+        for _key, _r in _mc["commodities"].items():
+            _runs = _r["runs"]
+            _rows.append({
+                "Commodity": COMMODITIES[_key].display_name.split(" (")[0],
+                **{f"Days flagged at {z}σ": f"{_runs[z]['flagged']} ({100 * _runs[z]['flagged'] / _runs[z]['days']:.1f}%)"
+                   for z in ("2.0", "2.5", "3.0")},
+                **{f"Known events caught at {z}σ": f"{_runs[z]['events_detected']}/{_runs[z]['events_total']}"
+                   for z in ("2.0", "2.5", "3.0")},
+                "Days beyond 3σ (normal: 0.27%)": f"{_r['pct_days_beyond_3sd']}%",
+            })
+        st.dataframe(pd.DataFrame(_rows), hide_index=True, use_container_width=True)
+        _missed = [f"{COMMODITIES[k].display_name.split(' (')[0]}: {', '.join(r['runs']['2.5']['events_missed'])}"
+                   for k, r in _mc["commodities"].items() if r["runs"]["2.5"]["events_missed"]]
+        st.caption(
+            "A day is flagged when its move is at least 2 standard deviations from the previous 75 "
+            "trading days (or the 10-day move is). These markets have heavier tails than a normal "
+            "distribution, so a stricter cut was tested. It was kept at 2σ because raising it misses "
+            "documented events"
+            + (" - at 2.5σ: " + "; ".join(_missed) if _missed else "")
+            + ", and every labelled date was chosen at 2σ. Source: results/multi_commodity_report.md.")
+    except Exception as e:  # noqa: BLE001
+        st.warning(f"The detector comparison could not be read: {e}")
+else:
+    st.info("Run `python -m scripts.multi_commodity_report` to compare thresholds across commodities.")
+
+
+st.divider()
+
+
+# ═══════════════════════════════════════════════════════════════════════════
 # SECTION 3: LATEST DAY + REFRESH
 # ═══════════════════════════════════════════════════════════════════════════
 
@@ -1057,175 +1152,109 @@ if selected:
 # ===================================================================
 # SYSTEM EVALUATION
 # ===================================================================
-# Hidden for now. The stored evaluation_report.json was produced by runs under
-# an earlier pipeline version and scored against the original answer key,
-# whose four should-refuse labels were later found to be wrong
-# (data/labeling/LABELLING_RULE.md). Showing those figures next to the
-# current ones invites a comparison between two different tests. Rebuild the
-# reports after the next run (python -m src.evaluation.metrics) and set this
-# back to True.
-SHOW_SYSTEM_EVALUATION = False
+# What the explanation stage scores, always next to what "explain every date"
+# would score: on this answer key (no date where refusing is right) that
+# baseline cannot lose, so the first figure alone would mislead. Read from
+# files only: results/evaluation_report.json (python -m src.evaluation.metrics),
+# results/robustness.json (python -m src.evaluation.robustness ... placebo),
+# the stored pipeline outputs and the answer key. The earlier version of this
+# section was hidden because it showed figures from a superseded answer key and
+# no baseline.
 
-if SHOW_SYSTEM_EVALUATION:
-  st.divider()
-  st.subheader("System Evaluation")
+_SET_ASIDE_WORDS = {
+    "reason_only_describes_trading": "article gave only a trading reason",
+    "does_not_describe_a_move_of_this_size": "report not of a move this size",
+    "move_is_of_another_market": "report about another market",
+}
 
-  eval_report_path = RESULTS_DIR / "evaluation_report.json"
-  ablation_path = RESULTS_DIR / "ablation_study.json"
 
-  _has_eval = eval_report_path.exists()
-  _has_ablation = False
-  if ablation_path.exists():
-      # Only show an ablation produced by the like-for-like version of the
-      # study (every configuration gating the same scored documents). Results
-      # from the earlier version compared different inputs and are not shown.
-      try:
-          with open(ablation_path, encoding="utf-8") as _af:
-              _has_ablation = bool(json.load(_af).get("like_for_like"))
-      except (OSError, ValueError):
-          _has_ablation = False
+def _rate_text(r: dict) -> str:
+    return (f"{r['k']} of {r['n']} ({r['pct']}%; 95% CI {r['ci95'][0]}-{r['ci95'][1]}%)"
+            if r and r.get("n") else "not measured")
 
-  if _has_eval or _has_ablation:
-      eval_tab_names = []
-      if _has_eval:
-          eval_tab_names.append("Pipeline Metrics")
-      if _has_ablation:
-          eval_tab_names.append("Ablation Study")
 
-      eval_tabs = st.tabs(eval_tab_names)
-      tab_idx = 0
+st.divider()
+st.subheader("Does the Explanation Stage Work?")
+_eval_path = RESULTS_DIR / "evaluation_report.json"
+_rob_path = RESULTS_DIR / "robustness.json"
+_labels_path = REPO_ROOT / "data" / "labeling" / "labels_by_written_rule.csv"
+if COMMODITY_KEY != "coffee":
+    st.info(f"Only coffee has a labelled answer key, so there is no explanation score for "
+            f"{cfg.display_name} yet. Explanations for it can be run, but nothing says whether "
+            f"they are right.")
+elif not _eval_path.exists():
+    st.info("Run `python -m src.evaluation.metrics` to score the stored runs.")
+else:
+    try:
+        _m = json.loads(_eval_path.read_text(encoding="utf-8"))
+        _acc = _m.get("decision_accuracy") or {}
+        _real = (_acc.get("as_run") or {}).get("explain_labelled") or {}
+        _base = _acc.get("always_explain") or {}
+        _plac = {}
+        _rob_models = {}
+        if _rob_path.exists():
+            _rob = json.loads(_rob_path.read_text(encoding="utf-8"))["summary"]
+            _plac = (((_rob.get("by_prompt_version") or {}).get("blind") or {})
+                     .get("placebo") or {}).get("model_only") or {}
+            _rob_models = _rob.get("models") or {}
+        e1, e2, e3 = st.columns(3)
+        if _real.get("n"):
+            e1.metric("Real moves explained", f"{_real['k']} of {_real['n']}",
+                      help=f"Labelled dates with a documented cause. {_rate_text(_real)}")
+        if _base.get("n"):
+            e2.metric("'Always explain' would get", f"{_base['k']} of {_base['n']}",
+                      help="The baseline. With no date in the answer key where refusing is right, "
+                           "explaining everything cannot lose on it.")
+        if _plac.get("n"):
+            e3.metric("Invented moves explained", f"{_plac['k']} of {_plac['n']}",
+                      help="Quiet days given the size and direction of a real shock. Refusing is "
+                           f"the only right answer, so lower is better. {_rate_text(_plac)}")
+        st.caption(
+            "The first two numbers are on the same 16 dates. The system loses to 'always explain' "
+            "there by design of the test: the answer key has no date where refusing is right, so "
+            "only the invented-move test checks the refusals. Together: it explains fewer real "
+            "moves than a system that always answers, and far fewer moves that never happened.")
 
-      if _has_eval:
-          with eval_tabs[tab_idx]:
-              with open(eval_report_path, encoding="utf-8") as _ef:
-                  metrics = json.load(_ef)
-
-              ret = metrics.get("retrieval", {})
-              cit = metrics.get("citation_accuracy", {})
-              dir_ = metrics.get("direction_alignment", {})
-              div = metrics.get("source_diversity", {})
-              dist = metrics.get("outcome_distribution", {})
-
-              st.caption(f"Evaluated {metrics.get('dates_evaluated', 0)} anomaly dates, "
-                         f"{metrics.get('dates_explained', 0)} with LLM explanations. "
-                         f"Small sample: see results/evaluation_report.md for the intervals.")
-
-              def _ci(pair):
-                  return (f"95% CI {pair[0]}-{pair[1]}%"
-                          if pair and pair[0] is not None else None)
-
-              acc = (metrics.get("decision_accuracy") or {}).get("as_run") or {}
-              overall = acc.get("overall") or {}
-
-              # Key metrics row
-              m1, m2, m3, m4 = st.columns(4)
-              m1.metric("Explained", f"{ret.get('llm_explain_rate', 0)}%",
-                        help=_ci(ret.get("llm_explain_ci95")))
-              if overall.get("n"):
-                  m2.metric("Correct decision", f"{overall['pct']}%",
-                            help=f"{overall['k']} of {overall['n']} labelled dates: explained "
-                                 f"when it should, refused when it should. If the answer key "
-                                 f"has no should-refuse date, explaining everything would "
-                                 f"score 100% here. {_ci(overall.get('ci95'))}")
-              else:
-                  m2.metric("Gate pass rate", f"{ret.get('gate_explain_rate', 0)}%")
-              m3.metric("Citations resolve", f"{cit.get('citations_resolve_rate', 'N/A')}%"
-                         if cit.get("citations_resolve_rate") is not None else "N/A",
-                         help="The cited document was one the model was shown. This rules out "
-                              "invented sources; it does not show the document supports the claim.")
-              m4.metric("Evidence direction", f"{dir_.get('direction_consistent_rate', 0)}%",
-                        help="Explained runs whose accepted evidence leaned the same way as the "
-                             "move (word-list heuristic). A property of the evidence, not a check "
-                             "that the explanation is right.")
-
-              refuse = acc.get("refuse_labelled") or {}
-              if refuse.get("n"):
-                  st.caption(f"Refused when it should have: {refuse['k']} of {refuse['n']} "
-                             f"dates labelled as having no clean cause.")
-
-              # Detail expanders
-              with st.expander("Retrieval Performance"):
-                  st.markdown(
-                      f"- **{ret.get('avg_documents_retrieved', 0):.1f}** articles retrieved per date on average\n"
-                      f"- **{ret.get('zero_retrieval_rate', 0)}%** of dates had zero articles retrieved\n"
-                      f"- Gate passes **{ret.get('gate_explain_rate', 0)}%** of anomalies, "
-                      f"LLM ultimately explains **{ret.get('llm_explain_rate', 0)}%** — "
-                      f"the gap reflects the LLM's own evidence quality judgment"
-                  )
-
-              with st.expander("Source Diversity"):
-                  st.markdown(
-                      f"- **{div.get('avg_unique_domains', 0):.1f}** unique source domains per explanation\n"
-                      f"- **{div.get('avg_accepted_documents', 0):.1f}** accepted documents per explanation\n"
-                      f"- **{div.get('single_source_rate', 0)}%** of explanations rely on a single source"
-                  )
-
-              if dist:
-                  with st.expander("Outcome Distribution"):
-                      dist_df = pd.DataFrame(
-                          [{"Outcome": k.replace("_", " ").title(), "Count": v}
-                           for k, v in dist.items()]
-                      )
-                      st.dataframe(dist_df, use_container_width=True, hide_index=True)
-
-          tab_idx += 1
-
-      if _has_ablation:
-          with eval_tabs[tab_idx]:
-              with open(ablation_path, encoding="utf-8") as _af:
-                  ablation = json.load(_af)
-
-              summary = ablation.get("summary", {})
-              n_dates = ablation.get("n_dates", 0)
-
-              st.caption(f"Tested {len(summary)} configurations across {n_dates} anomaly dates"
-                         + ("" if ablation.get("semantic_scores_available", True)
-                            else " - semantic scores were unavailable for this run"))
-
-              # Build comparison table
-              rows = []
-              for config, stats in summary.items():
-                  rows.append({
-                      "Configuration": config.replace("_", " ").title(),
-                      "EXPLAIN Rate": f"{stats['explain_rate']}%",
-                      "Avg Retrieved": stats["avg_retrieved"],
-                      "Avg Accepted": stats["avg_accepted"],
-                      "Avg Best Score": f"{stats['avg_best_score']:.3f}",
-                  })
-
-              st.dataframe(pd.DataFrame(rows), use_container_width=True, hide_index=True)
-
-              # Visual comparison
-              configs = list(summary.keys())
-              explain_rates = [summary[c]["explain_rate"] for c in configs]
-
-              fig = go.Figure()
-              fig.add_trace(go.Bar(
-                  x=[c.replace("_", " ") for c in configs],
-                  y=explain_rates,
-                  marker_color=["#27ae60" if r > 50 else "#e67e22" if r > 0 else "#e74c3c"
-                                 for r in explain_rates],
-                  text=[f"{r}%" for r in explain_rates],
-                  textposition="outside",
-              ))
-              fig.update_layout(
-                  title="Gate EXPLAIN Rate by Configuration",
-                  yaxis_title="EXPLAIN Rate (%)",
-                  yaxis_range=[0, 110],
-                  height=350,
-                  margin=dict(t=40, b=40),
-                  showlegend=False,
-              )
-              st.plotly_chart(fig, use_container_width=True)
-
-              # What the table shows - generated by the study from its own numbers
-              findings = ablation.get("findings") or []
-              if findings:
-                  with st.expander("What the table shows", expanded=True):
-                      for line in findings:
-                          st.markdown(f"- {line}")
-              st.caption("Every configuration gates the same scored documents for each date. "
-                         "No model is called, so this measures the gate, not the final decision.")
-  else:
-      st.info("Run the evaluation framework to see system metrics here: "
-              "`python -m src.evaluation.metrics`")
+        import csv as _csv
+        _rows = []
+        with open(_labels_path, newline="", encoding="utf-8") as _f:
+            for _lab in _csv.DictReader(_f):
+                if _lab["expected_outcome"] != "EXPLAIN":
+                    continue
+                _p = RESULTS_DIR / f"pipeline_output_coffee_{_lab['date']}.json"
+                if not _p.exists():
+                    continue
+                _run = json.loads(_p.read_text(encoding="utf-8"))
+                _er = _run.get("explanation_result") or {}
+                _b = _er.get("blind_evidence") or {}
+                _why = "; ".join(sorted({_SET_ASIDE_WORDS.get(x.get("why"), x.get("why") or "")
+                                         for x in _b.get("set_aside") or []}))
+                _rows.append({
+                    "Date": _lab["date"],
+                    "Move": f"{(_run.get('anomaly') or {}).get('pct_move', 0):+.1f}%",
+                    "System": "explained" if _er.get("decision") == "EXPLAINED" else "refused",
+                    "Why refused": "" if _er.get("decision") == "EXPLAINED" else (_why or "-"),
+                    "Model": (_er.get("model_used") or "").split("/")[-1],
+                    "Version": _run.get("pipeline_version"),
+                    "Documented cause (answer key)": (_lab.get("known_cause") or "")[:110],
+                })
+        if _rows:
+            with st.expander(f"The {len(_rows)} labelled dates, one by one"):
+                st.dataframe(pd.DataFrame(_rows), hide_index=True, use_container_width=True)
+                _models = Counter(r["Model"] for r in _rows)
+                st.caption(
+                    "Every refusal above had a report pointing the way prices went; the rule set "
+                    "it aside for the reason shown. Whether the model read those reports right is "
+                    "what the reading audit checks (scripts/audit_readings.py). Reasons may appear "
+                    "in the article's language; the decision never uses their wording. Models: "
+                    + ", ".join(f"{k} {v}" for k, v in _models.items())
+                    + (f"; invented-move test: " + ", ".join(f"{k.split('/')[-1]} {v}"
+                                                            for k, v in _rob_models.items())
+                       if _rob_models else "") + ".")
+        st.caption(
+            "Limits: the rule was designed on these same 16 dates (in-sample); the answer key is one "
+            "round of research nobody has checked independently; more than one model answered. "
+            "Full figures with every interval: results/evaluation_report.md, "
+            "results/robustness_report.md.")
+    except Exception as e:  # noqa: BLE001 - a broken report must not take the page down
+        st.warning(f"The evaluation could not be read: {e}")

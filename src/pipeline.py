@@ -70,7 +70,7 @@ from src.rag.gdelt_client import (
     build_query_params, cache_get, cache_put, DEFAULT_SORT,
 )
 from src.rag.retriever import make_document_id, compute_keyword_relevance_score
-from src.rag.text_fetch import fetch_article_text, cached_article_text
+from src.rag.text_fetch import fetch_article_text, cached_article_text, cached_article_date
 from src.rag.relevance_gate import gate_documents
 from src.rag.explainer import generate_explanation
 from src.rag import direction as direction_mod
@@ -602,6 +602,12 @@ def retrieve_evidence(anomaly_date: str, queries: list, semantic_reference_query
             print(f"Article text wanted for {len(to_fetch)} of {len(documents)} documents "
                   f"(those from the last {fetch_text_max_age} trading days)")
         _fetch_texts(to_fetch, cache_only=text_from_cache_only)
+        if enforce_window:
+            documents, own_late = drop_published_after_by_own_date(documents, anomaly_date)
+            out_of_window += own_late
+            if own_late:
+                print(f"Dropped {len(own_late)} article(s) whose own page gives a date after "
+                      f"{anomaly_date} although the search listed them earlier")
 
     # Second pass now that body text is available: catches copies that were
     # given a different headline by the republishing site.
@@ -675,6 +681,42 @@ TEXT_FETCH_WORKERS = 8
 def _has_fetchable_text(url: str) -> bool:
     host = urlparse(url).netloc.lower()
     return bool(host) and not any(host == h or host.endswith("." + h) for h in NO_TEXT_HOSTS)
+
+
+def seen_by_anomaly_date(doc: dict, anomaly_date: str) -> bool:
+    """Did a crawler record this document on or before the anomaly date?
+    GDELT's seendate is when it found the page, so the page existed then,
+    whatever date the page itself shows."""
+    seen = (doc.get("seen_at") or "")[:8]
+    return len(seen) == 8 and seen.isdigit() and seen <= anomaly_date.replace("-", "")
+
+
+def drop_published_after_by_own_date(documents: list, anomaly_date: str) -> tuple:
+    """(kept, dropped). Drops a document whose own page states a publication
+    date after the anomaly date, unless a crawler saw it by the anomaly date.
+
+    The exception is measured, not assumed: in the audit of the version 11
+    runs two supporting reports on a forum (Peabirus) show the next day on the
+    page, but GDELT saw them at 22:15 and 20:15 UTC on the day of the move;
+    the page date is a later post or local time. Without the exception the
+    guard would have dropped real same-day evidence. So in practice this
+    guard applies to documents with no crawl time: the news feeds.
+    Only documents whose text was fetched have an own date; Google News links
+    are redirect pages with no text and are checked by
+    scripts/audit_publication_dates.py instead. The page's date is recorded on
+    every document that has one (own_date), kept or not."""
+    kept, dropped = [], []
+    for doc in documents:
+        own = cached_article_date(doc["url"]) if doc.get("url") else None
+        if own:
+            doc["own_date"] = own
+        if own and own > anomaly_date and not seen_by_anomaly_date(doc, anomaly_date):
+            dropped.append({"url": doc.get("url"), "title": doc.get("title"),
+                            "publication_date": doc.get("publication_date"),
+                            "own_date": own, "reason": "own_date_after_anomaly"})
+        else:
+            kept.append(doc)
+    return kept, dropped
 
 
 def _fetch_texts(documents: list, cache_only: bool = False) -> None:
@@ -834,6 +876,7 @@ def _source_record(doc: dict, commodity: str = "coffee") -> dict:
         "session_date": doc.get("session_date"),
         "market_report_score": market_report.market_report_score(doc, commodity),
         "found_by": doc.get("found_by"),
+        "own_date": doc.get("own_date"),   # the page's own publication date, when fetched
         "passed_gate": bool(doc.get("passed_gate", True)),
         "n_copies": doc.get("n_copies", 1),
         "syndication_domains": doc.get("syndication_domains", []),
