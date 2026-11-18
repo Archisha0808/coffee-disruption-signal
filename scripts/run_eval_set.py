@@ -163,6 +163,13 @@ def read_manifest() -> list:
         return [row["date"] for row in csv.DictReader(f) if row["date"] not in unreal]
 
 
+# A fault the pipeline will reach again on every future run, however many
+# times it is retried, because nothing about the input can change. Everything
+# else - a provider down, a quota spent, a timeout - is transient and worth
+# another attempt.
+PERMANENT_FAULTS = frozenset({"price_not_positive_move_undefined"})
+
+
 def output_state(date: str, commodity: str = "coffee") -> str:
     """'current', 'stale' (older pipeline version, ended in a fault, or decided
     under a guard rule that has since changed) or 'missing'."""
@@ -177,7 +184,13 @@ def output_state(date: str, commodity: str = "coffee") -> str:
     if str(data.get("pipeline_version", "1")) != PIPELINE_VERSION:
         return "stale"
     if (data.get("outcome") or {}).get("is_fault"):
-        return "stale"   # a fault is worth retrying
+        # A transient fault is worth retrying. A permanent one is not: the two
+        # WTI days where a percentage change runs through zero would be
+        # re-retrieved for three minutes each on every run and come back the
+        # same, so they count as current and stay out of the rate.
+        if (data.get("explanation_result") or {}).get("reason") in PERMANENT_FAULTS:
+            return "current"
+        return "stale"
     if not guard_decision_is_current(data):
         return "stale"
     return "current"

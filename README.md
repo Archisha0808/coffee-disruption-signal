@@ -54,17 +54,19 @@ All figures are from `results/`, each produced by a script listed under [Reprodu
 
 | Question | Result | Source |
 |---|---|---|
-| Does the detector flag known events and stay quiet otherwise? | Coffee 4/4 events, crude oil 5/5, wheat 4/4; no flags in each commodity's ~60-day quiet control period | `detector_evaluation.md` |
-| Does it explain a move that has a documented cause? | Version 11: 10 of 16 labelled dates (62.5%, CI 39-82%). Version 9: 12 of 16. In-sample: both were designed on these dates. Two models answered (gpt-oss-120b 13, qwen3.8-27b 3) | `EVALUATION.md` sections 9e, 9g |
-| Does it refuse when it should? | **Better, not yet shown.** Given an invented move on a quiet day, version 11 explained 2 of 12 (16.7%, CI 5-45%) on days its rule was not built on; version 10 explained 5 of 12 (42%, CI 19-68%) on other days. The intervals overlap | `EVALUATION.md` sections 9f, 9g |
+| Does the detector flag known events and stay quiet otherwise? | 28 of 29 cited events across seven commodities: coffee 4/4, crude oil 5/5, wheat 4/4, gold 6/6, silver 6/6, cocoa 2/2, sugar 1/2. No flags in the verified quiet control periods, except cocoa, which has no fully quiet quarter (1 of 61 days flagged in the quietest). The sugar miss is explained under Limits | `detector_evaluation.md`, `multi_commodity_report.md` |
+| Does it explain a move that has a documented cause? | Version 11: 10 of 16 labelled dates (62.5%, CI 39-82%). Version 9: 12 of 16; version 8: 10 of 16. In-sample: each version was designed on these dates. Replicated: a second, independent run gave the same decision on all 16 dates. Two models answered in each run (gpt-oss-120b 13 and 14, qwen3.8-27b 3 and 2) | `EVALUATION.md` sections 9e, 9g |
+| Does it refuse when it should? | **Better, not solved.** Given an invented move on twelve quiet days it was not designed on, version 11 explained 2 of 12 (16.7%, CI 5-45%) in each of two independent runs on the same twelve days; the runs agree on 10 days and swap the other 2, which measures how repeatable a run is. On the same readings the rule before it explained 9 of 12 in one run and 8 of 12 in the other; no day flips the other way (exact McNemar p = 0.016 and 0.031). Version 10 scored 5 of 12 on other days | `EVALUATION.md` sections 9f, 9g |
 | Is it better than always explaining? | No, on these dates: 10 of 16 against 16 of 16. With no should-refuse date in the key, always explaining cannot lose; only the invented-move test checks refusals | `EVALUATION.md` sections 9d, 9g |
 | Are cited sources real? | 24 of 24 citations in the version 9 runs point to a document the model was shown (CI 86-100%); every one of the 66 reasons the model reported carried a quote found in its document | `EVALUATION.md` section 9e |
 | Do cited sources support the claims? | Not yet measured. The automated score cannot fail; a human audit sheet is in place | `scripts/audit_citations.py` |
 | Does the semantic score separate relevant from irrelevant documents? | AUC 0.81 (CI 0.53-0.91) on 20 labelled documents; the keyword score is no better than chance (0.42, CI 0.24-0.70) | `retrieval_evaluation.md` |
 | Does the gate threshold hold up out of sample? | Precision 100% in-sample, 71% held-out (5/7, CI 36-92%) | `relevance_gate_calibration.md` |
+| Was the flagged move about this commodity, or the whole complex? | 48 of coffee's 279 flagged days (17.2%, CI 13-22%) are days at least two other watched markets flagged too. 3 of the 16 labelled dates are such days, and on 2 of those the cause the answer key itself records is a macro one | `cross_commodity_report.md`, `EVALUATION.md` section 11 |
 | Can price direction be predicted? | No. Logistic regression 50.2% vs 50.7% baseline; ARIMA 46.4% vs 51.5%; analog outlook 34% vs 44% random | `forecast_evaluation.md`, `backtest_outlook_report.md` |
+| Does a commodity price move reach consumer prices? | For oil, yes and largely within three months: a 10% rise in WTI goes with US petrol up 6.0% and US energy prices up 3.9% (both p < 0.001 after correcting for 25 pairs tested), and it cuts the error of a petrol-inflation estimate made before publication by 31%. For coffee into all-items inflation, and for every pair tested against India's index, nothing that can be told from chance | `inflation_report.md` |
 
-The headline is rows two to four. On the answer key as re-checked, version 9 failed to explain 4 of 16 moves that market reports of the day explain. And when version 10 was given a move that never happened, it explained 5 of 12: it refused when the invented direction happened to disagree with that day's market reports and explained when it agreed, which is a coin toss and not the claim the project makes. Version 11 requires a report that fits the move (this market, an event as the reason, a move of this size). Run, it explained 10 of the 16 real moves (two fewer than version 9) and 2 of 12 invented moves on quiet days it was not built on (`results/EVALUATION.md`, section 9g). On all six refused real moves a report pointing the right way was found and then set aside by the new checks: twice because the article read gave only a trading reason (speculators' moves, profit-taking) while the documented cause was in reports not among the 12 read, twice because the stated move was just under a quarter of the flagged one, twice because the words did not call the move large. Whether those readings are right is what the reading audit (`scripts/audit_readings.py`) is for. Earlier versions of this table reported 1 of 3 should-refuse dates refused; those labels did not survive the written labelling rule (`results/EVALUATION.md`, section 9c). The sections below are the history of how the system got here, in order.
+The headline is rows two to four. On the answer key as re-checked, version 9 failed to explain 4 of 16 moves that market reports of the day explain. And when version 10 was given a move that never happened, it explained 5 of 12: it refused when the invented direction happened to disagree with that day's market reports and explained when it agreed, which is a coin toss and not the claim the project makes. Version 11 requires a report that fits the move (this market, an event as the reason, a move of this size). Run, it explained 10 of the 16 real moves (two fewer than version 9) and 2 of 12 invented moves on quiet days it was not built on (`results/EVALUATION.md`, section 9g). On all six refused real moves a report pointing the right way was found and then set aside by the new checks: twice because the article read gave only a trading reason (speculators' moves, profit-taking) while the documented cause was in reports not among the 12 read, twice because the stated move was just under a quarter of the flagged one, twice because the words did not call the move large. Whether those readings are right is what the reading audit (`scripts/audit_readings.py`) is for. Earlier versions of this table reported 1 of 3 should-refuse dates refused; those labels did not survive the written labelling rule (`results/EVALUATION.md`, section 9c). The sections below are the history of how the system got here, in order. A second team member ran both tests independently and got the same 16 decisions, and 2 of 12 invented moves explained again on the same twelve quiet days, agreeing on 10 of them and swapping the other 2 (`results/archive/replication_v11/`). The two runs also agree on where the remaining errors sit: the two false explanations and four of the six lost real ones turn on how the model reads a report's move (its size, and whether it is the move being explained), a field whose accuracy has not yet been measured.
 
 ## What auditing the stored runs turned up
 
@@ -212,6 +214,8 @@ python -m scripts.ops_report                         # results/ops_report.md
 python -m scripts.evaluate_detector --all            # results/detector_evaluation.md
 python -m scripts.multi_commodity_report             # results/multi_commodity_report.md
 python -m src.analysis.inflation                     # results/inflation_comparison.md
+python -m src.modeling.inflation                     # results/inflation_report.md
+python -m src.evaluation.cross_commodity             # results/cross_commodity_report.md
 
 # Needs the embedding model
 python -m src.evaluation.ablation_study              # results/ablation_study_report.md
@@ -222,6 +226,16 @@ python -m scripts.run_eval_set --fill-cache --run --max 18 --labelled-first --pr
 python -m scripts.run_eval_set --run                 # pipeline over data/eval/eval_dates.csv
 python -m scripts.run_eval_set --run --retry-incomplete   # redo dates whose news queries failed
 python -m src.evaluation.robustness                  # results/robustness_report.md
+python -m src.evaluation.robustness --providers groq --experiments placebo --n-placebo 12 --seed 11
+python -m src.data.cpi                               # refresh data/raw/inflation_series.csv (keyless)
+python -m src.modeling.fetch_price_data --commodity gold     # and silver, crude_oil, wheat
+python -m scripts.run_commodity_eval --commodity gold        # the pipeline on a commodity with no answer key
+
+# Needs the shared market drivers (keyless; writes data/raw/market_factors.csv)
+python -m src.data.market_factors
+python -m src.modeling.factor_model --all            # results/factor_adjusted_report.md
+python -m src.analysis.numeraire --commodity gold --flagged --save
+python -m src.evaluation.anomaly_card --commodity coffee --labelled --save
 
 # Needs a person
 python -m scripts.audit_citations --export           # then label, then --score
@@ -305,7 +319,7 @@ results/                      pipeline outputs and evaluation reports
   be chosen from the market reports describing the move, before the detector is run.
 
 - **Sample size.** 18 dates have been run under versions 9 and 11; 16 are graded and none of them is a should-refuse date. The refusal test is a dozen quiet days. The 94-date set in `data/eval/eval_dates.csv` has been run in full only under version 3. No rate here can be quoted without its interval.
-- **The refusal claim failed its first test; the fix has one test behind it.** Version 10 explained 5 of 12 invented moves. Version 11 explained 2 of 12 on other quiet days (seed 11), at the cost of two of the twelve real explanations. Twelve days per test: the intervals overlap.
+- **The refusal claim failed its first test; the fix has been tested twice on one set of days.** Version 10 explained 5 of 12 invented moves. Version 11 explained 2 of 12 on other quiet days (seed 11) in each of two independent runs, at the cost of two of the twelve real explanations. Twelve days per test: the intervals overlap, and both runs used the same twelve days.
 - **Versions 9 and 11 are in-sample on the labelled dates.** Both were designed on the 16 dates they are scored on (12 and 10 of 16). The 24 dates in `data/labeling/dates_to_label.csv` are the held-out test, and their proposed labels have not been checked. Outputs carry a `pipeline_version`; the metrics report warns when versions are mixed.
 - **More than one model.** The Groq fallback list answers with qwen3.8-27b when gpt-oss-120b is unavailable: 3 of the 16 labelled dates and 1 of the 12 invented-move days. The error that caused each fallback was not recorded.
 - **The labels rest on one round of research.** Nobody has checked them independently, three of the 18 are marked CHECK as borderline, and they were made after the system had been run on these dates, though without sight of its answers. The document labels are single-annotator too.

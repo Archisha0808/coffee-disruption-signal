@@ -1,0 +1,713 @@
+{
+  "timing": [
+    {
+      "commodity": "coffee",
+      "control_floor_pct": 2.3384354044912348,
+      "shocks": {
+        "n": 130,
+        "retraced": 118,
+        "never_retraced": 12,
+        "share_never": 0.09230769230769231,
+        "median_days": 4.0,
+        "q1_days": 2.0,
+        "q3_days": 13.75
+      },
+      "control": {
+        "n": 404,
+        "retraced": 368,
+        "never_retraced": 36,
+        "share_never": 0.0891089108910891,
+        "median_days": 3.0,
+        "q1_days": 1.0,
+        "q3_days": 10.0
+      }
+    },
+    {
+      "commodity": "crude_oil",
+      "control_floor_pct": 1.8518483042038847,
+      "shocks": {
+        "n": 204,
+        "retraced": 177,
+        "never_retraced": 27,
+        "share_never": 0.1323529411764706,
+        "median_days": 5.0,
+        "q1_days": 2.0,
+        "q3_days": 15.0
+      },
+      "control": {
+        "n": 905,
+        "retraced": 823,
+        "never_retraced": 82,
+        "share_never": 0.09060773480662983,
+        "median_days": 3.0,
+        "q1_days": 1.0,
+        "q3_days": 10.0
+      }
+    },
+    {
+      "commodity": "wheat",
+      "control_floor_pct": 1.5590200445434244,
+      "shocks": {
+        "n": 249,
+        "retraced": 229,
+        "never_retraced": 20,
+        "share_never": 0.08032128514056225,
+        "median_days": 5.0,
+        "q1_days": 2.0,
+        "q3_days": 19.0
+      },
+      "control": {
+        "n": 1325,
+        "retraced": 1230,
+        "never_retraced": 95,
+        "share_never": 0.07169811320754717,
+        "median_days": 3.0,
+        "q1_days": 1.0,
+        "q3_days": 10.0
+      }
+    },
+    {
+      "commodity": "gold",
+      "control_floor_pct": 1.0783938814531435,
+      "shocks": {
+        "n": 227,
+        "retraced": 196,
+        "never_retraced": 31,
+        "share_never": 0.13656387665198239,
+        "median_days": 7.0,
+        "q1_days": 2.0,
+        "q3_days": 18.0
+      },
+      "control": {
+        "n": 576,
+        "retraced": 508,
+        "never_retraced": 68,
+        "share_never": 0.11805555555555555,
+        "median_days": 3.0,
+        "q1_days": 1.0,
+        "q3_days": 8.0
+      }
+    },
+    {
+      "commodity": "silver",
+      "control_floor_pct": 1.9642230796211857,
+      "shocks": {
+        "n": 260,
+        "retraced": 225,
+        "never_retraced": 35,
+        "share_never": 0.1346153846153846,
+        "median_days": 7.0,
+        "q1_days": 2.0,
+        "q3_days": 18.0
+      },
+      "control": {
+        "n": 674,
+        "retraced": 604,
+        "never_retraced": 70,
+        "share_never": 0.10385756676557864,
+        "median_days": 3.0,
+        "q1_days": 1.0,
+        "q3_days": 10.0
+      }
+    }
+  ],
+  "exposure": [
+    {
+      "commodity": "coffee",
+      "available": true,
+      "assessed": 225,
+      "macro": 55,
+      "macro_share": 0.24444444444444444,
+      "median_window_r2": 0.0676928545132933
+    },
+    {
+      "commodity": "crude_oil",
+      "available": true,
+      "assessed": 330,
+      "macro": 226,
+      "macro_share": 0.6848484848484848,
+      "median_window_r2": 0.7627146823714732
+    },
+    {
+      "commodity": "wheat",
+      "available": true,
+      "assessed": 394,
+      "macro": 112,
+      "macro_share": 0.28426395939086296,
+      "median_window_r2": 0.12428903291334005
+    },
+    {
+      "commodity": "gold",
+      "available": true,
+      "assessed": 397,
+      "macro": 167,
+      "macro_share": 0.42065491183879095,
+      "median_window_r2": 0.29749839525164096
+    },
+    {
+      "commodity": "silver",
+      "available": true,
+      "assessed": 429,
+      "macro": 140,
+      "macro_share": 0.32634032634032634,
+      "median_window_r2": 0.2855403203210424
+    }
+  ],
+  "forward": [
+    {
+      "commodity": "coffee",
+      "horizons": {
+        "5": {
+          "after_a_shock": {
+            "n": 130,
+            "median": 0.016320124732804864,
+            "q1": -2.688663032127367,
+            "q3": 3.50970561170863,
+            "share_up": 0.5
+          },
+          "any_day": {
+            "n": 2192,
+            "median": -0.10413165437227478,
+            "q1": -3.003371891925638,
+            "q3": 3.4251723901546294,
+            "share_up": 0.4908759124087591
+          }
+        },
+        "10": {
+          "after_a_shock": {
+            "n": 130,
+            "median": 0.05277534636207726,
+            "q1": -4.473634846937025,
+            "q3": 4.34274348669228,
+            "share_up": 0.5
+          },
+          "any_day": {
+            "n": 2187,
+            "median": 0.01549528580997439,
+            "q1": -3.86245170346276,
+            "q3": 4.858962636832942,
+            "share_up": 0.5002286236854138
+          }
+        },
+        "20": {
+          "after_a_shock": {
+            "n": 130,
+            "median": 0.5203350816259555,
+            "q1": -6.173926430266191,
+            "q3": 7.243395036622813,
+            "share_up": 0.5230769230769231
+          },
+          "any_day": {
+            "n": 2177,
+            "median": 0.33269041406751576,
+            "q1": -5.3886978744543175,
+            "q3": 7.5563369925433,
+            "share_up": 0.5149288011024346
+          }
+        },
+        "60": {
+          "after_a_shock": {
+            "n": 130,
+            "median": 1.7809096179796757,
+            "q1": -6.8214669591371955,
+            "q3": 13.001413068032146,
+            "share_up": 0.5384615384615384
+          },
+          "any_day": {
+            "n": 2137,
+            "median": 3.0532529932507435,
+            "q1": -7.844793599623534,
+            "q3": 15.426394869599115,
+            "share_up": 0.5699578848853533
+          }
+        }
+      }
+    },
+    {
+      "commodity": "crude_oil",
+      "horizons": {
+        "5": {
+          "after_a_shock": {
+            "n": 203,
+            "median": -0.012660931937302777,
+            "q1": -3.560479700337643,
+            "q3": 3.6488544208354234,
+            "share_up": 0.4975369458128079
+          },
+          "any_day": {
+            "n": 3436,
+            "median": 0.2471541633317531,
+            "q1": -2.785560630643552,
+            "q3": 3.0338521880158176,
+            "share_up": 0.5203725261932479
+          }
+        },
+        "10": {
+          "after_a_shock": {
+            "n": 203,
+            "median": 0.1494058105552476,
+            "q1": -4.49659607443666,
+            "q3": 4.981317318687372,
+            "share_up": 0.5073891625615764
+          },
+          "any_day": {
+            "n": 3431,
+            "median": 0.5135707693989744,
+            "q1": -3.910681288675233,
+            "q3": 4.320441932963847,
+            "share_up": 0.5336636549111047
+          }
+        },
+        "20": {
+          "after_a_shock": {
+            "n": 203,
+            "median": -1.743932722000996,
+            "q1": -6.997996249517202,
+            "q3": 5.166256635387112,
+            "share_up": 0.42857142857142855
+          },
+          "any_day": {
+            "n": 3421,
+            "median": 0.52164841727671,
+            "q1": -5.720360866627594,
+            "q3": 6.562600005671193,
+            "share_up": 0.5179771996492254
+          }
+        },
+        "60": {
+          "after_a_shock": {
+            "n": 202,
+            "median": 3.544563441660298,
+            "q1": -8.681516908283413,
+            "q3": 14.481170962715089,
+            "share_up": 0.5693069306930693
+          },
+          "any_day": {
+            "n": 3381,
+            "median": 0.09991853746156298,
+            "q1": -8.995105070001209,
+            "q3": 11.424168691119242,
+            "share_up": 0.5019225081336882
+          }
+        }
+      }
+    },
+    {
+      "commodity": "wheat",
+      "horizons": {
+        "5": {
+          "after_a_shock": {
+            "n": 249,
+            "median": 0.0358937544867155,
+            "q1": -2.8651685393258464,
+            "q3": 3.3826638477801207,
+            "share_up": 0.5020080321285141
+          },
+          "any_day": {
+            "n": 4443,
+            "median": -0.09416195856873921,
+            "q1": -2.6839455148728097,
+            "q3": 2.5128259096529715,
+            "share_up": 0.4850326356065721
+          }
+        },
+        "10": {
+          "after_a_shock": {
+            "n": 249,
+            "median": -0.05868544600938774,
+            "q1": -4.463732176069435,
+            "q3": 4.357492218763892,
+            "share_up": 0.4939759036144578
+          },
+          "any_day": {
+            "n": 4438,
+            "median": -0.13521813059919063,
+            "q1": -3.725111124484992,
+            "q3": 3.5659374654702702,
+            "share_up": 0.48873366381252814
+          }
+        },
+        "20": {
+          "after_a_shock": {
+            "n": 248,
+            "median": -0.7128793569420644,
+            "q1": -5.398473571773141,
+            "q3": 4.933934619172292,
+            "share_up": 0.46774193548387094
+          },
+          "any_day": {
+            "n": 4428,
+            "median": -0.31154019380358333,
+            "q1": -4.855548321964012,
+            "q3": 4.950495049504955,
+            "share_up": 0.48509485094850946
+          }
+        },
+        "60": {
+          "after_a_shock": {
+            "n": 247,
+            "median": -0.9896536212325668,
+            "q1": -9.880538300780263,
+            "q3": 9.450373918793986,
+            "share_up": 0.4777327935222672
+          },
+          "any_day": {
+            "n": 4388,
+            "median": -0.510864941757444,
+            "q1": -7.504797543118935,
+            "q3": 7.529502158143314,
+            "share_up": 0.4801731996353692
+          }
+        }
+      }
+    },
+    {
+      "commodity": "gold",
+      "horizons": {
+        "5": {
+          "after_a_shock": {
+            "n": 226,
+            "median": -0.11516262959700985,
+            "q1": -1.461496557805511,
+            "q3": 1.4651095107962198,
+            "share_up": 0.48672566371681414
+          },
+          "any_day": {
+            "n": 3729,
+            "median": 0.1933808497706968,
+            "q1": -1.1719684286055965,
+            "q3": 1.4906832298136719,
+            "share_up": 0.5395548404397962
+          }
+        },
+        "10": {
+          "after_a_shock": {
+            "n": 225,
+            "median": 0.03056117966153682,
+            "q1": -1.6874135546334657,
+            "q3": 2.033364358845846,
+            "share_up": 0.5111111111111111
+          },
+          "any_day": {
+            "n": 3724,
+            "median": 0.21269097907854473,
+            "q1": -1.5960694558904642,
+            "q3": 2.2136916198454926,
+            "share_up": 0.5349087003222341
+          }
+        },
+        "20": {
+          "after_a_shock": {
+            "n": 225,
+            "median": 0.3080566489816805,
+            "q1": -1.911359652783562,
+            "q3": 3.4104373808665267,
+            "share_up": 0.5244444444444445
+          },
+          "any_day": {
+            "n": 3714,
+            "median": 0.3100165387146525,
+            "q1": -2.222310405064673,
+            "q3": 3.308420409310475,
+            "share_up": 0.5255788906838987
+          }
+        },
+        "60": {
+          "after_a_shock": {
+            "n": 224,
+            "median": 2.34018255209143,
+            "q1": -3.376853526036147,
+            "q3": 6.789263049334654,
+            "share_up": 0.6116071428571429
+          },
+          "any_day": {
+            "n": 3674,
+            "median": 1.412903317086045,
+            "q1": -3.7586824204178666,
+            "q3": 6.6882697541651215,
+            "share_up": 0.5740337506804573
+          }
+        }
+      }
+    },
+    {
+      "commodity": "silver",
+      "horizons": {
+        "5": {
+          "after_a_shock": {
+            "n": 259,
+            "median": -0.01472320376914027,
+            "q1": -2.061274960315751,
+            "q3": 2.6793599025876524,
+            "share_up": 0.49034749034749037
+          },
+          "any_day": {
+            "n": 4232,
+            "median": 0.15420268237555934,
+            "q1": -2.0955918937964113,
+            "q3": 2.605551599552874,
+            "share_up": 0.5172495274102079
+          }
+        },
+        "10": {
+          "after_a_shock": {
+            "n": 258,
+            "median": 0.06542438396072159,
+            "q1": -3.193095255909306,
+            "q3": 4.157683643500132,
+            "share_up": 0.5077519379844961
+          },
+          "any_day": {
+            "n": 4227,
+            "median": 0.15641855447681152,
+            "q1": -3.260092803196507,
+            "q3": 3.953886793652761,
+            "share_up": 0.5147859001656021
+          }
+        },
+        "20": {
+          "after_a_shock": {
+            "n": 257,
+            "median": 0.5428590577039261,
+            "q1": -4.04516479045165,
+            "q3": 6.164787072883349,
+            "share_up": 0.5330739299610895
+          },
+          "any_day": {
+            "n": 4217,
+            "median": 0.09959608255409869,
+            "q1": -4.685723908558915,
+            "q3": 5.982158474724519,
+            "share_up": 0.5058098174057387
+          }
+        },
+        "60": {
+          "after_a_shock": {
+            "n": 256,
+            "median": 0.13357957568046475,
+            "q1": -6.690189524502255,
+            "q3": 10.336596711909223,
+            "share_up": 0.50390625
+          },
+          "any_day": {
+            "n": 4177,
+            "median": 0.9478427513337051,
+            "q1": -7.422192151556151,
+            "q3": 9.674657534246567,
+            "share_up": 0.525496768015322
+          }
+        }
+      }
+    }
+  ],
+  "pass_through": {
+    "available": true,
+    "alpha": 0.05,
+    "n_pairs": 25,
+    "measured": [
+      {
+        "country": "United States",
+        "target": "gasoline",
+        "driver": "crude oil (WTI)",
+        "per_10pct": 5.984302134066189,
+        "p_holm": 7.4905318606929555e-19,
+        "months": 308
+      },
+      {
+        "country": "United States",
+        "target": "energy",
+        "driver": "crude oil (WTI)",
+        "per_10pct": 3.885178219125109,
+        "p_holm": 4.410728244257254e-16,
+        "months": 306
+      },
+      {
+        "country": "United States",
+        "target": "coffee",
+        "driver": "coffee (arabica)",
+        "per_10pct": 2.266119001816902,
+        "p_holm": 1.3533475992435542e-14,
+        "months": 282
+      },
+      {
+        "country": "United States",
+        "target": "food",
+        "driver": "food commodities (IMF index)",
+        "per_10pct": 1.3086467616770388,
+        "p_holm": 2.560997460296931e-05,
+        "months": 306
+      },
+      {
+        "country": "United States",
+        "target": "all items",
+        "driver": "food commodities (IMF index)",
+        "per_10pct": 1.089497780019881,
+        "p_holm": 0.0006971508164981343,
+        "months": 306
+      },
+      {
+        "country": "United States",
+        "target": "all items",
+        "driver": "all commodities (IMF index)",
+        "per_10pct": 0.7719064823142394,
+        "p_holm": 2.0090869929486487e-06,
+        "months": 306
+      },
+      {
+        "country": "United States",
+        "target": "food",
+        "driver": "wheat",
+        "per_10pct": 0.4915497505436801,
+        "p_holm": 0.002640328624903509,
+        "months": 306
+      },
+      {
+        "country": "United States",
+        "target": "all items",
+        "driver": "crude oil (WTI)",
+        "per_10pct": 0.4645904348505897,
+        "p_holm": 1.2098333910358444e-05,
+        "months": 306
+      },
+      {
+        "country": "United States",
+        "target": "all items",
+        "driver": "wheat",
+        "per_10pct": 0.42501135082505387,
+        "p_holm": 0.009086237506416649,
+        "months": 306
+      }
+    ],
+    "no_relationship": [
+      {
+        "country": "United States",
+        "target": "all items",
+        "driver": "coffee (arabica)",
+        "per_10pct": 0.2778250537251913,
+        "p_holm": 0.467911022825996,
+        "months": 306
+      },
+      {
+        "country": "United States",
+        "target": "all items",
+        "driver": "gold",
+        "per_10pct": 0.2158196732090721,
+        "p_holm": 1.0,
+        "months": 163
+      },
+      {
+        "country": "United States",
+        "target": "all items",
+        "driver": "silver",
+        "per_10pct": 0.2697862401962908,
+        "p_holm": 0.07764396313288381,
+        "months": 187
+      },
+      {
+        "country": "United States",
+        "target": "food",
+        "driver": "crude oil (WTI)",
+        "per_10pct": 0.3163471627273303,
+        "p_holm": 0.22767603310312368,
+        "months": 306
+      },
+      {
+        "country": "United States",
+        "target": "core (less food and energy)",
+        "driver": "crude oil (WTI)",
+        "per_10pct": 0.13426963024921995,
+        "p_holm": 1.0,
+        "months": 306
+      },
+      {
+        "country": "United States",
+        "target": "core (less food and energy)",
+        "driver": "all commodities (IMF index)",
+        "per_10pct": 0.19883215506786434,
+        "p_holm": 1.0,
+        "months": 306
+      },
+      {
+        "country": "India",
+        "target": "all items",
+        "driver": "crude oil (Brent)",
+        "per_10pct": -0.010440430254112596,
+        "p_holm": 1.0,
+        "months": 290
+      },
+      {
+        "country": "India",
+        "target": "all items",
+        "driver": "food commodities (IMF index)",
+        "per_10pct": 0.3534753485528213,
+        "p_holm": 1.0,
+        "months": 290
+      },
+      {
+        "country": "India",
+        "target": "all items",
+        "driver": "wheat",
+        "per_10pct": 0.2491053945617336,
+        "p_holm": 1.0,
+        "months": 290
+      },
+      {
+        "country": "India",
+        "target": "all items",
+        "driver": "coffee (arabica)",
+        "per_10pct": -0.06830007417608981,
+        "p_holm": 1.0,
+        "months": 290
+      },
+      {
+        "country": "India",
+        "target": "all items",
+        "driver": "all commodities (IMF index)",
+        "per_10pct": 0.0361628995834996,
+        "p_holm": 1.0,
+        "months": 290
+      },
+      {
+        "country": "India",
+        "target": "all items",
+        "driver": "gold",
+        "per_10pct": -0.3800573861429146,
+        "p_holm": 1.0,
+        "months": 146
+      },
+      {
+        "country": "India",
+        "target": "all items",
+        "driver": "silver",
+        "per_10pct": -0.10599897456142385,
+        "p_holm": 1.0,
+        "months": 170
+      },
+      {
+        "country": "G20",
+        "target": "all items",
+        "driver": "all commodities (IMF index)",
+        "per_10pct": 0.4509274810294285,
+        "p_holm": 0.36518558977245663,
+        "months": 279
+      },
+      {
+        "country": "G20",
+        "target": "all items",
+        "driver": "energy commodities (IMF index)",
+        "per_10pct": 0.3193050271610373,
+        "p_holm": 0.07764396313288381,
+        "months": 279
+      },
+      {
+        "country": "G20",
+        "target": "all items",
+        "driver": "food commodities (IMF index)",
+        "per_10pct": 0.769003378339017,
+        "p_holm": 0.38963299903836074,
+        "months": 279
+      }
+    ],
+    "nowcast_better": []
+  }
+}

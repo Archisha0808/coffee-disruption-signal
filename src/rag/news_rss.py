@@ -47,6 +47,8 @@ RSS_QUERIES = {
     "wheat": "wheat prices OR wheat futures OR grain harvest OR wheat export",
     "cocoa": "cocoa prices OR cocoa futures OR cocoa harvest OR Ivory Coast cocoa OR Ghana cocoa",
     "sugar": "sugar prices OR raw sugar futures OR sugar export OR sugar harvest OR India sugar",
+    "gold": "gold prices OR gold futures OR bullion OR gold Federal Reserve OR spot gold",
+    "silver": "silver prices OR silver futures OR silver bullion OR spot silver",
 }
 
 GOOGLE_NEWS_RSS = "https://news.google.com/rss/search"

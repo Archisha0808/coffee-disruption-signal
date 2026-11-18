@@ -8,13 +8,15 @@ Produced by `python -m src.analysis.inflation`. The detector itself is unchanged
 
 | Commodity | From | To | Nominal | CPI | Real | Nominal high | Real high | Latest vs real high |
 |---|---|---|---|---|---|---|---|---|
-| Coffee (Arabica) | 2018-01-02 | 2026-10-23 | +136.1% | +35.9% | +73.8% | 2025-02-13 | 2025-02-13 | -33.7% |
+| Coffee (Arabica) | 2018-01-02 | 2026-11-10 | +104.6% | +35.9% | +50.6% | 2025-02-13 | 2025-02-13 | -42.5% |
 | Crude Oil (WTI) | 2013-01-02 | 2026-09-11 | +7.4% | +45.2% | -26.0% | 2022-03-08 | 2013-09-06 | -37.1% |
 | Wheat (Chicago SRW) | 2009-01-02 | 2026-09-11 | +15.7% | +58.7% | -27.1% | 2022-03-07 | 2022-03-07 | -57.7% |
 | Cocoa (ICE New York) | 2015-01-02 | 2026-11-12 | +66.8% | +43.4% | +16.4% | 2024-12-18 | 2024-12-18 | -63.4% |
 | Sugar (Raw, No. 11) | 2015-01-02 | 2026-11-12 | +27.9% | +43.4% | -10.8% | 2023-11-06 | 2016-10-05 | -45.5% |
+| Gold (COMEX) | 2012-01-03 | 2026-11-09 | +157.2% | +48.3% | +73.5% | 2026-01-29 | 2026-01-29 | -25.0% |
+| Silver (COMEX) | 2010-01-04 | 2026-11-09 | +201.4% | +55.2% | +94.2% | 2026-01-26 | 2026-01-26 | -55.8% |
 
-Trading days after the last published CPI month (deflated with the last published value): Cocoa (ICE New York) 9, Sugar (Raw, No. 11) 9.
+Trading days after the last published CPI month (deflated with the last published value): Coffee (Arabica) 7, Cocoa (ICE New York) 9, Sugar (Raw, No. 11) 9, Gold (COMEX) 6, Silver (COMEX) 6.
 
 ## 2. Year by year: did the commodity beat consumer inflation?
 
@@ -100,21 +102,61 @@ Year-end close vs previous year-end close, against December-to-December CPI. Rea
 | 2024 | -6.4% | +2.9% | -9.0% |
 | 2025 | -22.1% | +2.7% | -24.1% |
 
+### Gold (COMEX) - beat inflation in 7 of 13 years
+
+| Year | Nominal | CPI | Real |
+|---|---|---|---|
+| 2013 | -28.2% | +1.5% | -29.3% |
+| 2014 | -1.5% | +0.7% | -2.1% |
+| 2015 | -10.4% | +0.6% | -11.0% |
+| 2016 | +8.5% | +2.1% | +6.3% |
+| 2017 | +13.6% | +2.1% | +11.2% |
+| 2018 | -2.1% | +2.0% | -4.1% |
+| 2019 | +18.9% | +2.3% | +16.2% |
+| 2020 | +24.7% | +1.3% | +23.1% |
+| 2021 | -3.5% | +7.2% | -10.0% |
+| 2022 | -0.1% | +6.4% | -6.1% |
+| 2023 | +13.4% | +3.3% | +9.8% |
+| 2024 | +27.5% | +2.9% | +23.9% |
+| 2025 | +64.4% | +2.7% | +60.1% |
+
+### Silver (COMEX) - beat inflation in 7 of 15 years
+
+| Year | Nominal | CPI | Real |
+|---|---|---|---|
+| 2011 | -9.8% | +3.1% | -12.5% |
+| 2012 | +8.2% | +1.8% | +6.4% |
+| 2013 | -35.9% | +1.5% | -36.9% |
+| 2014 | -19.5% | +0.7% | -20.0% |
+| 2015 | -11.5% | +0.6% | -12.1% |
+| 2016 | +15.7% | +2.1% | +13.4% |
+| 2017 | +7.1% | +2.1% | +4.8% |
+| 2018 | -9.5% | +2.0% | -11.3% |
+| 2019 | +15.5% | +2.3% | +12.9% |
+| 2020 | +47.7% | +1.3% | +45.8% |
+| 2021 | -11.4% | +7.2% | -17.3% |
+| 2022 | +2.3% | +6.4% | -3.9% |
+| 2023 | -0.0% | +3.3% | -3.2% |
+| 2024 | +21.3% | +2.9% | +17.9% |
+| 2025 | +142.3% | +2.7% | +136.1% |
+
 ## 3. Does deflating change what the detector flags?
 
 The same detector (75-day window, z >= 2.0, 10-day cumulative check, contract-switch handling where a list exists) run on nominal and on deflated prices.
 
 | Commodity | Days | Flagged (nominal) | Flagged (real) | Days that differ | Median daily move | Median daily CPI drift |
 |---|---|---|---|---|---|---|
-| Coffee (Arabica) | 2142 | 279 | 278 | 7 | 1.38% | 0.0100% |
+| Coffee (Arabica) | 2154 | 279 | 278 | 7 | 1.38% | 0.0099% |
 | Crude Oil (WTI) | 3368 | 420 | 416 | 6 | 1.27% | 0.0087% |
 | Wheat (Chicago SRW) | 4373 | 519 | 513 | 16 | 1.18% | 0.0085% |
 | Cocoa (ICE New York) | 2908 | 361 | 360 | 3 | 1.21% | 0.0092% |
 | Sugar (Raw, No. 11) | 2909 | 377 | 376 | 7 | 1.11% | 0.0092% |
+| Gold (COMEX) | 3659 | 491 | 492 | 15 | 0.52% | 0.0086% |
+| Silver (COMEX) | 4162 | 515 | 516 | 9 | 0.96% | 0.0086% |
 
-Dates that differ: Coffee (Arabica): 2019-12-12, 2021-04-27, 2022-04-13, 2022-06-02, 2022-08-24, 2023-10-18, 2026-06-26; Crude Oil (WTI): 2014-02-07, 2014-02-18, 2018-11-09, 2021-06-04, 2021-12-06, 2024-08-26; Wheat (Chicago SRW): 2013-08-27, 2014-04-21, 2016-03-10, 2018-05-04, 2019-03-21, 2020-03-24, 2020-07-09, 2021-07-21, 2022-12-06, 2024-02-20, 2024-04-24, 2025-01-13, 2025-03-06, 2026-02-20, 2026-02-24, 2026-02-25; Cocoa (ICE New York): 2018-02-26, 2019-04-05, 2025-10-13; Sugar (Raw, No. 11): 2022-03-04, 2022-05-09, 2022-07-18, 2022-07-19, 2022-07-27, 2023-12-04, 2024-09-04
+Dates that differ: Coffee (Arabica): 2019-12-12, 2021-04-27, 2022-04-13, 2022-06-02, 2022-08-24, 2023-10-18, 2026-06-26; Crude Oil (WTI): 2014-02-07, 2014-02-18, 2018-11-09, 2021-06-04, 2021-12-06, 2024-08-26; Wheat (Chicago SRW): 2013-08-27, 2014-04-21, 2016-03-10, 2018-05-04, 2019-03-21, 2020-03-24, 2020-07-09, 2021-07-21, 2022-12-06, 2024-02-20, 2024-04-24, 2025-01-13, 2025-03-06, 2026-02-20, 2026-02-24, 2026-02-25; Cocoa (ICE New York): 2018-02-26, 2019-04-05, 2025-10-13; Sugar (Raw, No. 11): 2022-03-04, 2022-05-09, 2022-07-18, 2022-07-19, 2022-07-27, 2023-12-04, 2024-09-04; Gold (COMEX): 2012-06-06, 2012-10-23, 2013-02-15, 2013-03-19, 2015-07-21, 2015-07-27, 2017-01-10, 2017-08-28, 2017-09-11, 2017-09-22, 2020-11-27, 2022-07-06, 2022-07-14, 2022-07-29, 2023-10-24; Silver (COMEX): 2015-08-19, 2019-03-08, 2019-06-03, 2020-02-24, 2020-03-10, 2021-11-29, 2022-01-19, 2022-07-05, 2024-06-11
 
-Largest distance of a differing day's z-score from the 2.0 cut-off: Coffee (Arabica) 0.056; Crude Oil (WTI) 0.011; Wheat (Chicago SRW) 0.061; Cocoa (ICE New York) 0.009; Sugar (Raw, No. 11) 0.046. Days that differ are days the detector was already on the fence about.
+Largest distance of a differing day's z-score from the 2.0 cut-off: Coffee (Arabica) 0.056; Crude Oil (WTI) 0.011; Wheat (Chicago SRW) 0.061; Cocoa (ICE New York) 0.009; Sugar (Raw, No. 11) 0.046; Gold (COMEX) 0.092; Silver (COMEX) 0.051. Days that differ are days the detector was already on the fence about.
 
 Reading this table: the CPI moves prices by about a hundredth of a percent a day, against typical daily moves of one to two percent, so a daily z-score is almost blind to it. Inflation matters for statements about price LEVELS (a record high, a multi-year comparison), which is what sections 1 and 2 are for; it is not a reason to change the detector.
 

@@ -1,0 +1,9 @@
+column,source,note
+broad_commodity,Yahoo:DBC,
+cny_per_usd,Yahoo:CNY=X,Yuan per US dollar (spot)
+dollar_broad,Yahoo:DX-Y.NYB,"US dollar index (DXY) - a different basket, see note"
+equity,Yahoo:^GSPC,
+eur_per_usd,Yahoo:EURUSD=X,US dollars per euro (spot)
+inr_per_usd,Yahoo:INR=X,Rupee per US dollar (spot)
+jpy_per_usd,Yahoo:JPY=X,Yen per US dollar (spot)
+nominal_yield_10y,Yahoo:^TNX,10-year Treasury yield (index points = percent)

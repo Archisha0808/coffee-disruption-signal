@@ -71,6 +71,14 @@ NEWS_QUERIES = {
         "sugar prices OR raw sugar futures",
         "sugar export India OR Brazil sugar harvest OR sugar ethanol",
     ],
+    "gold": [
+        "gold prices OR gold futures OR spot gold",
+        "gold Federal Reserve OR gold central bank buying OR bullion demand",
+    ],
+    "silver": [
+        "silver prices OR silver futures OR spot silver",
+        "silver industrial demand OR silver solar demand OR bullion",
+    ],
 }
 
 # Industry-specific RSS feeds (these carry deep market analysis that
@@ -90,6 +98,8 @@ INDUSTRY_FEEDS = {
     "wheat": [],
     "cocoa": [],
     "sugar": [],
+    "gold": [],
+    "silver": [],
 }
 
 GOOGLE_NEWS_RSS = "https://news.google.com/rss/search"

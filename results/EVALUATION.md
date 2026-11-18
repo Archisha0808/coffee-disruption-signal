@@ -344,6 +344,87 @@ On the same stored readings, admitting only articles that cleared the relevance 
 
 **What this does and does not show.** Version 11 explains fewer moves of both kinds. On the invented-move test, 2 of 12 against 5 of 12 is a smaller false-explanation rate on days the rule was not designed on, but the two tests used different days and their intervals overlap; it is evidence in the right direction, not a measured improvement. On the labelled dates the score is in-sample and below the always-explain baseline by construction of the key. Neither figure is single-model. The held-out dates (`data/labeling/dates_to_label.csv`), which include two where refusing is right, are the test that can show whether the trade is worth it.
 
+## 9h. Version 11, independent replication
+
+A second team member ran both version 11 tests separately, on 10-11 November 2026, before the run in section 9g was merged in. His outputs are kept in `results/archive/replication_v11/`, and every figure in this section refers to those files, not to the runs in `results/`. The two runs agree on the decision for all 16 labelled dates (the same ten explained, the same six refused) and on 2 of 12 invented moves explained. Both runs drew the same twelve quiet days (seed 11) and agree on 10 of them; they swap the other 2 (2019-09-12 explained only in section 9g's run, 2023-04-04 only in this one), so 2 days in 12 changed outcome between two runs of the same code on the same days, through retrieval and model answers. One correction to the text below: in this run qwen3.8-27b answered two of the sixteen labelled dates (2024-10-07 and 2025-09-15), so the labelled-date result is not single-model either.
+
+### Version 11 measured: the labelled dates and quiet days it was not built on
+
+Section 9f named the two runs that would turn the version 11 rule from a design into a result. Both were run on 10-11 November 2026 with one model (`openai/gpt-oss-120b`; three of the twelve quiet days were answered by `qwen/qwen3.8-27b` after a quota limit). Nothing below is re-scored from an older version's readings: all 16 labelled dates were read again under version 11.
+
+#### The labelled dates
+
+`python -m scripts.run_eval_set --fill-cache --run --max 16 --labelled-first --providers groq`, then `python -m src.evaluation.batch_runner --existing-only` and `python -m src.evaluation.metrics`.
+
+**Result: 10 of 16 explained (62.5%, CI 38.6-81.5%).** Six strong, four tentative, six refused, no faults. Explaining every date still scores 16 of 16 on this answer key, which has no should-refuse date in it, so this section measures one thing: how often the system fails to explain a move that has a documented cause.
+
+Four of the six refusals are the version 11 rule firing, with its own wording (`no_report_gives_an_event_as_the_reason_for_a_move_of_this_size`): 2024-04-30, 2024-12-02, 2025-04-07 and 2025-08-15. The other two refused for a reason version 9 also had (`no_recent_document_gives_a_reason_for_a_price_move`): 2023-01-31 and 2024-09-23.
+
+Two of the four are the rule doing exactly what it was built for. On 2024-12-02 (-7.0%) the only same-day arabica report gives the reason as *"devido à movimentação dos especuladores"* and on 2024-04-30 (-5.5%) as *"após investidores embolsarem lucros"* - speculator movement and profit-taking, which are descriptions of trading, not events. Both were set aside as `reason_only_describes_trading`.
+
+#### What each of the three checks costs, on the same readings
+
+`src/evaluation/metrics.py` re-applies other versions of the rule to the readings these 16 runs stored, so the rule is the only thing that changes between rows.
+
+| Rule, on version 11 readings | Explained when it should |
+|---|---|
+| As the pipeline runs (all three checks) | 10 of 16 (62.5%) |
+| Without the size check | 12 of 16 |
+| Counting trading reasons too | 12 of 16 |
+| Counting reports about another market too | 11 of 16 |
+| Without all three (the version 9 rule) | 15 of 16 (93.8%) |
+| Only documents that cleared the relevance filter itself | 7 of 16 (43.8%) |
+
+Two things follow. The three checks together cost five dates, more than the sum of each on its own, so they overlap. And the version 9 rule scores **15 of 16 on these readings against 12 of 16 on version 9's own** (section 9e): the reading changes that came with version 11 - the three new fields, and a prompt that asks how large a move the document describes - are worth about three dates by themselves. The rule tightening and the reading improvement pull in opposite directions, and the tightening is the larger of the two.
+
+#### Quiet days the rule was not built on
+
+`python -m src.evaluation.robustness --providers groq --experiments placebo --n-placebo 12 --seed 11`. Seed 11 draws twelve quiet days with no overlap with the seed 7 days version 11 was designed from; the invented moves range from -6.2% to +7.8%, comparable to seed 7's. Two days were held back on the first pass because not all of their news requests had been answered, and were picked up by re-running the same command; both refused.
+
+**Result: 2 of 12 invented moves explained (16.7%, CI 4.7-44.8%),** against 5 of 12 under version 10 (section 9f).
+
+That cross-run comparison is weak on its own - different days, different readings, Fisher's exact p = 0.37. The comparison that carries weight is inside this run, on the same days and the same readings:
+
+| Rule, on the same seed-11 readings | Invented moves explained (right answer: none) |
+|---|---|
+| Any report with a reason counts (the rule before version 11) | 8 of 12 (66.7%) |
+| Ignore reports of a move under a quarter the size claimed | 7 of 12 |
+| Only reports of a price move, not background events | 8 of 12 |
+| As the pipeline runs (all three checks) | 2 of 12 (16.7%) |
+| Only documents that cleared the relevance filter itself | 1 of 12 |
+
+Six days flip from explained to refused between the first row and the fourth, and none flips the other way: McNemar's exact test gives **p = 0.031**. The same test on the five labelled dates lost in the table above gives **p = 0.063**. At twelve and sixteen days that boundary is arbitrary, so the honest reading is that the two effects are of similar size and both are marginal, with the benefit slightly better supported than the cost.
+
+#### The trade, stated plainly
+
+| Configuration | Documented causes explained (of 16) | Invented moves explained (of 12) |
+|---|---|---|
+| Rule before version 11 | 15 | 8 |
+| Version 11 | 10 | 2 |
+| Only documents that cleared the relevance filter | 7 | 1 |
+
+Version 11 gives up five real explanations to prevent six false ones. Tightening the relevance filter instead gives up another three to prevent one more, which is a worse exchange. Version 11 is kept because it is the best of the three on this evidence, not because its score is high.
+
+#### The two false explanations that remain, and one reading field behind both
+
+| Quiet day | Invented move | What the explanation rested on |
+|---|---|---|
+| 2023-04-04 | +4.7% | A genuine arabica market report (theglobeandmail.com) whose reading states a 3.37% gain on a day the price series was quiet |
+| 2025-06-11 | -3.7% | A report headlined *"Cacau sobe em Nova York após ajustes técnicos"* - a mixed softs report about cocoa - whose reading states a 1.24% fall |
+
+Both point at fields the reading has never been checked on. 2025-06-11 cleared the size check only because a quarter of 3.7% is 0.9%, so a 1.24% move counts as support for a 3.7% one; `MIN_SIZE_RATIO = 0.25` is too loose. 2023-04-04 cannot be true as read - a real report of a 3.37% gain and a quiet day are not consistent - so the document almost certainly describes the previous session and the reading marked it `same_day`.
+
+The same `when` field cost a real explanation in the other direction on the same days' runs. On 2025-08-15 the deciding group held a same-day report, past the 0.85 relevance filter, about arabica futures, giving the tariffs as the reason, stating a 4.86% move against an actual 4.64%, with its quote verified - every version 11 check passed. It was never considered, because the reading answered `when: "earlier"` on a headline that reads *"Tarifaço ainda impacta mercado do café, que sobe 4 % em Nova York"*; the `current_moves` variant drops anything not current. The recorded refusal reason for that date points at the size check, which had only set aside a weaker 1.11% report from the same day.
+
+Across the six refused dates the field reads `unclear` 28 times out of 59, `same_day` 19, `earlier` 9, `previous_day` 1 and `forecast` 2. It is a hard filter sitting upstream of the whole rule and **no measurement of its accuracy exists**. Raising `MIN_SIZE_RATIO` to 0.5 would refuse 2025-06-11, but that is a change chosen by looking at the day it would fix, so it is written down here as a hypothesis for a further seed rather than applied.
+
+#### Other things the two runs established
+
+- **The direction test is now clean.** Had prices moved the opposite way, none of the ten explanations would still have been produced (0 of 10; version 9 scored 1 of 12, section 9e).
+- **Quote verification bit for the first time.** The reading returned an answer for 161 of 161 documents it was shown, and of the reasons it reported, the quote was found in the document for 68 of 70. Earlier runs were 66 of 66, a figure that carried no information because nothing had ever failed.
+- **A retrieval confound to disclose.** Across the 75 stored runs, 70.7% had at least one news request fail after retries, and 81.1% of those ended in a refusal against 50.0% of the rest. The six dates refused here each retrieved between 491 and 634 documents, 331 to 434 of them recent, so these particular refusals are not starved; the correlation is in the report and `python -m scripts.run_eval_set --run --retry-incomplete` re-asks only the failed requests.
+- **A defect in the evaluation tooling itself.** `src/evaluation/metrics.py` reads `results/evaluation_results.json` when that file exists and only otherwise globs the individual run files. Run straight after the version 11 run, it reported 27 runs of pipeline versions 1 and 2 - a stale snapshot - with no warning that the run files beside it were newer. `python -m src.evaluation.batch_runner --existing-only` rebuilds the snapshot and must be run first. A tool that silently serves figures from a superseded version is the "never mix versions in one table" rule failing in code rather than in writing.
+
 ## 10. Ablation
 
 `ablation_study_report.md`, 26 dates with cached retrieval. Every configuration gates the same scored documents, so only the named component differs. No model is called; this measures the gate.
@@ -364,6 +445,78 @@ On the same stored readings, admitting only articles that cleared the relevance 
 - Without duplicate collapsing, 6.5 documents are accepted per date, of which 5.2 are distinct stories.
 
 These rows cover GDELT documents only, because the live aggregator's results are not reproducible. Re-run after the 100-date set is in the cache.
+
+## 11. Was it the commodity, or the market?
+
+Everything above measures whether the system explains a flagged move. None of it asks a prior question: whether the move was about this commodity at all.
+
+The detector flags a day when one price moved unusually against its own recent volatility. It never looks at any other market. So a day the dollar fell and every dollar-priced asset repriced produces an extreme coffee z-score with nothing coffee-specific in it - and the explanation pipeline then goes looking for a coffee story, because a coffee story is what it was asked for. It will often find one. Nothing in sections 1 to 10 could have detected that failure mode, because every one of them takes the flagged day as given.
+
+Three layers now address it. One has been run; two are built and need series the project did not previously fetch.
+
+### 11a. The cross-commodity check (run)
+
+`python -m src.evaluation.cross_commodity`. No model, no network: it reads the five commodities' stored detections and counts how many flag on the same date. A flagged day is called **macro** when at least two of the other four flagged it too. Only days on which that many others actually have price data are scored, so an early wheat flag is not called commodity-specific merely because coffee's series had not started, and contract-switch days are dropped.
+
+| Commodity | Flagged | Scorable | Macro | Commodity-specific | Macro share | Metals counted once |
+|---|---|---|---|---|---|---|
+| coffee | 279 | 279 | 48 | 231 | 17.2% | 9.7% |
+| crude oil | 420 | 420 | 62 | 358 | 14.8% | 9.0% |
+| wheat | 519 | 434 | 58 | 376 | 13.4% | 7.7% |
+| gold | 491 | 489 | 106 | 383 | 21.7% | 5.6% |
+| silver | 515 | 456 | 93 | 363 | 20.4% | 5.6% |
+
+**48 of coffee's 279 flagged days (17.2%, CI 13-22%) are days the complex moved together.**
+
+The method checks out against what the markets are. Gold and silver, which are substitutes, agree most (Jaccard 0.298 - of the days either flagged, the share on which both did). Coffee and wheat, which share no physical driver, agree least among the non-metal pairs (0.073), as do coffee and crude oil (0.072). A check that produced high agreement between coffee and wheat would be measuring something other than what it claims.
+
+The agreement is also thin rather than universal, which is what a real signal looks like: requiring one other commodity calls 48% of coffee's days macro, two calls 17%, three calls 3%, and four calls none.
+
+### 11b. Three of the sixteen labelled dates are macro days
+
+This is the part that bears on every score in this document.
+
+| Date | Label | Also flagged | Cause the answer key itself records | Version 11 |
+|---|---|---|---|---|
+| 2024-04-30 | EXPLAIN | gold, silver | "A **stronger dollar** weighed on commodities, and losses grew after updated forecasts raised the chance of rain in Brazil" | REFUSED |
+| 2025-02-10 | EXPLAIN | wheat, gold | "Reports of a hot, dry weather system forming over Brazil's coffee areas added to supply fears" | EXPLAINED |
+| 2025-04-07 | EXPLAIN | crude oil, gold, silver | "A **sell-off across most commodities** on trade-war fears after the US tariff announcements" | REFUSED |
+
+On two of the three, **the cause the key records is a macro cause, in the key's own words** - written from market reports months before this check existed. The key marks a date EXPLAIN when a documented cause exists. It never asks whether the cause is specific to this market.
+
+Version 11 refused both of those dates and was scored wrong for it. But the version 11 rule requires a report that is about this market and gives an event as the reason, and "a stronger dollar weighed on commodities" is neither. On the reading the project's own thesis implies - that an explanation should name a reason specific to the commodity whose price moved - those two refusals are correct, and the score is wrong.
+
+2025-02-10 shows the distinction is real rather than mechanical: it is a macro day by the price check, but the cause the key records is Brazilian weather, and version 11 explained it. A macro day does not always have a macro cause.
+
+Scoring the two readings separately:
+
+| | Explained when it should |
+|---|---|
+| All 16 labelled dates (as reported in section 9g) | 10 of 16 (62.5%, CI 39-82%) |
+| The 13 commodity-specific dates | 9 of 13 (69.2%, CI 42-87%) |
+| The 3 macro days | 1 of 3 |
+
+**No label has been changed, and none should be on this evidence.** Relabelling dates after seeing which ones a rule failed is precisely the move this project exists to refuse; it would turn an in-sample result into a circular one. What this establishes is that the key needs a third category - a move that is real, documented, and not about this commodity - and that the people who own the key have a decision to make. The two candidate dates were identified by a price-only check that knows nothing about the labels, which is the only reason this is evidence at all.
+
+It also points at a gap in the system, not just the key. There is no outcome tier for "this was a broad move, and no commodity-specific cause is needed". The pipeline can explain or refuse; on a macro day both are partly wrong, and a refusal reported as weak evidence is misleading about why.
+
+### 11c. The factor layer and the numeraire test (built, not yet run)
+
+The cross-commodity check is a proxy: it infers a shared driver from agreement rather than measuring one. Two modules measure it directly, and both need series the project had not previously fetched (`python -m src.data.market_factors` writes them; all keyless).
+
+**`src/modeling/factor_model.py`** regresses each commodity's daily return on the broad trade-weighted dollar, the S&P 500 and a broad commodity index, with betas fitted on the 75 trading days *before* the day being tested, and classifies each flagged day commodity-specific, macro-driven or both. The exclusion matters: a day inside its own estimation window pulls the fitted line towards itself and shrinks exactly the residual the test is looking for. This runs **alongside** the base detector and never replaces it - every figure in this document was drawn at the base detector's raw 2-sigma threshold, so changing which days are flagged would silently invalidate the answer key.
+
+**`src/analysis/numeraire.py`** prices each move in euro, yen, yuan and rupees as well as dollars. A move that is only in dollars, of about the size of the dollar's own move, is the measuring stick changing rather than the commodity. Survival is taken as the median across the four currencies, so one managed rate (the yuan) cannot drive the answer. It reports both the exact translation, which needs no model, and a regression split against the commodity's recent dollar beta, with the unexplained part always shown and never attributed.
+
+Both were validated on constructed series where the answer is known: a return built to be exactly minus two times the dollar leaves residuals below 1e-9 and cannot be called commodity-specific, while a 9% shock the factors cannot explain recovers in full as a residual with a z-score above 5. 23 tests cover the three layers.
+
+**`src/evaluation/anomaly_card.py`** assembles all of it for one date, with every field tagged observed, tested or hypothesis and carrying the file it came from. It deliberately produces no overall verdict: the layers can disagree, and a day the factor model calls macro-driven that nonetheless survives translation and carries a quoted supply story is a genuine puzzle that one word would hide.
+
+### What 11 does not establish
+
+- That a macro day was **caused** by the dollar. Agreement across commodities, and a high factor R-squared, are both consistent with a shared driver without naming one. The honest reading of a macro verdict is narrower: nothing in this day's move needs a commodity-specific story.
+- That a commodity-specific verdict is right. It says only that the other four markets did not flag, which a shared driver too small to flag them would also produce. It is the weaker of the two verdicts.
+- Anything about the other four commodities' explanations, which have not been run.
 
 ## What is not measured
 

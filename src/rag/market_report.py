@@ -30,6 +30,17 @@ Indonesian, Turkish, Russian, Chinese, Japanese, and from pipeline version
 labelled date because its headline was in Arabic). They list verbs of rising
 and of falling side by side and the score never says which was matched, so
 it cannot favour one direction.
+
+Other commodities. The lists were built for coffee and coffee's are unchanged.
+For crude oil, wheat, gold and silver a Subject (below) carries the three
+things that differ: the words that name the commodity, the words that place a
+headline on ITS exchange (Brent, WTI, a barrel; bullion, an ounce, COMEX; a
+bushel, Chicago), and which other commodities mark a round-up. The words for a
+price and for a move are shared. These subjects have English names plus the
+commonest names in the other languages and have not been tuned on labelled
+dates the way coffee's were: that is a stated limit, not an oversight.
+set_subject() chooses the subject for the run; nothing changes unless it is
+called, so a coffee run reads exactly what it read before.
 """
 
 import re
@@ -43,59 +54,6 @@ COFFEE = re.compile(
     r"قهوة|커피|원두|"
     r"ar[aá]bica|robusta|conilon",
     re.IGNORECASE)
-
-# The other configured commodities, in the same languages where the word is
-# known. Coffee's pattern above is unchanged and is still the default, so a
-# coffee run reads exactly the documents, in exactly the order, it did before
-# these were added (and its cached readings stay valid: the shown text is part
-# of the reading cache key). Before this table existed every commodity was
-# scored with the coffee pattern, so an oil or wheat headline never earned the
-# point for naming its commodity and a round-up was never cut to its passage.
-COMMODITY_NAMES = {
-    "coffee": COFFEE,
-    "cocoa": re.compile(
-        r"cocoa|cacau|cacao|kakao|ca cao|какао|可可|カカオ|كاكاو|코코아|\bkakao\b|"
-        r"chocolate|chocolat|schokolade|grindings?|moagem",
-        re.IGNORECASE),
-    "sugar": re.compile(
-        r"\bsugar\b|a[cç][uú]car|az[uú]car|\bsucre\b|\bzucker\b|\bzucchero\b|"
-        r"[đd][uư][oờ]ng|\bgula\b|\b[sş]eker\b|сахар\w*|原糖|白糖|糖|砂糖|سكر|설탕|원당|"
-        r"\bethanol\b|\betanol\b|\bcane\b|\bcana\b|\bunica\b",
-        re.IGNORECASE),
-    "crude_oil": re.compile(
-        r"\bcrude\b|\boil\b|\bbrent\b|\bwti\b|\bopec\+?|petr[oó]leo|p[eé]trole|[oö]lpreis\w*|"
-        r"\bpetrol\b|нефт\w*|原油|石油|نفط|خام|원유|\bbarrels?\b|\bbarris?\b|\bbarriles?\b",
-        re.IGNORECASE),
-    "wheat": re.compile(
-        r"\bwheat\b|\btrigo\b|\bbl[eé]\b|\bweizen\b|\bgrano\b|\bbu[gğ]day\b|пшениц\w*|"
-        r"小麦|قمح|밀\b|\bgrains?\b|\bgr[aã]os\b|\bcereal\w*",
-        re.IGNORECASE),
-}
-
-# Exchange words particular to a commodity, added to _EXCHANGE below for that
-# commodity only (coffee adds none: arabica, robusta and New York are already in it).
-_EXCHANGE_EXTRA = {
-    "cocoa": re.compile(r"\bnew york cocoa\b|\blondon cocoa\b|\biccos?\b|\bmid-?crop\b",
-                        re.IGNORECASE),
-    "sugar": re.compile(r"\bno\.? ?11\b|\bno\.? ?5\b|\braw sugar\b|\bwhite sugar\b|\bnybot\b",
-                        re.IGNORECASE),
-    "crude_oil": re.compile(r"\bnymex\b|\bwti\b|\bbrent\b|\bper barrel\b|\b/bbl\b|\ba barrel\b",
-                            re.IGNORECASE),
-    "wheat": re.compile(r"\bcbot\b|\bchicago\b|\bkansas city\b|\bmatif\b|\beuronext\b|\bbushel\b",
-                        re.IGNORECASE),
-}
-
-
-def commodity_key(commodity) -> str:
-    """'coffee', 'crude oil', 'Crude_Oil' -> a key of COMMODITY_NAMES.
-    Anything not in the table falls back to coffee, the reference commodity,
-    which is what every caller got before the table existed."""
-    key = str(commodity or "coffee").strip().lower().replace(" ", "_")
-    return key if key in COMMODITY_NAMES else "coffee"
-
-
-def names_pattern(commodity="coffee"):
-    return COMMODITY_NAMES[commodity_key(commodity)]
 
 # Words that place a headline on the commodity exchange: the contract, the
 # exchange, the settlement, the variety that is traded.
@@ -159,6 +117,132 @@ _RETAIL = re.compile(
     r"\btaza\b|\btasse\b|\bчашк\w*",
     re.IGNORECASE)
 
+
+
+class Subject:
+    """What differs between commodities when choosing what to read: the words
+    for the commodity, extra words that place a headline on its exchange, and
+    the other commodities whose presence in an opening marks a round-up."""
+
+    def __init__(self, name, exchange=None, others=None):
+        self.name = name
+        self.exchange = exchange
+        self.others = others
+
+    def on_exchange(self, title: str) -> bool:
+        return bool(_EXCHANGE.search(title)
+                    or (self.exchange is not None and self.exchange.search(title)))
+
+
+_METALS_ROUNDUP = re.compile(
+    r"\bcopper\b|\bplatinum\b|\bpalladium\b|\bmetals\b|\bcommodities\b|\bcrude\b|\boil\b|"
+    r"\bstocks\b|\bequities\b|\bbitcoin\b|\bcobre\b|\bplatino\b|\bpetr[oó]leo\b",
+    re.IGNORECASE)
+
+SUBJECTS = {
+    # Coffee: exactly the patterns this module always used (see COFFEE and
+    # _OTHER_COMMODITY). exchange is None because coffee's exchange words are
+    # already in _EXCHANGE.
+    "coffee": Subject(COFFEE),
+    "crude_oil": Subject(
+        re.compile(r"\bcrude\b|\boil\b|\bbrent\b|\bwti\b|\bpetroleum\b|\bopec\b|"
+                   r"petr[oó]leo|p[eé]trole|\b[oö]l\b|\broh[oö]l\b|нефт\w*|原油|石油|النفط|نفط|원유|"
+                   r"\bpetrol\b|d[aầ]u th[oô]", re.IGNORECASE),
+        exchange=re.compile(r"\bbrent\b|\bwti\b|\bnymex\b|\bbarrels?\b|\bbarril\b|\bbaril\b|"
+                            r"баррел\w*|每桶|배럴|برميل", re.IGNORECASE),
+        others=re.compile(r"\bgold\b|\bsilver\b|\bcopper\b|\bnatural gas\b|\bwheat\b|\bcorn\b|"
+                          r"\bsugar\b|\bcoffee\b|\bcommodities\b|\bstocks\b|\bequities\b|"
+                          r"\bouro\b|\boro\b|\bgas natural\b", re.IGNORECASE)),
+    "wheat": Subject(
+        re.compile(r"\bwheat\b|\bgrains?\b|\btrigo\b|\bbl[eé]\b|\bweizen\b|\bgrano\b|\bgandum\b|"
+                   r"\bbu[gğ]day\b|пшениц\w*|小麦|小麥|القمح|قمح|밀\b|l[uú]a m[iì]", re.IGNORECASE),
+        exchange=re.compile(r"\bcbot\b|\bchicago\b|\bbushels?\b|\bmatif\b|\beuronext\b|"
+                            r"\bkansas\b|\bsrw\b|\bhrw\b|бушел\w*|蒲式耳", re.IGNORECASE),
+        others=re.compile(r"\bcorn\b|\bmaize\b|\bsoy\w*|\brice\b|\bsugar\b|\bcoffee\b|\bcotton\b|"
+                          r"\bcrude\b|\boil\b|\bcommodities\b|\bmilho\b|\bma[ií]z\b|\bsoja\b|"
+                          r"\barroz\b|кукуруз\w*|玉米|大豆", re.IGNORECASE)),
+    "gold": Subject(
+        re.compile(r"\bgold\b|\bbullion\b|\bouro\b|\boro\b|\bl'or\b|\baltın\b|\balt[iı]n\b|"
+                   r"\bemas\b|золот\w*|黄金|金価格|金价|金價|الذهب|ذهب|금값|금 가격|v[aà]ng\b",
+                   re.IGNORECASE),
+        exchange=re.compile(r"\bcomex\b|\blbma\b|\bbullion\b|\bounces?\b|\bspot gold\b|\bonza\b|"
+                            r"\bon[cç]a\b|\bonce\b|унци\w*|盎司|オンス|온스|أونصة|أوقية",
+                            re.IGNORECASE),
+        others=re.compile(r"\bsilver\b|\bprata\b|\bplata\b|" + _METALS_ROUNDUP.pattern,
+                          re.IGNORECASE)),
+    "silver": Subject(
+        re.compile(r"\bsilver\b|\bprata\b|\bplata\b|\bl'argent\b|\bsilber\b|\bargento\b|"
+                   r"\bg[uü]m[uü][sş]\b|\bperak\b|серебр\w*|白银|白銀|銀価格|الفضة|فضة|은값|은 가격|"
+                   r"\bb[aạ]c\b", re.IGNORECASE),
+        exchange=re.compile(r"\bcomex\b|\blbma\b|\bbullion\b|\bounces?\b|\bspot silver\b|"
+                            r"\bonza\b|\bon[cç]a\b|\bonce\b|унци\w*|盎司|オンス|온스|أونصة|أوقية",
+                            re.IGNORECASE),
+        others=re.compile(r"\bgold\b|\bouro\b|\boro\b|" + _METALS_ROUNDUP.pattern,
+                          re.IGNORECASE)),
+    "cocoa": Subject(
+        re.compile(r"cocoa|cacau|cacao|kakao|ca cao|какао|可可|カカオ|كاكاو|코코아|"
+                   r"chocolate|chocolat|schokolade|grindings?|moagem", re.IGNORECASE),
+        exchange=re.compile(r"\bnew york cocoa\b|\blondon cocoa\b|\biccos?\b|\bmid-?crop\b|"
+                            r"\btonnes?\b|\btoneladas?\b", re.IGNORECASE),
+        others=re.compile(r"\bcoffee\b|\bcaf[eé]\b|\bsugar\b|\ba[cç][uú]car\b|\bcotton\b|"
+                          r"\balgod[aã]o\b|\bcommodities\b|\bsofts\b|\bcrude\b|\boil\b",
+                          re.IGNORECASE)),
+    "sugar": Subject(
+        re.compile(r"\bsugar\b|a[cç][uú]car|az[uú]car|\bsucre\b|\bzucker\b|\bzucchero\b|"
+                   r"[đd][uư][oờ]ng|\bgula\b|\b[sş]eker\b|сахар\w*|原糖|白糖|砂糖|سكر|설탕|원당|"
+                   r"\bethanol\b|\betanol\b|\bunica\b", re.IGNORECASE),
+        exchange=re.compile(r"\bno\.? ?11\b|\bno\.? ?5\b|\braw sugar\b|\bwhite sugar\b|"
+                            r"\bnybot\b|\ba[cç][uú]car bruto\b", re.IGNORECASE),
+        others=re.compile(r"\bcoffee\b|\bcaf[eé]\b|\bcocoa\b|\bcacau\b|\bcotton\b|"
+                          r"\balgod[aã]o\b|\bcorn\b|\bmilho\b|\bcommodities\b|\bsofts\b|"
+                          r"\bcrude\b|\boil\b", re.IGNORECASE)),
+}
+
+_subject = SUBJECTS["coffee"]
+
+
+def set_subject(commodity: str = "coffee") -> Subject:
+    """Choose the commodity whose reports are being looked for, by its key in
+    src/config/commodities.py ("crude oil" and "crude_oil" are the same). An
+    unknown commodity falls back to coffee's lists, loudly."""
+    global _subject
+    key = str(commodity or "coffee").strip().lower().replace(" ", "_")
+    if key not in SUBJECTS:
+        print(f"market_report: no word lists for '{commodity}'; using coffee's. "
+              f"Headlines about {commodity} will not be recognised as market reports.")
+        key = "coffee"
+    _subject = SUBJECTS[key]
+    return _subject
+
+
+def subject() -> Subject:
+    return _subject
+
+
+def commodity_key(commodity) -> str:
+    """'coffee', 'crude oil', 'Crude_Oil' -> a key of SUBJECTS; anything
+    unknown is coffee, the reference commodity."""
+    key = str(commodity or "coffee").strip().lower().replace(" ", "_")
+    return key if key in SUBJECTS else "coffee"
+
+
+def _resolve(commodity=None) -> Subject:
+    """The subject to score against: the commodity passed in, when a caller
+    passes one, else the one set_subject() chose for the run. Both styles are
+    used: the pipeline sets the subject once per run, the blind reading passes
+    its commodity explicitly."""
+    return _subject if commodity is None else SUBJECTS[commodity_key(commodity)]
+
+
+# The commodity-name pattern per commodity, for callers that only need the
+# name (tests, reports).
+COMMODITY_NAMES = {key: sub.name for key, sub in SUBJECTS.items()}
+
+
+def names_pattern(commodity="coffee"):
+    return _resolve(commodity).name
+
+
 # At or above this score a headline is treated as a market report and read
 # before anything else of its age or older.
 REPORT_SCORE = 3
@@ -169,7 +253,7 @@ REPORT_SCORE = 3
 KEPT_FOR_THE_DAY = 3
 
 
-def market_report_score(doc: dict, commodity: str = "coffee") -> int:
+def market_report_score(doc: dict, commodity: str = None) -> int:
     """0 to 7: how much a headline looks like a report on coffee's market
     price. One point each for naming coffee, a price, and a figure in percent
     or points; two for a word that places it on the exchange (futures,
@@ -178,11 +262,10 @@ def market_report_score(doc: dict, commodity: str = "coffee") -> int:
     headline about shop prices with nothing from the exchange is held below
     REPORT_SCORE. The score says nothing about which way prices moved."""
     title = doc.get("title") or ""
-    key = commodity_key(commodity)
-    extra = _EXCHANGE_EXTRA.get(key)
-    on_exchange = bool(_EXCHANGE.search(title) or (extra is not None and extra.search(title)))
+    sub = _resolve(commodity)
+    on_exchange = sub.on_exchange(title)
     move = 2 if _MOVE_REPORT.search(title) else int(bool(_MOVE.search(title)))
-    score = (bool(COMMODITY_NAMES[key].search(title)) + bool(_PRICE.search(title)) + move
+    score = (bool(sub.name.search(title)) + bool(_PRICE.search(title)) + move
              + bool(_PERCENT.search(title)) + 2 * on_exchange)
     # A shop-price headline with no word from the exchange is not a market report.
     if _RETAIL.search(title) and not on_exchange:
@@ -191,7 +274,7 @@ def market_report_score(doc: dict, commodity: str = "coffee") -> int:
 
 
 def reading_order(documents: list, age_of, relevance_of, limit: int = None,
-                  commodity: str = "coffee") -> list:
+                  commodity: str = None) -> list:
     """The order in which documents are offered to the reading step, which
     reads the first `limit` of them.
 
@@ -208,14 +291,12 @@ def reading_order(documents: list, age_of, relevance_of, limit: int = None,
 
     `age_of` and `relevance_of` are functions of a document; ties are broken
     by document id, never by arrival order."""
-    scores = {id(d): market_report_score(d, commodity) for d in documents}
-
     def key(doc):
-        return (age_of(doc), -scores[id(doc)], -relevance_of(doc),
+        return (age_of(doc), -market_report_score(doc, commodity), -relevance_of(doc),
                 str(doc.get("document_id")))
 
-    reports = sorted((d for d in documents if scores[id(d)] >= REPORT_SCORE), key=key)
-    others = sorted((d for d in documents if scores[id(d)] < REPORT_SCORE), key=key)
+    reports = sorted((d for d in documents if market_report_score(d, commodity) >= REPORT_SCORE), key=key)
+    others = sorted((d for d in documents if market_report_score(d, commodity) < REPORT_SCORE), key=key)
     if limit is None or len(reports) + min(len(others), KEPT_FOR_THE_DAY) <= limit:
         return reports + others
     newest = min((age_of(d) for d in documents), default=0)
@@ -244,25 +325,6 @@ _OTHER_COMMODITY = re.compile(
     r"\bzucker\b|\bkakao\b|[đd][uư][oờ]ng|h[oồ] ti[eê]u|cao su|ca cao|сахар\w*|какао|可可|原糖|砂糖",
     re.IGNORECASE)
 
-# Round-up words that name no configured commodity.
-_ROUND_UP_WORDS = (r"\bcotton\b|\bcorn\b|\bsoy\w*|\bcommodities\b|\bsofts\b|\balgod[aã]o\b|"
-                   r"\balgod[oó]n\b|\bsoja\b|\bmilho\b|h[oồ] ti[eê]u|cao su")
-
-
-def _other_commodity(commodity="coffee"):
-    """The sign of a round-up for this commodity: another commodity named in
-    the opening. Coffee keeps the original pattern above unchanged."""
-    key = commodity_key(commodity)
-    if key == "coffee":
-        return _OTHER_COMMODITY
-    if key not in _OTHER_CACHE:
-        others = "|".join(p.pattern for k, p in COMMODITY_NAMES.items() if k != key)
-        _OTHER_CACHE[key] = re.compile(_ROUND_UP_WORDS + "|" + others, re.IGNORECASE)
-    return _OTHER_CACHE[key]
-
-
-_OTHER_CACHE = {}
-
 
 def _sentences(text: str) -> list:
     """(start, end) of each sentence, by punctuation; good enough to cut on."""
@@ -274,17 +336,17 @@ def _sentences(text: str) -> list:
     return [(s, e) for s, e in bounds if e > s]
 
 
-def _passage_score(sentence: str, commodity: str = "coffee") -> int:
+def _passage_score(sentence: str, commodity: str = None) -> int:
     """0 if the sentence does not mention coffee; else 1, plus 1 for a word of
     movement and 1 for a figure - the marks of the sentence that says what
     coffee did."""
-    if not names_pattern(commodity).search(sentence):
+    if not _resolve(commodity).name.search(sentence):
         return 0
     return (1 + bool(_MOVE_REPORT.search(sentence) or _MOVE.search(sentence))
             + bool(_PERCENT.search(sentence)))
 
 
-def focus_text(text: str, limit: int = 4000, commodity: str = "coffee") -> str:
+def focus_text(text: str, limit: int = 4000, commodity: str = None) -> str:
     """The text as the reading should be shown it.
 
     Unchanged unless the document is a round-up: its opening names another
@@ -300,7 +362,8 @@ def focus_text(text: str, limit: int = 4000, commodity: str = "coffee") -> str:
     "the contract fell 4.9% as rain was forecast" without the word coffee,
     and cutting to the sentences that have the word would lose it."""
     text = text or ""
-    if len(text) <= OPENING_CHARS or not _other_commodity(commodity).search(text[:OPENING_CHARS]):
+    round_up = _resolve(commodity).others or _OTHER_COMMODITY
+    if len(text) <= OPENING_CHARS or not round_up.search(text[:OPENING_CHARS]):
         return text
     sentences = _sentences(text)
     scores = [_passage_score(text[s:e], commodity) for s, e in sentences]

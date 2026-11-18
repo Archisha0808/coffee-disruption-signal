@@ -38,3 +38,12 @@ Thumbs.db
 # Reading audit sheet: holds excerpts of other publishers' articles (see data/text_cache/).
 # The scored result, results/reading_audit.md, is committed instead.
 data/labeling/reading_audit_sheet.csv
+
+# NOTE: data/raw/*.csv and results/* ARE committed on purpose — the hosted
+# dashboard reads them to display precomputed prices, anomalies, and
+# explanations.
+
+# Files staged to be applied to this repo: a copy of part of the tree.
+# Never committed - it would duplicate the project inside itself and break
+# test collection.
+_merge/
