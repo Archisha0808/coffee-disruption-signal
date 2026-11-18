@@ -1,0 +1,346 @@
+{
+  "saved_at": "2026-11-18T09:22:16Z",
+  "commodity": "coffee",
+  "kind": "price_outlook",
+  "data": {
+    "lean": "downward",
+    "confidence": "low",
+    "label": "Slight downward lean",
+    "summary": "Current coffee market faces downward pressure as a weaker Brazilian real and expectations of larger Brazil exports are pulling prices lower, reflected in recent news reports (e.g., 4903c96cce17a056, 9d94f86b9978dcd2). While seasonal frost risk in Brazil and drier weather could support prices, these upward factors are outweighed by the export\u2011driven bearish sentiment. Overall, the outlook leans toward further price declines in the near term.",
+    "signal_assessments": [
+      {
+        "factor": "seasonal_calendar",
+        "direction": "upward",
+        "reasoning": "Brazil is in the flowering stage with critical frost risk, which can reduce yields and push prices up.",
+        "data_point": "Brazil flowering, frost risk critical (seasonal calendar)"
+      },
+      {
+        "factor": "weather_observed",
+        "direction": "upward",
+        "reasoning": "Dryness z-score +0.76 indicates drier than normal conditions, potentially stressing coffee crops and supporting higher prices.",
+        "data_point": "Dryness z-score +0.76, 30\u2011day rainfall 149.6\u202fmm (NASA POWER)"
+      },
+      {
+        "factor": "currency",
+        "direction": "downward",
+        "reasoning": "BRL weakened 13.4% over the month to 5.7815 USD, encouraging Brazilian coffee exports and weighing on prices.",
+        "data_point": "BRL/USD 5.7815, +13.4% 1\u2011month change (Yahoo Finance)"
+      },
+      {
+        "factor": "price_trend",
+        "direction": "downward",
+        "reasoning": "Coffee price has fallen 6.2% week\u2011over\u2011week and 9.0% month\u2011over\u2011month, indicating downward momentum.",
+        "data_point": "Price 266.45\u202fcents/lb, -6.2% week, -9.0% month (Yahoo Finance)"
+      },
+      {
+        "factor": "historical_analogs",
+        "direction": "neutral",
+        "reasoning": "Similar past days show a slight near\u2011term decline (median -0.9%) but a longer\u2011term rise (median +1.9%), yielding no clear bias.",
+        "data_point": "Next week median -0.9%, next month median +1.9% (historical pattern)"
+      },
+      {
+        "factor": "news",
+        "direction": "downward",
+        "reasoning": "Multiple articles report that a weaker real and expanding Brazil exports are depressing coffee prices.",
+        "data_point": "Articles 4903c96cce17a056, 9d94f86b9978dcd2, c38d92eb857c0140, 6278b6d807d4564d, 441175f168c85349, a47e3dd35f89769d, 6d5d7db029d703d4"
+      }
+    ],
+    "n_upward": 2,
+    "n_downward": 3,
+    "n_neutral": 1,
+    "citations": [
+      {
+        "document_id": "4903c96cce17a056",
+        "supports": "Coffee Prices Slide as the Brazilian Real Weakens and Supplies Build"
+      },
+      {
+        "document_id": "9d94f86b9978dcd2",
+        "supports": "Coffee Prices Undercut by Rising Brazil Coffee Exports"
+      },
+      {
+        "document_id": "c38d92eb857c0140",
+        "supports": "Brazilian Real Weakness and Rising Brazil Exports Weigh on Coffee Prices"
+      },
+      {
+        "document_id": "6278b6d807d4564d",
+        "supports": "Arabica Coffee Falls in Expectations of Larger Brazil Coffee Exports"
+      },
+      {
+        "document_id": "441175f168c85349",
+        "supports": "Soaring Brazil Coffee Exports Weigh on Arabica Prices"
+      },
+      {
+        "document_id": "a47e3dd35f89769d",
+        "supports": "Arabica Coffee Slips as Brazil Coffee Exports Set to Expand"
+      },
+      {
+        "document_id": "6d5d7db029d703d4",
+        "supports": "Expanding Brazil Coffee Exports Weigh on Arabica Prices"
+      }
+    ],
+    "drivers": [
+      {
+        "factor": "seasonal_calendar",
+        "direction": "upward",
+        "score": 1,
+        "why": "Brazil is in the flowering stage with critical frost risk, which can reduce yields and push prices up.",
+        "data_point": "Brazil flowering, frost risk critical (seasonal calendar)"
+      },
+      {
+        "factor": "weather_observed",
+        "direction": "upward",
+        "score": 1,
+        "why": "Dryness z-score +0.76 indicates drier than normal conditions, potentially stressing coffee crops and supporting higher prices.",
+        "data_point": "Dryness z-score +0.76, 30\u2011day rainfall 149.6\u202fmm (NASA POWER)"
+      },
+      {
+        "factor": "currency",
+        "direction": "downward",
+        "score": -1,
+        "why": "BRL weakened 13.4% over the month to 5.7815 USD, encouraging Brazilian coffee exports and weighing on prices.",
+        "data_point": "BRL/USD 5.7815, +13.4% 1\u2011month change (Yahoo Finance)"
+      },
+      {
+        "factor": "price_trend",
+        "direction": "downward",
+        "score": -1,
+        "why": "Coffee price has fallen 6.2% week\u2011over\u2011week and 9.0% month\u2011over\u2011month, indicating downward momentum.",
+        "data_point": "Price 266.45\u202fcents/lb, -6.2% week, -9.0% month (Yahoo Finance)"
+      },
+      {
+        "factor": "historical_analogs",
+        "direction": "neutral",
+        "score": 0,
+        "why": "Similar past days show a slight near\u2011term decline (median -0.9%) but a longer\u2011term rise (median +1.9%), yielding no clear bias.",
+        "data_point": "Next week median -0.9%, next month median +1.9% (historical pattern)"
+      },
+      {
+        "factor": "news",
+        "direction": "downward",
+        "score": -1,
+        "why": "Multiple articles report that a weaker real and expanding Brazil exports are depressing coffee prices.",
+        "data_point": "Articles 4903c96cce17a056, 9d94f86b9978dcd2, c38d92eb857c0140, 6278b6d807d4564d, 441175f168c85349, a47e3dd35f89769d, 6d5d7db029d703d4"
+      }
+    ],
+    "signals_collected": {
+      "seasonal": {
+        "brazil_phase": "Flowering: frost risk is critical",
+        "vietnam_phase": "Harvest",
+        "colombia_phase": "Main harvest (cosecha principal)",
+        "key_risk": "Brazilian frost risk during flowering: the highest-impact seasonal factor for global coffee prices.",
+        "source": "Coffee agricultural calendar"
+      },
+      "weather_observed": {
+        "dryness_zscore": 0.76,
+        "frost_7d_count": 0,
+        "prcp_30d_mm": 149.6,
+        "as_of": "2026-11-10",
+        "source": "NASA POWER satellite data"
+      },
+      "currency": {
+        "brl_usd_rate": 5.7815,
+        "change_1m_pct": 13.4,
+        "percentile_1y": 100.0,
+        "source": "Yahoo Finance (BRL=X)"
+      },
+      "price": {
+        "current_cents_lb": 266.45,
+        "week_change_pct": -6.2,
+        "month_change_pct": -9.0,
+        "percentile_1y": 4.8,
+        "recent_vol_annualized": 31.8,
+        "hist_vol_annualized": 40.7,
+        "as_of": "2026-11-10",
+        "source": "Yahoo Finance (KC=F)"
+      },
+      "historical_analogs": {
+        "week": {
+          "n_analogs": 25,
+          "median_pct": -0.9,
+          "p10_pct": -6.4,
+          "p90_pct": 4.8,
+          "share_up_pct": 40.0
+        },
+        "month": {
+          "n_analogs": 25,
+          "median_pct": 1.9,
+          "p10_pct": -11.5,
+          "p90_pct": 23.1,
+          "share_up_pct": 68.0
+        },
+        "source": "Historical pattern matching (price + weather features)"
+      }
+    },
+    "retrieval_info": "Retrieved 100 articles, 100 passed relevance gate, top 12 sent to LLM (semantic_threshold=0.7, gate decision: EXPLAIN)",
+    "accepted_documents": [
+      {
+        "document_id": "4903c96cce17a056",
+        "title": "Coffee Prices Slide as the Brazilian Real Weakens and Supplies Build - TradingView",
+        "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNUzk2bFlHNUJDTmEta1h2NG9sWTZvbVgzYWQ2bUpGdUd2dWNYN1VpV2ZURUVpanRfREg1OGJVVlRJWEEwaHlhTzVvZEhlWl8temMzTjhOVXB4d2x0VzYyNHpUYk5xZW9uSUFKbUpUNHRLcmo3N0wyc3h5d2lCalN6MUczM0t2NEhHbFdGUVhvN2M2WUhyRVpOd0V1elZVVVBWNVJZczFHNmFlZVBwakRxM3B4Rzg5N1ctZEwwbWJIUUtRaDNO?oc=5",
+        "publication_date": "2026-11-10"
+      },
+      {
+        "document_id": "9d94f86b9978dcd2",
+        "title": "Coffee Prices Undercut by Rising Brazil Coffee Exports - Barchart.com",
+        "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxOdG1LMXpxR0hnaHhVZUpoYk9zZDExUHBqMmZ4WGw3clRuUnV4Yk5jVXV4MW5FQ2RSRk1LU0ZIME1PNFRQSFZ5ZVRkbkVfTi1vaGRoTVRaOC1SaXdKWjFXT0tKU0lGM25LVFVtRmZheXpjODZIYy1TZ0t0NDJLV05zSnNNYzhmWEpIV0lrc2U3dTRYVkdoTjg3bmE2eDdzQWc?oc=5",
+        "publication_date": "2026-11-09"
+      },
+      {
+        "document_id": "c38d92eb857c0140",
+        "title": "Brazilian Real Weakness and Rising Brazil Exports Weigh on Coffee Prices - Barchart.com",
+        "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxPWjZlU1Q0VGVDMk5RSkZQZGRyV0dhdElsb25KVG1YV3NCVjFjTzNaN1FvbkVBTlJqaFhhMnNLVUhmS0JJSmdfV0N2bHg1cnN2Rzk0cjYxeUFXU29RNnRhQ3psandoaDJVNjlxaXpDRFVVMVlUUloxNnh1b00xMi1raS1MWjRpeWVyUjZtOHBORVNQak5VYkVQRjFHcFFVV1hJR09OblRqTTNhTlp6SzhyNnBTbUdzLVU?oc=5",
+        "publication_date": "2026-11-10"
+      },
+      {
+        "document_id": "6278b6d807d4564d",
+        "title": "Arabica Coffee Falls in Expectations of Larger Brazil Coffee Exports - Barchart.com",
+        "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxPRmh2eHE0dGljOHQwazNobTVSWlpTVGhSaHZSN3J3QUMxVXZ3RWFKc05nSmFqei1jR0gxa1RiOWhIdEdKdW51dk1hX3RoMlByVkp1elNudkhZbXRGbzVBOEpfMVpLcHBPZ2VTc0VsT21uVWNWVi1WelZkYUFPRno0X2pkVW5BcGg3ZHYzUHAzYmxISVhyU1pPaC1oR2ktcld6X3AyVGc2aERRYnBiQmZWb09B?oc=5",
+        "publication_date": "2026-11-04"
+      },
+      {
+        "document_id": "441175f168c85349",
+        "title": "Soaring Brazil Coffee Exports Weigh on Arabica Prices - Barchart.com",
+        "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxQWHBMQU1WRGxSdWNGVWZYSS1yeTJMRGVtSkJJSDYwcUNVaXY5bmdQV290V0tCTWxQN09XcXdpQ0VXU3Z1STJuWDFiekxOWHlyamxxMHNrSXNsUk9fd2ludTA4dFB2bF93cEVjLUVubE9LSWRmY05VekpWaW1ST2s2SFlXeHN5MUZMUkhfUUljQWdzYVlEaVVuSUlsc0t1dw?oc=5",
+        "publication_date": "2026-11-09"
+      },
+      {
+        "document_id": "fa0a632d68bb5d05",
+        "title": "Brazil Study Field-Tests the Economics of Regenerative Coffee - Daily Coffee News by Roast Magazine",
+        "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPNEdBQVR6endDVmhtYkQyTm9XV2RhZXpqMzBYUkJRSHJOck9iMmFTdENTbHZuV1dhRXdrcVgtUTdUaEFXOGdwN2dzdXRwcnlMdGFaWDFQcmRlZ2FKVFQ2dFN6RmE1eEJaUDRqUUNTdUU0UGgzMmQyWGNlWWF0bkRSemV1cnhiMk5BV0dCQkpCVU9BMS1LVWFmLUVHY3hYU29CeE5N?oc=5",
+        "publication_date": "2026-11-09"
+      },
+      {
+        "document_id": "a47e3dd35f89769d",
+        "title": "Arabica Coffee Slips as Brazil Coffee Exports Set to Expand - Yahoo Finance",
+        "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxOWWU2VHBWY2dETEM1SmQwNWhHUV85ZVFYNUd5VHBSUkZkWFpTZFVJampvaVR4WXlTTm56REpJQmFTbTBLbmFwWGhqVEZaTmQxV3lCWFJGc2lsNm9FYUtuSUMzY0JxaUlaQ3BadTFUUFNLeVZzaFo4c1hCZFBZYzdoZWExWUt1ZVBURTVRaVF4aTdnUGhoM3ZFR195elRobGdweElnNW5jSQ?oc=5",
+        "publication_date": "2026-11-05"
+      },
+      {
+        "document_id": "e25ee0af6e795198",
+        "title": "Coffee Bears Gain Control as Brazil Exports Surge, but Weather Risks Remain - StoneX",
+        "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxNNDd0RVhHQkk5bTVLX0Q0LWFCZ3RkSTJfR2hHVWxUaWM4YkV2dWRyQUs1NjJzTk90ZXVrZXhmbzFxY1N3cFdIbHgxWGZYM2YzQnNjN05NZlRGbmRaZVVHaUNYSGN4UlBCcHFRMUs4c1FIRUhHcVFNcnAzVW5yb0RIT1BYRWNRM1dqelduRkZPQTVpZXliWVc0aUFvQUxydWlIeDluZmVJYWJBN3VIWjRJ?oc=5",
+        "publication_date": "2026-11-06"
+      },
+      {
+        "document_id": "fa419bfa2e513e81",
+        "title": "Expectations of Larger Brazil Coffee Exports Weigh on Prices - Barchart.com",
+        "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxNNk1HRXpuNGhjVTU5OFgtOF90bUFEUldYc2kyY0pQSWM5VEw5ay1FUXdWU0poaWZsQ3dLY1FVSjkzWm5WcDNNTTNkdHc5LWhpVEZaTVFrQjRTMXNQQW5CYnNQNEVNNzJKaDZyMFRfWFZZTmRTMEZqTmpMLXhOZm9lOGw4cnJiWWE0d2NELXhxUXNyd2VHOGFNdi1qX01pNURlT3ZiYW00TQ?oc=5",
+        "publication_date": "2026-11-04"
+      },
+      {
+        "document_id": "6d5d7db029d703d4",
+        "title": "Expanding Brazil Coffee Exports Weigh on Arabica Prices - Barchart.com",
+        "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPaDIyTlBRXzdSdkE3c25wVzBMRWhQcE5ZTFAwaHpnNndmcjU5UThaMHl3WGV6dE9PdkJQdVc4dXBLdkhDbWNIcEFlOWFIdWM2M21QR3U5dmRUdTdrazFOUTd5MEc5RkM4S1pBV29lN0QwUGQ0RW1sUjlpY2tKdllWUXFBeUYyWG9DU2NiZlN6cXoxN21adTl6MTB2OVRFVXJX?oc=5",
+        "publication_date": "2026-11-05"
+      },
+      {
+        "document_id": "6cbaad3532ee1b25",
+        "title": "Brazilian court orders Nestl\u00e9 and 3Cora\u00e7\u00f5es supplier to prevent slavery in coffee production - Rep\u00f3rter Brasil",
+        "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQblNwNldtSGE4LUZXNTVkbmE4NlVSaU1PSHg3RW9hSGY4cGMtTDlZMW9zMHk1LW1pc0Nwb3YtZmdSS1E0YUVINndFbUtYUWVDSVRvTDBvamNEME9LRTBPTnlNRGMzdHhuU25BZk9kYUxPNC1FMGNDVW8weVpXY25XV2RXM1ZieVgxZlhTQWN4c2NPREM1cHNVX0lqcw?oc=5",
+        "publication_date": "2026-11-04"
+      },
+      {
+        "document_id": "abfd059b3b16c0bc",
+        "title": "Extreme weather threatens Vietnam's Robusta coffee production, underscoring need for climate adaptation - Tuoi Tre News | The News Gateway to Vietnam",
+        "url": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxNZHFiTDFiVUJ1OWc4Q3pQNnNIZkhuWlZja2h4UkE0Vk9vT3RUUDdteWVDT09TZGMxRXJaUF9GZC1ja0lTTm1zRklYQWNoQXFmSU13ckhZTEg2SHNaNlRncWdITS10dHl3UmNfZzYxRHI3SGVVUXRXX0Jva29pbXpyN285bklBVFIwWlAtbU5DUWtVWGVlWDJjdkQ3RnhLWGJEUEpxd0NuMjhXV05IaU9WOWpmRThURjl1WS1mdHZOWTlNR3RVYllmZUdXOFhJeWxFLXpYajdrQnYtaDFXMTFScE13?oc=5",
+        "publication_date": "2026-11-02"
+      }
+    ],
+    "faithfulness_report": {
+      "n_citations": 7,
+      "n_ok": 7,
+      "n_weak_support": 0,
+      "n_low_rank": 0,
+      "n_missing_document": 0,
+      "unresolved_inline_source_ids": [],
+      "citations_resolve": true,
+      "per_citation": [
+        {
+          "document_id": "4903c96cce17a056",
+          "id_found": true,
+          "support_score": 1.0,
+          "support_method": "lexical",
+          "shared_numbers": [],
+          "flag": "ok",
+          "support_rank": 1,
+          "support_rank_of": 12,
+          "support_rank_method": "lexical",
+          "closest_document_id": "4903c96cce17a056"
+        },
+        {
+          "document_id": "9d94f86b9978dcd2",
+          "id_found": true,
+          "support_score": 1.0,
+          "support_method": "lexical",
+          "shared_numbers": [],
+          "flag": "ok",
+          "support_rank": 1,
+          "support_rank_of": 12,
+          "support_rank_method": "lexical",
+          "closest_document_id": "9d94f86b9978dcd2"
+        },
+        {
+          "document_id": "c38d92eb857c0140",
+          "id_found": true,
+          "support_score": 1.0,
+          "support_method": "lexical",
+          "shared_numbers": [],
+          "flag": "ok",
+          "support_rank": 1,
+          "support_rank_of": 12,
+          "support_rank_method": "lexical",
+          "closest_document_id": "c38d92eb857c0140"
+        },
+        {
+          "document_id": "6278b6d807d4564d",
+          "id_found": true,
+          "support_score": 1.0,
+          "support_method": "lexical",
+          "shared_numbers": [],
+          "flag": "ok",
+          "support_rank": 1,
+          "support_rank_of": 12,
+          "support_rank_method": "lexical",
+          "closest_document_id": "6278b6d807d4564d"
+        },
+        {
+          "document_id": "441175f168c85349",
+          "id_found": true,
+          "support_score": 1.0,
+          "support_method": "lexical",
+          "shared_numbers": [],
+          "flag": "ok",
+          "support_rank": 1,
+          "support_rank_of": 12,
+          "support_rank_method": "lexical",
+          "closest_document_id": "441175f168c85349"
+        },
+        {
+          "document_id": "a47e3dd35f89769d",
+          "id_found": true,
+          "support_score": 1.0,
+          "support_method": "lexical",
+          "shared_numbers": [],
+          "flag": "ok",
+          "support_rank": 1,
+          "support_rank_of": 12,
+          "support_rank_method": "lexical",
+          "closest_document_id": "a47e3dd35f89769d"
+        },
+        {
+          "document_id": "6d5d7db029d703d4",
+          "id_found": true,
+          "support_score": 1.0,
+          "support_method": "lexical",
+          "shared_numbers": [],
+          "flag": "ok",
+          "support_rank": 1,
+          "support_rank_of": 12,
+          "support_rank_method": "lexical",
+          "closest_document_id": "6d5d7db029d703d4"
+        }
+      ],
+      "note": "All cited document_ids resolve to retrieved documents."
+    }
+  }
+}

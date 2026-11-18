@@ -1,0 +1,171 @@
+{
+  "saved_at": "2026-11-18T09:13:24Z",
+  "commodity": "coffee",
+  "kind": "daily_briefing",
+  "data": {
+    "headline": "Arabica falls to 266.45 cents/lb as currency depreciation and expanding Brazilian exports weigh heavily on global prices.",
+    "price_action": "Coffee closed at 266.45 cents/lb as of November 10, 2026, down 6.2% over the past week and 9.0% over the past month. Prices are currently depressed at the 4.8th percentile of their 52-week range. Recent annualized volatility stands at 31.8%, below the historical average of 40.7%.",
+    "key_developments": [
+      "Expanding and soaring Brazilian coffee export shipments continue to undercut Arabica prices as export supplies build (source: 441175f168c85349, f9bfa07ffbc3c4d4).",
+      "Extreme Brazilian real weakness (BRL/USD at 5.7815, up 13.4% over the month and at its 100.0th 1-year percentile) is heavily incentivizing producer sales and export pace, putting consistent downward pressure on prices (source: 4903c96cce17a056, f63f64eb858b3f79).",
+      "Trader expectations of larger, expanding Brazilian coffee exports are continuing to drag futures lower (source: 6278b6d807d4564d, 6d5d7db029d703d4)."
+    ],
+    "weather_crop": "Brazil is in its critical flowering stage where seasonal frost risk carries high impact, though 0 frost days were recorded in the past week. Conditions are drier than normal with a dryness z-score of +0.76 and 30-day rainfall at 149.6 mm. Concurrently, Vietnam has entered its harvest phase.",
+    "positioning": "Speculative positioning data (CFTC) is not available in the current dataset.",
+    "watch_list": [
+      "Moisture conditions and dryness trends (current z-score +0.76) in Brazil during the flowering window.",
+      "BRL/USD exchange rate stability at the 5.7815 level, as sustained weakness continues to fuel export flows.",
+      "Export volume statistics from Brazil to confirm whether the supply build maintains downward price momentum."
+    ],
+    "citations": [
+      {
+        "document_id": "4903c96cce17a056",
+        "supports": "Coffee prices slide as Brazilian real weakness and building supplies weigh on the market."
+      },
+      {
+        "document_id": "f63f64eb858b3f79",
+        "supports": "Brazilian real weakness weighs directly on coffee price benchmarks."
+      },
+      {
+        "document_id": "f9bfa07ffbc3c4d4",
+        "supports": "Coffee prices are undercut by rising Brazilian coffee exports."
+      },
+      {
+        "document_id": "441175f168c85349",
+        "supports": "Soaring Brazilian coffee exports weigh down Arabica prices."
+      },
+      {
+        "document_id": "6278b6d807d4564d",
+        "supports": "Arabica falls on expectations of larger Brazilian coffee exports."
+      },
+      {
+        "document_id": "6d5d7db029d703d4",
+        "supports": "Expanding Brazil coffee export pace pressures Arabica pricing."
+      }
+    ],
+    "sources_used": 6,
+    "retrieval_info": "Aggregated 81 articles (Google News: 90, Industry: 0, GDELT cache: 0), 10 sent to LLM",
+    "signals_collected": {
+      "seasonal": {
+        "brazil_phase": "Flowering: frost risk is critical",
+        "vietnam_phase": "Harvest",
+        "colombia_phase": "Main harvest (cosecha principal)",
+        "key_risk": "Brazilian frost risk during flowering: the highest-impact seasonal factor for global coffee prices.",
+        "source": "Coffee agricultural calendar"
+      },
+      "weather_observed": {
+        "dryness_zscore": 0.76,
+        "frost_7d_count": 0,
+        "prcp_30d_mm": 149.6,
+        "as_of": "2026-11-10",
+        "source": "NASA POWER satellite data"
+      },
+      "currency": {
+        "brl_usd_rate": 5.7815,
+        "change_1m_pct": 13.4,
+        "percentile_1y": 100.0,
+        "source": "Yahoo Finance (BRL=X)"
+      },
+      "price": {
+        "current_cents_lb": 266.45,
+        "week_change_pct": -6.2,
+        "month_change_pct": -9.0,
+        "percentile_1y": 4.8,
+        "recent_vol_annualized": 31.8,
+        "hist_vol_annualized": 40.7,
+        "as_of": "2026-11-10",
+        "source": "Yahoo Finance (KC=F)"
+      },
+      "historical_analogs": {
+        "week": {
+          "n_analogs": 25,
+          "median_pct": -0.9,
+          "p10_pct": -6.4,
+          "p90_pct": 4.8,
+          "share_up_pct": 40.0
+        },
+        "month": {
+          "n_analogs": 25,
+          "median_pct": 1.9,
+          "p10_pct": -11.5,
+          "p90_pct": 23.1,
+          "share_up_pct": 68.0
+        },
+        "source": "Historical pattern matching (price + weather features)"
+      }
+    },
+    "accepted_documents": [
+      {
+        "document_id": "4903c96cce17a056",
+        "title": "Coffee Prices Slide as the Brazilian Real Weakens and Supplies Build - TradingView",
+        "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNUzk2bFlHNUJDTmEta1h2NG9sWTZvbVgzYWQ2bUpGdUd2dWNYN1VpV2ZURUVpanRfREg1OGJVVlRJWEEwaHlhTzVvZEhlWl8temMzTjhOVXB4d2x0VzYyNHpUYk5xZW9uSUFKbUpUNHRLcmo3N0wyc3h5d2lCalN6MUczM0t2NEhHbFdGUVhvN2M2WUhyRVpOd0V1elZVVVBWNVJZczFHNmFlZVBwakRxM3B4Rzg5N1ctZEwwbWJIUUtRaDNO?oc=5",
+        "publication_date": "20261110",
+        "_source": "google_news_rss"
+      },
+      {
+        "document_id": "f9bfa07ffbc3c4d4",
+        "title": "Coffee Prices Undercut by Rising Brazil Coffee Exports - TradingView",
+        "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNOW05NlBBVXFOX2pHVUpfMUdleXFhQkd5Q1JSWEl2RUtSa2xVU0d1NTdZMWkycHRQWHFtTGdwTDhQXzBmcGNaM181enJXV2twVEMzRDd4X3ZXajR2X3hTdHdXZlJoTXEzS29rV3lQM1NXS0FjclZLTGJmcWR3LXRIUDMxbzlRakZrRmVldXZYZC1XbkdSWG9jUm9CZUJqRmtjUUF1ZEdlMzRfN2FoWmphcGNR?oc=5",
+        "publication_date": "20261109",
+        "_source": "google_news_rss"
+      },
+      {
+        "document_id": "f63f64eb858b3f79",
+        "title": "Brazilian Real Weakness Weighs on Coffee Prices - TradingView",
+        "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNSXo4MzNVQ1dPckJQQjJBQi13VEpFdTl1QkhQc0NWUjh1UmppOVNmVWh0cUJyUFktRkdWOWY4bHZ2MmdsTEdseEVxd0hoMFpaTjVzejJIQk5zMjBHSkh1LU9TWDFTZXVLN3JqMDcyNm5MUkp5T1B1NGxDN2xQZHhNSEtWTUFRcnpsTExsZUtCR1lCMkpycmwtdlppSDdoNWExd1VTUXNHUXc?oc=5",
+        "publication_date": "20261103",
+        "_source": "google_news_rss"
+      },
+      {
+        "document_id": "9d94f86b9978dcd2",
+        "title": "Coffee Prices Undercut by Rising Brazil Coffee Exports - Barchart.com",
+        "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxOdG1LMXpxR0hnaHhVZUpoYk9zZDExUHBqMmZ4WGw3clRuUnV4Yk5jVXV4MW5FQ2RSRk1LU0ZIME1PNFRQSFZ5ZVRkbkVfTi1vaGRoTVRaOC1SaXdKWjFXT0tKU0lGM25LVFVtRmZheXpjODZIYy1TZ0t0NDJLV05zSnNNYzhmWEpIV0lrc2U3dTRYVkdoTjg3bmE2eDdzQWc?oc=5",
+        "publication_date": "20261109",
+        "_source": "google_news_rss"
+      },
+      {
+        "document_id": "5a5fe1a4a9d13786",
+        "title": "Brazilian Real Weakness Weighs on Coffee Prices - Barchart.com",
+        "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPWlR3dkxfRHBFbWlya3Bsb3lNbFhBU3VtWGVkNm53RE5mMHFfOXBhUDVVVVBIT3BhRHBvQWV3N1Y2bGd3MXUzY3RDaUlaMGVsRjRkSzg4OTkyVXd6eE9rbHVXZ1ZGQ0NORzlZbDVhaHNxZC1UYWkyeml2SHNfZUFkMUpjbUgtekdLdVJLZm9SRHlWcldXSlE?oc=5",
+        "publication_date": "20261103",
+        "_source": "google_news_rss"
+      },
+      {
+        "document_id": "c38d92eb857c0140",
+        "title": "Brazilian Real Weakness and Rising Brazil Exports Weigh on Coffee Prices - Barchart.com",
+        "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxPWjZlU1Q0VGVDMk5RSkZQZGRyV0dhdElsb25KVG1YV3NCVjFjTzNaN1FvbkVBTlJqaFhhMnNLVUhmS0JJSmdfV0N2bHg1cnN2Rzk0cjYxeUFXU29RNnRhQ3psandoaDJVNjlxaXpDRFVVMVlUUloxNnh1b00xMi1raS1MWjRpeWVyUjZtOHBORVNQak5VYkVQRjFHcFFVV1hJR09OblRqTTNhTlp6SzhyNnBTbUdzLVU?oc=5",
+        "publication_date": "20261110",
+        "_source": "google_news_rss"
+      },
+      {
+        "document_id": "6278b6d807d4564d",
+        "title": "Arabica Coffee Falls in Expectations of Larger Brazil Coffee Exports - Barchart.com",
+        "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxPRmh2eHE0dGljOHQwazNobTVSWlpTVGhSaHZSN3J3QUMxVXZ3RWFKc05nSmFqei1jR0gxa1RiOWhIdEdKdW51dk1hX3RoMlByVkp1elNudkhZbXRGbzVBOEpfMVpLcHBPZ2VTc0VsT21uVWNWVi1WelZkYUFPRno0X2pkVW5BcGg3ZHYzUHAzYmxISVhyU1pPaC1oR2ktcld6X3AyVGc2aERRYnBiQmZWb09B?oc=5",
+        "publication_date": "20261104",
+        "_source": "google_news_rss"
+      },
+      {
+        "document_id": "441175f168c85349",
+        "title": "Soaring Brazil Coffee Exports Weigh on Arabica Prices - Barchart.com",
+        "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxQWHBMQU1WRGxSdWNGVWZYSS1yeTJMRGVtSkJJSDYwcUNVaXY5bmdQV290V0tCTWxQN09XcXdpQ0VXU3Z1STJuWDFiekxOWHlyamxxMHNrSXNsUk9fd2ludTA4dFB2bF93cEVjLUVubE9LSWRmY05VekpWaW1ST2s2SFlXeHN5MUZMUkhfUUljQWdzYVlEaVVuSUlsc0t1dw?oc=5",
+        "publication_date": "20261109",
+        "_source": "google_news_rss"
+      },
+      {
+        "document_id": "fa419bfa2e513e81",
+        "title": "Expectations of Larger Brazil Coffee Exports Weigh on Prices - Barchart.com",
+        "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxNNk1HRXpuNGhjVTU5OFgtOF90bUFEUldYc2kyY0pQSWM5VEw5ay1FUXdWU0poaWZsQ3dLY1FVSjkzWm5WcDNNTTNkdHc5LWhpVEZaTVFrQjRTMXNQQW5CYnNQNEVNNzJKaDZyMFRfWFZZTmRTMEZqTmpMLXhOZm9lOGw4cnJiWWE0d2NELXhxUXNyd2VHOGFNdi1qX01pNURlT3ZiYW00TQ?oc=5",
+        "publication_date": "20261104",
+        "_source": "google_news_rss"
+      },
+      {
+        "document_id": "6d5d7db029d703d4",
+        "title": "Expanding Brazil Coffee Exports Weigh on Arabica Prices - Barchart.com",
+        "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPaDIyTlBRXzdSdkE3c25wVzBMRWhQcE5ZTFAwaHpnNndmcjU5UThaMHl3WGV6dE9PdkJQdVc4dXBLdkhDbWNIcEFlOWFIdWM2M21QR3U5dmRUdTdrazFOUTd5MEc5RkM4S1pBV29lN0QwUGQ0RW1sUjlpY2tKdllWUXFBeUYyWG9DU2NiZlN6cXoxN21adTl6MTB2OVRFVXJX?oc=5",
+        "publication_date": "20261105",
+        "_source": "google_news_rss"
+      }
+    ],
+    "model_generated": true
+  }
+}
