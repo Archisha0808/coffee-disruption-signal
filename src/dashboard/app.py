@@ -793,13 +793,31 @@ else:
         # --- Daily market briefing (RAG-powered) ---
         st.subheader("Daily Market Briefing")
 
+        # The public site (READ_ONLY) calls no model, so it shows the briefing
+        # and outlook saved by `python -m src.advisory.snapshot` on a machine
+        # with the keys, dated. Without a saved one it falls back to the
+        # price data alone, said plainly rather than as a fault.
+        from src.advisory import snapshot as _snapshot
+
         @st.cache_data(ttl=3600, show_spinner="Generating daily briefing...")
         def cached_daily_briefing():
-            return generate_daily_briefing(allow_live=not READ_ONLY)
+            if READ_ONLY:
+                saved, saved_at = _snapshot.load("daily_briefing", COMMODITY_KEY)
+                if saved:
+                    return saved, saved_at
+            return generate_daily_briefing(allow_live=not READ_ONLY), None
 
         try:
-            briefing_data = cached_daily_briefing()
+            briefing_data, _briefing_saved = cached_daily_briefing()
+            if READ_ONLY and not briefing_data.get("model_generated"):
+                briefing_data = {**briefing_data,
+                                 "headline": "The written briefing is not generated on the public "
+                                             "site; the price data it draws on is below."}
             render_daily_briefing(briefing_data)
+            if _briefing_saved:
+                st.caption(f"Saved briefing from {_snapshot.saved_on(_briefing_saved)}. "
+                           "The public site shows briefings generated in advance; it does not "
+                           "call a model itself.")
         except Exception as briefing_exc:
             st.warning(f"Daily briefing unavailable: {briefing_exc}")
 
@@ -810,11 +828,17 @@ else:
 
         @st.cache_data(ttl=3600, show_spinner="Generating outlook...")
         def cached_outlook():
-            return generate_outlook(allow_live=not READ_ONLY)
+            if READ_ONLY:
+                saved, saved_at = _snapshot.load("price_outlook", COMMODITY_KEY)
+                if saved:
+                    return saved, saved_at
+            return generate_outlook(allow_live=not READ_ONLY), None
 
         try:
-            outlook_data = cached_outlook()
+            outlook_data, _outlook_saved = cached_outlook()
             render_outlook(outlook_data, brief.current_price)
+            if _outlook_saved:
+                st.caption(f"Saved outlook from {_snapshot.saved_on(_outlook_saved)}.")
         except Exception as outlook_exc:
             outlook_data = None
             st.warning(f"Outlook unavailable: {outlook_exc}")
@@ -823,7 +847,9 @@ else:
         try:
             _briefing_for_log = briefing_data if "briefing_data" in dir() else None
             _outlook_for_log = outlook_data if outlook_data else None
-            if _outlook_for_log or _briefing_for_log:
+            # The public site shows saved copies; logging them on every visit
+            # would only repeat old entries.
+            if not READ_ONLY and (_outlook_for_log or _briefing_for_log):
                 log_sentiment(outlook=_outlook_for_log, briefing=_briefing_for_log)
 
             sentiment_entries = load_sentiment_log()
