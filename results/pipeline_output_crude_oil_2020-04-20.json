@@ -1,0 +1,32 @@
+{
+  "pipeline_version": "11",
+  "anomaly": {
+    "date": "2020-04-20",
+    "price": -37.630001068115234,
+    "z_score": -43.20772472684393,
+    "anomaly_flag": true,
+    "anomaly_type": "shock+trend",
+    "pct_move": null,
+    "cumulative_pct_move": -232.78052528407983,
+    "cumulative_z_score": -14.450997011104016,
+    "direction": null,
+    "price_is_usable": false
+  },
+  "price_description": null,
+  "outcome": {
+    "tier": "SYSTEM_ERROR",
+    "is_fault": true,
+    "headline": "The size and direction of this move cannot be computed: the price was not positive at one end of the day.",
+    "detail": "A percentage change through zero has no meaning. Nothing is explained, and this is recorded as a fault rather than a refusal."
+  },
+  "explanation_result": {
+    "decision": "SYSTEM_ERROR",
+    "reason": "price_not_positive_move_undefined"
+  },
+  "gate_result": {
+    "decision": "NOT_RUN",
+    "accepted_document_count": 0
+  },
+  "direction_summary": {},
+  "evidence_recency": {}
+}

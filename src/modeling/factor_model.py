@@ -80,6 +80,11 @@ FACTOR_COLUMNS = ("dollar", "equity", "broad_commodity")
 # the day is left unclassified rather than guessed at.
 MIN_WINDOW_OBS = 40
 
+# Matches the base detector's second check. A day flagged only by that check
+# has no extreme daily move to explain, so the daily residual says nothing
+# about it and it has to be assessed over the same horizon it was flagged on.
+CUMULATIVE_WINDOW_DAYS = 10
+
 
 def load_factors(path: Path = FACTORS_PATH) -> pd.DataFrame:
     """Daily log returns of each shared driver, dates indexed."""
@@ -94,7 +99,20 @@ def load_factors(path: Path = FACTORS_PATH) -> pd.DataFrame:
 
 
 def log_returns(prices: pd.Series) -> pd.Series:
-    return np.log(prices.astype(float)).diff()
+    """Daily log returns, with non-positive prices removed rather than
+    turned into silent NaN.
+
+    WTI settled at -$37.63 on 20 April 2020. A log return is undefined on a
+    negative price, and numpy answers with NaN and a warning that is easy to
+    miss - so the most famous day in the oil series would quietly drop out of
+    every regression with nothing in the output saying so. Masking it makes
+    the gap explicit: that day and the one after have no defined return, and
+    both come back unclassified."""
+    p = prices.astype(float)
+    bad = p <= 0
+    if bad.any():
+        p = p.mask(bad)
+    return np.log(p).diff()
 
 
 def _ols(X: np.ndarray, y: np.ndarray):
@@ -117,7 +135,8 @@ def residual_series(commodity_returns: pd.Series, factors: pd.DataFrame,
     shrinks exactly the residual the test is looking for - on a large single
     day with a 75-day window that bias is easily enough to hide a real
     outlier."""
-    joined = pd.concat([commodity_returns.rename("y"), factors], axis=1).dropna()
+    joined = pd.concat([commodity_returns.rename("y"), factors], axis=1,
+                       sort=True).dropna()
     out = []
     ys, Xs, idx = joined["y"].to_numpy(), joined[list(FACTOR_COLUMNS)].to_numpy(), joined.index
 
@@ -142,16 +161,75 @@ def residual_series(commodity_returns: pd.Series, factors: pd.DataFrame,
                                       "residual_z", "window_r2"]).set_index("date")
 
 
-def classify_day(raw_flag: bool, residual_z: float,
-                 threshold: float = Z_THRESHOLD) -> str:
-    """The three-way label. A day the base detector did not flag is not
-    classified at all: this layer explains the detector's flags, it does not
-    add new ones."""
-    if not raw_flag:
-        return ""
-    if pd.isna(residual_z):
-        return "unclassified"
-    return "both" if abs(residual_z) >= threshold else "macro-driven"
+def cumulative_residual_series(commodity_returns: pd.Series, factors: pd.DataFrame,
+                               window: int = WINDOW_DAYS,
+                               cum_days: int = CUMULATIVE_WINDOW_DAYS,
+                               min_obs: int = MIN_WINDOW_OBS) -> pd.DataFrame:
+    """The same test over the horizon the cumulative check flags on.
+
+    A day flagged only by the detector's 10-day check has, by construction,
+    no extreme daily move: it was flagged for a build-up. Judging it by a
+    daily residual asks the wrong question and answers it confidently - the
+    daily residual is small because the daily move was small, so the day
+    comes back "macro-driven" whatever drove it. On coffee that mislabelled
+    149 of 279 flagged days.
+
+    So the commodity's 10-day cumulative return is regressed on the factors'
+    10-day cumulative returns, betas fitted on the trailing window ending
+    before the day tested, exactly as the daily version does.
+
+    One caveat that does not apply to the daily test: consecutive 10-day
+    windows overlap by nine days, so these residuals are autocorrelated and
+    the spread they are z-scored against is too narrow. The z-scores here
+    are therefore optimistic - they overstate how unusual a day is - and are
+    read as a ranking rather than as a probability. The same overlap is
+    present in the detector's own cumulative check, so the two are at least
+    consistent with each other."""
+    y = commodity_returns.rolling(cum_days).sum()
+    X = factors.rolling(cum_days).sum()
+    joined = pd.concat([y.rename("y"), X], axis=1, sort=True).dropna()
+    ys, Xs, idx = joined["y"].to_numpy(), joined[list(FACTOR_COLUMNS)].to_numpy(), joined.index
+
+    out = []
+    for i in range(len(joined)):
+        lo = max(0, i - window)
+        Xw, yw = Xs[lo:i], ys[lo:i]
+        if len(yw) < min_obs:
+            out.append((idx[i], np.nan, np.nan))
+            continue
+        beta, resid_w = _ols(Xw, yw)
+        residual = float(ys[i] - (beta[0] + Xs[i] @ beta[1:]))
+        sd = float(np.std(resid_w, ddof=1))
+        out.append((idx[i], residual, residual / sd if sd > 0 else np.nan))
+    return pd.DataFrame(out, columns=["date", "cum_residual",
+                                      "cum_residual_z"]).set_index("date")
+
+
+def classify_day(anomaly_type, residual_z, cum_residual_z,
+                 threshold: float = Z_THRESHOLD):
+    """The label, and which test produced it.
+
+    A flagged day is assessed over the horizon it was flagged on: a daily
+    shock by the daily residual, a build-up by the 10-day cumulative one. A
+    day flagged by both is judged on the daily move, which is the larger
+    claim. Days the base detector did not flag are not classified at all -
+    this layer explains the detector's flags, it never adds any.
+
+    Only two outcomes are possible for a flagged day, because a flagged day
+    already has an extreme raw move: either what is left after the factors
+    is also extreme, or it is not."""
+    kind = (anomaly_type or "").strip()
+    if not kind:
+        return "", ""
+    if "shock" in kind:
+        z, how = residual_z, "daily residual"
+    elif "trend" in kind:
+        z, how = cum_residual_z, f"{CUMULATIVE_WINDOW_DAYS}-day cumulative residual"
+    else:
+        return "unclassified", ""
+    if z is None or pd.isna(z):
+        return "unclassified", how
+    return ("commodity-specific" if abs(z) >= threshold else "macro-driven"), how
 
 
 def analyse(commodity_key: str, factors: pd.DataFrame = None,
@@ -166,43 +244,53 @@ def analyse(commodity_key: str, factors: pd.DataFrame = None,
     det = pd.read_csv(det_path, parse_dates=["date"]).set_index("date").sort_index()
     factors = load_factors() if factors is None else factors
 
-    res = residual_series(log_returns(det["price"]), factors, window=window)
-    df = det.join(res, how="left")
+    rets = log_returns(det["price"])
+    df = det.join(residual_series(rets, factors, window=window), how="left")
+    df = df.join(cumulative_residual_series(rets, factors, window=window), how="left")
 
     # A contract-switch day shows a move no contract made, so its residual is
     # an artefact of the series, not of the market.
     switch = (df["contract_switch"].fillna(False).astype(bool)
               if "contract_switch" in df.columns else pd.Series(False, index=df.index))
-    df.loc[switch, ["residual", "residual_z", "factor_explained"]] = np.nan
+    df.loc[switch, ["residual", "residual_z", "factor_explained",
+                    "cum_residual", "cum_residual_z"]] = np.nan
 
-    df["factor_class"] = [
-        classify_day(bool(f) and not bool(s), z, threshold)
-        for f, z, s in zip(df["anomaly_flag"].fillna(False), df["residual_z"], switch)
-    ]
-    # "commodity-specific" is the plain-language name for a flagged day whose
-    # residual is extreme AND whose raw move is not driven by the factors. In
-    # practice that is the same set as "both" minus the days the factors also
-    # explain most of; the three-label scheme keeps "both" explicit so the
-    # reader can see the overlap rather than having it collapsed for them.
-    strong_resid = df["residual_z"].abs() >= threshold
-    weak_factor = df["window_r2"] < 0.25
-    df.loc[(df["factor_class"] == "both") & weak_factor, "factor_class"] = "commodity-specific"
+    labels, hows = [], []
+    for flag, kind, z, cz, sw in zip(df["anomaly_flag"].fillna(False), df.get("anomaly_type"),
+                                     df["residual_z"], df["cum_residual_z"], switch):
+        if not bool(flag) or bool(sw):
+            labels.append("")
+            hows.append("")
+            continue
+        label, how = classify_day(kind, z, cz, threshold)
+        labels.append(label)
+        hows.append(how)
+    df["factor_class"] = labels
+    df["assessed_by"] = hows
     return df
 
 
 def summarise(df: pd.DataFrame, commodity_key: str) -> dict:
     flagged = df[df["factor_class"] != ""]
     counts = flagged["factor_class"].value_counts().to_dict()
-    n = len(flagged)
+    assessed = flagged[flagged["factor_class"] != "unclassified"]
+    n = len(assessed)
+    by_test = flagged["assessed_by"].value_counts().to_dict()
     return {
         "commodity": commodity_key,
-        "flagged_days": n,
+        "flagged_days": len(flagged),
+        "assessed": n,
         "classes": {k: int(v) for k, v in counts.items()},
-        "macro_share": (counts.get("macro-driven", 0) / n) if n else None,
+        "by_test": {k: int(v) for k, v in by_test.items() if k},
+        "macro_share": ((assessed["factor_class"] == "macro-driven").mean()
+                        if n else None),
+        "macro_share_shock_days": (
+            lambda s: float((s["factor_class"] == "macro-driven").mean()) if len(s) else None
+        )(assessed[assessed["assessed_by"] == "daily residual"]),
         "median_window_r2": (float(flagged["window_r2"].median())
-                             if n and flagged["window_r2"].notna().any() else None),
-        "first_date": str(flagged.index.min().date()) if n else None,
-        "last_date": str(flagged.index.max().date()) if n else None,
+                             if len(flagged) and flagged["window_r2"].notna().any() else None),
+        "first_date": str(flagged.index.min().date()) if len(flagged) else None,
+        "last_date": str(flagged.index.max().date()) if len(flagged) else None,
     }
 
 
@@ -214,24 +302,47 @@ def report(summaries: list) -> str:
              "residual is extreme is about this commodity, and a day whose raw move is "
              "extreme while its residual is not was the complex repricing.")
     L.append("")
+    L.append("**Each day is assessed over the horizon it was flagged on.** The base "
+             "detector flags on a daily shock or on a 10-day build-up, and most flagged "
+             "days are the second kind. A build-up has no extreme daily move by "
+             "construction, so judging it by a daily residual returns \"macro-driven\" "
+             "whatever drove it. Those days are tested against 10-day cumulative factor "
+             "returns instead; a day flagged by both is judged on the daily move.")
+    L.append("")
     L.append("This sits beside the base detector and does not change it. Every evaluation "
              "figure in `results/` was drawn at the base detector's raw threshold, so "
              "changing which days are flagged would invalidate the answer key.")
     L.append("")
-    L.append("| Commodity | Flagged | Commodity-specific | Both | Macro-driven | "
-             "Macro share | Median window R² |")
-    L.append("|---|---|---|---|---|---|---|")
+    L.append("| Commodity | Flagged | Assessed | Commodity-specific | Macro-driven | "
+             "Macro share | Macro share, shock days only | Median window R² |")
+    L.append("|---|---|---|---|---|---|---|---|")
     for s in summaries:
         c = s["classes"]
         share = "-" if s["macro_share"] is None else f"{100 * s['macro_share']:.1f}%"
+        shock = ("-" if s["macro_share_shock_days"] is None
+                 else f"{100 * s['macro_share_shock_days']:.1f}%")
         r2 = "-" if s["median_window_r2"] is None else f"{s['median_window_r2']:.2f}"
-        L.append(f"| {s['commodity']} | {s['flagged_days']} | "
-                 f"{c.get('commodity-specific', 0)} | {c.get('both', 0)} | "
-                 f"{c.get('macro-driven', 0)} | {share} | {r2} |")
+        L.append(f"| {s['commodity']} | {s['flagged_days']} | {s['assessed']} | "
+                 f"{c.get('commodity-specific', 0)} | {c.get('macro-driven', 0)} | "
+                 f"{share} | {shock} | {r2} |")
     L.append("")
-    L.append("Window R² is the share of day-to-day variation the three factors account for "
-             "in the trailing window. A low figure means the residual is most of the move "
-             "for that commodity anyway, and the split carries less information.")
+    L.append("Unclassified days are left out of the shares: a day with too little history "
+             "for its window, a contract-switch day, or a day whose price was not positive "
+             "(WTI settled at -$37.63 on 20 April 2020, where a log return does not exist).")
+    L.append("")
+    L.append("### Two readings that are not comparable with the others")
+    L.append("")
+    L.append("**Crude oil's window R² is high because the factor contains the commodity.** "
+             "The broad-complex factor is DBC, which is heavily weighted to energy, so "
+             "crude is being regressed partly on itself. Its macro share is inflated by "
+             "an unknown amount and should not be set beside the others. A spot index "
+             "with no energy weight, or dropping the broad factor for crude alone, would "
+             "fix it; neither has been done.")
+    L.append("")
+    L.append("**A low window R² makes the split uninformative.** Where the three factors "
+             "account for little of a commodity's day-to-day variation, the residual is "
+             "most of the move whatever happened, and \"commodity-specific\" is close to "
+             "restating that the day was flagged at all.")
     L.append("")
     L.append("## What a macro verdict does and does not mean")
     L.append("")
@@ -240,6 +351,10 @@ def report(summaries: list) -> str:
     L.append("- **Not established.** That the dollar *caused* the move. A confound moving "
              "with the dollar would look identical. The honest reading is narrower: "
              "nothing in this day's move needs a commodity-specific story.")
+    L.append("- **The cumulative z-scores are optimistic.** Consecutive 10-day windows "
+             "overlap by nine days, so those residuals are autocorrelated and the spread "
+             "they are measured against is too narrow. Read them as a ranking, not as a "
+             "probability. The detector's own cumulative check has the same property.")
     L.append("- The residual is never attributed. Whatever the three factors do not "
              "explain is reported as unexplained, not assigned to a preferred cause.")
     return "\n".join(L)
@@ -255,7 +370,8 @@ def run(commodities=None, verbose: bool = True) -> dict:
         path = RESULTS_DIR / f"{key}_factor_adjusted.csv"
         cols = [c for c in ("price", "z_score", "anomaly_flag", "anomaly_type",
                             "factor_explained", "residual", "residual_z",
-                            "window_r2", "factor_class") if c in df.columns]
+                            "cum_residual", "cum_residual_z", "window_r2",
+                            "factor_class", "assessed_by") if c in df.columns]
         df[cols].to_csv(path)
         s = summarise(df, key)
         summaries.append(s)

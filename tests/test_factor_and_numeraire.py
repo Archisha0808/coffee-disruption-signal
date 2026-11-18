@@ -81,10 +81,30 @@ def test_the_day_being_tested_is_left_out_of_its_own_estimation_window():
 
 
 def test_classification_calls_a_flagged_day_macro_when_the_residual_is_small():
-    assert fm.classify_day(True, 0.3) == "macro-driven"
-    assert fm.classify_day(True, 4.0) == "both"
-    assert fm.classify_day(False, 9.9) == ""          # not flagged, not classified
-    assert fm.classify_day(True, float("nan")) == "unclassified"
+    assert fm.classify_day("shock", 0.3, None)[0] == "macro-driven"
+    assert fm.classify_day("shock", 4.0, None)[0] == "commodity-specific"
+    assert fm.classify_day("", 9.9, 9.9)[0] == ""     # not flagged, not classified
+    assert fm.classify_day("shock", float("nan"), None)[0] == "unclassified"
+
+
+def test_a_build_up_is_judged_over_ten_days_not_over_one():
+    """A day flagged only by the 10-day cumulative check has no extreme
+    daily move by construction. Judged by a daily residual it comes back
+    macro-driven whatever drove it - which mislabelled 149 of coffee's 279
+    flagged days before this was fixed."""
+    label, how = fm.classify_day("trend", 0.1, 5.0)
+    assert label == "commodity-specific"              # the 10-day residual decides
+    assert "cumulative" in how
+    label, how = fm.classify_day("shock", 5.0, 0.1)
+    assert label == "commodity-specific"              # the daily residual decides
+    assert how == "daily residual"
+    # Flagged by both: the daily move is the larger claim, so it decides.
+    assert fm.classify_day("shock+trend", 0.1, 9.9) == ("macro-driven", "daily residual")
+
+
+def test_a_build_up_with_no_cumulative_residual_is_unclassified_not_macro():
+    label, _ = fm.classify_day("trend", 0.1, float("nan"))
+    assert label == "unclassified"
 
 
 def test_the_factor_layer_adds_no_flags_of_its_own():
@@ -92,7 +112,20 @@ def test_the_factor_layer_adds_no_flags_of_its_own():
     labelled dates and every stored evaluation figure would stop lining up
     with the detections they were drawn from."""
     for z in (0.0, 2.5, 50.0):
-        assert fm.classify_day(False, z) == ""
+        assert fm.classify_day("", z, z)[0] == ""
+
+
+def test_a_negative_price_is_masked_rather_than_turned_into_a_silent_nan():
+    """WTI settled at -$37.63 on 20 April 2020. numpy answers log(-37.63)
+    with NaN and a warning that is easy to miss, so the most famous day in
+    the oil series would drop out of every regression with nothing saying
+    so."""
+    prices = pd.Series([50.0, 40.0, -37.63, 10.0, 12.0], index=_days(5))
+    r = fm.log_returns(prices)
+    assert pd.isna(r.iloc[2])          # the negative day itself
+    assert pd.isna(r.iloc[3])          # and the one measured from it
+    assert not pd.isna(r.iloc[1])      # the ordinary days survive
+    assert abs(r.iloc[4] - np.log(12 / 10)) < 1e-12
 
 
 def test_a_window_with_too_little_history_is_left_unclassified_not_guessed():
@@ -302,16 +335,169 @@ def test_a_field_cannot_be_added_without_a_valid_tag():
         ac.tagged(1.0, "probably", "somewhere.csv")
 
 
-def test_a_layer_that_has_not_been_run_is_reported_as_missing_not_as_absence():
-    """A gap in what is known must not read as a negative finding."""
+def _no_layers(monkeypatch, ac, *, keep=()):
+    """Every layer reports nothing, so the card is tested on its own behaviour
+    rather than on which results files happen to exist today."""
+    for part in ("detector_fields", "factor_fields", "cross_commodity_fields",
+                 "numeraire_fields", "pipeline_fields"):
+        if part not in keep:
+            monkeypatch.setattr(ac, part, lambda commodity, day: {})
+
+
+def test_a_layer_that_has_not_been_run_is_reported_as_missing_not_as_absence(monkeypatch):
+    """A gap in what is known must not read as a negative finding.
+
+    The assertion is about the reporting, not about which layers have been run.
+    An earlier version of this test asserted that the factor model was missing
+    and began failing the moment somebody ran the factor model - it was testing
+    the contents of results/, not the behaviour of the card, and a test that
+    breaks when the project makes progress teaches people to ignore it.
+    """
     from src.evaluation import anomaly_card as ac
+    _no_layers(monkeypatch, ac)
     card = ac.build_card("coffee", "2025-04-07")
-    assert "factor model" in card["missing_layers"]
-    assert "cross-commodity" not in card["missing_layers"]
+    assert card["fields"] == {}
+    assert card["missing_layers"] == ["factor model", "cross-commodity",
+                                      "numeraire", "explanation pipeline"]
 
 
-def test_the_card_gives_no_overall_verdict():
+def test_a_layer_that_has_run_is_not_listed_as_missing(monkeypatch):
+    """The other half of the same rule: a layer with output is not a gap."""
+    from src.evaluation import anomaly_card as ac
+    _no_layers(monkeypatch, ac, keep=("factor_fields",))
+    monkeypatch.setattr(ac, "factor_fields", lambda commodity, day: {
+        "residual_z": {"value": 2.4, "tag": "tested",
+                       "source": "coffee_factor_adjusted.csv"}})
+    card = ac.build_card("coffee", "2025-04-07")
+    assert "factor model" not in card["missing_layers"]
+    assert "numeraire" in card["missing_layers"]
+
+
+def test_the_card_gives_no_overall_verdict(monkeypatch):
     """Four layers disagreeing is information. One word would hide it."""
     from src.evaluation import anomaly_card as ac
+    _no_layers(monkeypatch, ac)
     card = ac.build_card("coffee", "2025-04-07")
     assert not any(k in card for k in ("verdict", "overall", "conclusion"))
+
+
+# --- the FRED fetcher's retry ----------------------------------------------
+
+def test_a_reset_connection_is_retried_rather_than_reported_as_missing_data(monkeypatch):
+    """FRED resets connections on a burst of requests. Treated as "this
+    series does not exist", a rate limit silently drops a factor from every
+    regression downstream, and the regression still runs."""
+    from src.data import cpi
+
+    calls = {"n": 0}
+
+    class _Resp:
+        text = "observation_date,DTWEXBGS\n2024-01-02,120.5\n"
+        def raise_for_status(self):
+            return None
+
+    class _Sess:
+        def get(self, *a, **k):
+            calls["n"] += 1
+            if calls["n"] < 3:
+                raise ConnectionError("Connection aborted, ConnectionResetError(10054)")
+            return _Resp()
+
+    monkeypatch.setattr(cpi, "_session", lambda: _Sess())
+    monkeypatch.setattr(cpi.time if hasattr(cpi, "time") else __import__("time"),
+                        "sleep", lambda s: None)
+    rows = cpi.fetch_series("DTWEXBGS", "2024-01-01")
+    assert calls["n"] == 3            # failed twice, succeeded on the third
+    assert rows == [("2024-01-02", 120.5)]
+
+
+def test_a_series_that_fails_every_attempt_raises_rather_than_returning_empty(monkeypatch):
+    from src.data import cpi
+
+    class _Sess:
+        def get(self, *a, **k):
+            raise ConnectionError("reset")
+
+    monkeypatch.setattr(cpi, "_session", lambda: _Sess())
+    monkeypatch.setattr(__import__("time"), "sleep", lambda s: None)
+    with pytest.raises(ConnectionError):
+        cpi.fetch_series("DTWEXBGS", "2024-01-01", attempts=2)
+
+
+def test_the_requests_reuse_one_session_instead_of_opening_one_per_series():
+    """Eight separate connections in a row is what triggered the resets."""
+    from src.data import cpi
+    cpi._SESSION = None
+    a, b = cpi._session(), cpi._session()
+    assert a is b
+    assert "User-Agent" in a.headers
+
+
+# --- the second source, for when one host is unreachable -------------------
+
+def test_every_required_factor_series_has_a_second_source():
+    """FRED was unreachable from the developer's network while Yahoo served
+    10,725 rows in the same run. A single-source fetcher turns one blocked
+    host into a blocked project."""
+    from src.data.market_factors import (FRED_SERIES, OPTIONAL_COLUMNS,
+                                         YAHOO_FALLBACK)
+    from src.modeling.factor_model import FACTOR_COLUMNS
+    for series_id, (col, _what, _inv) in FRED_SERIES.items():
+        if col in OPTIONAL_COLUMNS:
+            continue
+        assert series_id in YAHOO_FALLBACK, f"{series_id} ({col}) has no second source"
+    # And the three the factor model actually reads must all be reachable.
+    assert set(FACTOR_COLUMNS) == {"dollar", "equity", "broad_commodity"}
+
+
+def test_the_fallback_keeps_the_rate_direction_right():
+    """FRED quotes DEXUSEU as dollars per euro; Yahoo's EURUSD=X is the
+    same way round. Both must be marked for inversion, or the sign of every
+    pass-through result downstream flips."""
+    from src.data.market_factors import FRED_SERIES, YAHOO_FALLBACK
+    assert FRED_SERIES["DEXUSEU"][2] is True
+    assert YAHOO_FALLBACK["DEXUSEU"][2] is True
+    for sid in ("DEXJPUS", "DEXCHUS", "DEXINUS"):
+        assert FRED_SERIES[sid][2] is False
+        assert YAHOO_FALLBACK[sid][2] is False
+
+
+def test_a_missing_context_series_does_not_stop_the_run():
+    """The real yield has no free daily substitute. Nothing in the factor
+    model reads it, so refusing to write the table over it would block the
+    analysis on a column no result uses."""
+    from src.data.market_factors import OPTIONAL_COLUMNS
+    assert "real_yield_10y" in OPTIONAL_COLUMNS
+    assert "dollar_broad" not in OPTIONAL_COLUMNS
+
+
+def test_the_dollar_basket_is_an_equal_weighted_check_on_a_euro_heavy_index():
+    """DXY is about 58% euro. If it stands in for the Fed's broad index,
+    'the dollar' quietly becomes 'the euro'. The basket is the control."""
+    from src.data.market_factors import dollar_basket
+    levels = {
+        "eur_per_usd": {"2024-01-02": 1.0, "2024-01-03": 1.10},   # +10% vs USD
+        "jpy_per_usd": {"2024-01-02": 100.0, "2024-01-03": 100.0},
+        "cny_per_usd": {"2024-01-02": 7.0, "2024-01-03": 7.0},
+        "inr_per_usd": {"2024-01-02": 83.0, "2024-01-03": 83.0},
+    }
+    b = dollar_basket(levels)
+    moved = float(b.loc[pd.Timestamp("2024-01-03")])
+    # One currency moving 10% must move the basket about a quarter of that,
+    # not all of it, which is the whole point of not using a euro-heavy index.
+    assert 0.020 < moved < 0.027
+
+
+def test_the_basket_needs_at_least_two_rates_before_it_claims_anything():
+    from src.data.market_factors import dollar_basket
+    assert dollar_basket({"eur_per_usd": {"2024-01-02": 1.0}}) is None
+
+
+def test_which_source_each_column_came_from_is_recorded():
+    """A figure read months later must not require guessing whether
+    'dollar' meant the Fed's broad index or DXY: they answer different
+    questions."""
+    import inspect
+    from src.data import market_factors
+    src = inspect.getsource(market_factors.write)
+    assert "SOURCES_PATH" in src and "note" in src

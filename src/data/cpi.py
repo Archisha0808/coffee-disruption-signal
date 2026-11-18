@@ -55,6 +55,41 @@ FRED_CSV_URL = "https://fred.stlouisfed.org/graph/fredgraph.csv"
 DEFAULT_START = "2000-01-01"
 REQUEST_TIMEOUT_SECONDS = 30
 
+# FRED closes connections on a burst of rapid sequential requests from one
+# address. It is not a hard block and it is not announced: the requests come
+# back as a connection reset or a read timeout, and a single-attempt fetcher
+# reports them as if the series did not exist. Eight series in a row failed
+# that way on 11 November 2026 while the same endpoint had served nineteen
+# minutes earlier, which is the behaviour these three settings exist for.
+#
+#   one session    so the requests reuse a connection instead of opening a
+#                  new one per series, which is what a browser does and what
+#                  the server expects
+#   a pause        between series, so a run is not a burst
+#   backoff        because a reset is usually transient, and the fix for a
+#                  transient failure is to wait and ask again, not to report
+#                  the data as missing
+FRED_MAX_ATTEMPTS = 4
+FRED_BACKOFF_SECONDS = 2.0      # doubles each attempt: 2, 4, 8
+FRED_PAUSE_SECONDS = 1.0        # between one series and the next
+
+_SESSION = None
+
+
+def _session():
+    global _SESSION
+    if _SESSION is None:
+        import requests
+        s = requests.Session()
+        s.headers.update({
+            "User-Agent": "Mozilla/5.0 (research capstone)",
+            "Accept": "text/csv, text/plain, */*",
+            "Accept-Encoding": "gzip, deflate",
+            "Connection": "keep-alive",
+        })
+        _SESSION = s
+    return _SESSION
+
 # series id -> (short name used in the code, what it is, kind)
 # kind: "cpi" (a price index of consumer prices), "cpi_yoy" (already a
 # year-on-year % rate), "commodity" (a monthly average price or price index),
@@ -112,13 +147,33 @@ def parse_fred_csv(text: str, series_id: str) -> list:
     return rows
 
 
-def fetch_series(series_id: str, start: str = DEFAULT_START) -> list:
-    import requests
-    response = requests.get(FRED_CSV_URL, params={"id": series_id, "cosd": start},
-                            timeout=REQUEST_TIMEOUT_SECONDS,
-                            headers={"User-Agent": "Mozilla/5.0 (research capstone)"})
-    response.raise_for_status()
-    return parse_fred_csv(response.text, series_id)
+def fetch_series(series_id: str, start: str = DEFAULT_START,
+                 attempts: int = FRED_MAX_ATTEMPTS, verbose: bool = False) -> list:
+    """One FRED series, retried on a transient failure.
+
+    A reset connection or a read timeout means "ask again in a moment", not
+    "this series does not exist", and the difference matters: treated as the
+    second, a rate limit silently removes a factor from every regression
+    downstream. Only the last failure is raised, after every attempt."""
+    import time
+
+    last = None
+    for attempt in range(attempts):
+        try:
+            response = _session().get(
+                FRED_CSV_URL, params={"id": series_id, "cosd": start},
+                timeout=REQUEST_TIMEOUT_SECONDS)
+            response.raise_for_status()
+            return parse_fred_csv(response.text, series_id)
+        except Exception as exc:  # noqa: BLE001 - retry anything transient
+            last = exc
+            if attempt < attempts - 1:
+                wait = FRED_BACKOFF_SECONDS * (2 ** attempt)
+                if verbose:
+                    print(f"    {series_id}: {type(exc).__name__}, retrying in {wait:.0f}s "
+                          f"({attempt + 2} of {attempts})")
+                time.sleep(wait)
+    raise last
 
 
 def known_from(period: str, kind: str) -> str:
@@ -158,10 +213,13 @@ def main():
     parser.add_argument("--start", default=DEFAULT_START)
     args = parser.parse_args()
 
+    import time
     rows_by_id, failed = {}, []
-    for series_id, (name, what, _kind) in SERIES.items():
+    for i, (series_id, (name, what, _kind)) in enumerate(SERIES.items()):
+        if i:
+            time.sleep(FRED_PAUSE_SECONDS)   # a run of requests, not a burst
         try:
-            rows = fetch_series(series_id, args.start)
+            rows = fetch_series(series_id, args.start, verbose=True)
         except Exception as exc:  # noqa: BLE001 - report every failure, then decide
             failed.append(series_id)
             print(f"  {series_id:<16} FAILED: {type(exc).__name__}: {str(exc)[:100]}")

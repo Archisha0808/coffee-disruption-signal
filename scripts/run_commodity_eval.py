@@ -161,14 +161,15 @@ def documented_outcome(commodity: str, entry: dict) -> dict:
     from src.pipeline import PIPELINE_VERSION
     data = _read_json(RESULTS_DIR / f"pipeline_output_{commodity}_{entry['date']}.json")
     row = {**entry, "state": "not run", "tier": None, "explanation": None, "reason": None,
-           "model": None, "failed_queries": None}
+           "model": None, "failed_queries": None, "headline": None}
     if not data:
         return row
     outcome = data.get("outcome") or {}
     result = data.get("explanation_result") or {}
     row.update(tier=outcome.get("tier"), model=result.get("model_used"),
                reason=result.get("reason"), version=str(data.get("pipeline_version", "1")),
-               move=(data.get("anomaly") or {}).get("pct_move"))
+               move=(data.get("anomaly") or {}).get("pct_move"),
+               headline=outcome.get("headline"))
     if str(data.get("pipeline_version", "1")) != PIPELINE_VERSION:
         row["state"] = "older version"
     elif outcome.get("is_fault"):
@@ -228,6 +229,7 @@ def collect(commodities: list, per_event: int = DEFAULT_PER_EVENT) -> dict:
             "explained": sum(r["state"] == "explained" for r in rows),
             "decided": len(decided),
             "not_decided": len(rows) - len(decided),
+            "faults": sum(r["state"] == "fault" for r in rows),
             "events_too_old": events_before_the_news_search(commodity),
             "placebo": placebo_summary(commodity),
         }
@@ -262,6 +264,13 @@ def generate_report(collected: dict) -> str:
                else "not run yet")
         if block["not_decided"] and block["decided"]:
             doc += f"; {block['not_decided']} more not decided"
+            if block.get("faults"):
+                # A fault is the system failing, not the system declining, so
+                # it is left out of the rate rather than counted as a refusal.
+                # The denominator then has to say it is smaller, and why.
+                doc += (f" ({block['faults']} of them a fault, so the rate is "
+                        f"over {block['decided']} date(s), not "
+                        f"{len(block['documented'])})")
         pl = block["placebo"]
         inv = (fmt_rate(rate(pl["explained"], pl["n"])) if pl.get("run") and pl.get("n")
                else "not run yet")
@@ -285,6 +294,9 @@ def generate_report(collected: dict) -> str:
                     said = (r["explanation"] or "").replace("\n", " ").replace("|", "/")[:420]
                 elif r["state"] == "not run":
                     said = "-"
+                elif r["state"] == "fault":
+                    said = (r.get("headline") or r.get("reason") or
+                            "").replace("\n", " ").replace("|", "/")[:300]
                 else:
                     said = str(r.get("reason") or r.get("tier") or "").replace("|", "/")[:200]
                 L.append(f"| {r['date']} | {r['event']} | {move} | {r['state']} | {said} |")

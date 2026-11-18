@@ -192,6 +192,11 @@ def real_dates(labels: dict, limit: int = None, df: pd.DataFrame = None) -> list
     return out[-limit:] if limit else out
 
 
+# The first day the news search can return anything. GDELT's article search
+# holds nothing earlier, so a day before this can never have its news fetched.
+NEWS_SEARCH_STARTS = "2017-01-01"
+
+
 def select_placebo_dates(df: pd.DataFrame, n: int, seed: int) -> list:
     """Quiet trading days, spread across years.
 
@@ -199,6 +204,16 @@ def select_placebo_dates(df: pd.DataFrame, n: int, seed: int) -> list:
     z-score, and no flagged day within PLACEBO_CLEAR_TRADING_DAYS trading
     days either side - so news about a nearby real move cannot be what the
     system latches onto.
+
+    And on or after NEWS_SEARCH_STARTS. The news search holds nothing earlier,
+    so a day before it can never have its news fetched, and a quiet day is only
+    tested once EVERY one of its news requests has been answered. Such a day
+    therefore waits forever and is dropped, taking its slot with it. Coffee's
+    prices begin in 2018 and never met this; crude oil's begin in 2013, and
+    four of its twelve quiet days fell in 2013-2016, which is why the
+    invented-move test reported that it ran and scored nothing - at any number
+    of fetch rounds. The same was true of gold (2012), silver (2010), wheat
+    (2009), cocoa and sugar (2015).
     """
     flagged = df["anomaly_flag"].fillna(False).astype(bool).to_numpy()
     near_flag = [False] * len(df)
@@ -213,6 +228,7 @@ def select_placebo_dates(df: pd.DataFrame, n: int, seed: int) -> list:
         (~pd.Series(near_flag, index=df.index))
         & (df["z_score"].abs() < PLACEBO_MAX_ABS_Z)
         & (df["cumulative_z_score"].abs() < PLACEBO_MAX_ABS_CUMULATIVE_Z)
+        & (df["date"] >= NEWS_SEARCH_STARTS)
     ]
     if quiet.empty:
         return []
@@ -329,11 +345,17 @@ def news_complete(date: str) -> bool:
     return not uncached_requests(date, COMMODITY)
 
 
-def fill_news(dates: list) -> dict:
+def fill_news(dates: list, rounds: int = 12) -> dict:
     """Ask the news API for every request these dates still lack, keeping at
-    it the way the evaluation set's cache-filling pass does."""
+    it the way the evaluation set's cache-filling pass does.
+
+    `rounds` is how many times each still-missing request is asked. The news
+    API answers about one request in five, and a quiet day is only usable once
+    EVERY one of its requests is answered, so twelve rounds leaves roughly a
+    quarter of the days short. Each answer is cached as it arrives, so raising
+    this, or simply running again, picks up where the last pass stopped."""
     from scripts.run_eval_set import fill_cache
-    return fill_cache(dates, COMMODITY)
+    return fill_cache(dates, COMMODITY, rounds=rounds)
 
 
 def _evidence_path(date: str, retrieval: str, text_max_age: int = None) -> Path:
@@ -1123,7 +1145,7 @@ def run(experiments: list = None, n_real: int = None, n_placebo: int = 30,
         prompt_versions: list = None, retrieval: str = "live", seed: int = 7,
         cutoff: str = None, providers: list = None, sleep_seconds: float = 4.0,
         report_only: bool = False, use_cache: bool = True, verbose: bool = True,
-        fill: bool = True) -> dict:
+        fill: bool = True, fill_rounds: int = 12) -> dict:
     experiments = experiments or EXPERIMENTS
     prompt_versions = prompt_versions or [BLIND]
     # The answer key is coffee's. Another commodity has none: its real dates
@@ -1157,7 +1179,7 @@ def run(experiments: list = None, n_real: int = None, n_placebo: int = 30,
                     print(f"Fetching news for {len(lacking)} quiet day(s) first. The news API "
                           f"answers about one request in five, so this takes a while; what "
                           f"is answered is kept.\n")
-                fill_news(lacking)
+                fill_news(lacking, rounds=fill_rounds)
         trials = run_trials(experiments, real, placebo, df, prompt_versions, retrieval, seed,
                             providers=providers, sleep_seconds=sleep_seconds,
                             use_cache=use_cache, verbose=verbose, waiting=waiting)
@@ -1268,6 +1290,10 @@ def main():
                         help="The commodity to test (default coffee). Another commodity "
                              "has no answer key, so only the invented-move test "
                              "(--experiments placebo) can be scored for it.")
+    parser.add_argument("--fill-rounds", type=int, default=12,
+                        help="How many times to ask for each missing news request before "
+                             "giving up (default 12). Answers are cached, so raising it or "
+                             "running again continues where the last pass stopped.")
     parser.add_argument("--no-fill", action="store_true",
                         help="Do not fetch missing news for the placebo days first; days "
                              "whose news is incomplete are then left out")
@@ -1301,7 +1327,7 @@ def main():
         prompt_versions=_csv(args.prompt_versions), retrieval=args.retrieval,
         seed=args.seed, cutoff=args.cutoff, providers=_csv(args.providers),
         sleep_seconds=args.sleep, report_only=args.report_only, use_cache=not args.rerun,
-        fill=not args.no_fill)
+        fill=not args.no_fill, fill_rounds=args.fill_rounds)
 
 
 if __name__ == "__main__":

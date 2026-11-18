@@ -1,0 +1,117 @@
+{
+  "crude_oil": {
+    "display_name": "Crude Oil (WTI)",
+    "documented": [
+      {
+        "date": "2020-03-06",
+        "event": "2020 Saudi-Russia price war",
+        "z_score": -5.058957781630035,
+        "state": "explained",
+        "tier": "EXPLAINED_TENTATIVE",
+        "explanation": "-10.1% day-over-day move (z-score -5.06), on top of -22.7% over the last 10 trading days on 2020-03-06. Reasons given by 4 reports from that day:\n- \"Crude Oil Prices : Crude oil prices plunge over 5 % on Opec reports , coronavirus\" (economictimes.indiatimes.com, 2020-03-06). Reported move: down 5%. Reason: Opec reports , coronavirus. Quote: \"Brent and WTI crude futures tumbled by nearly $3 a barrel, or more than 5%, after the report.\" (source: 1f0933869f0576ab)\n- \"Oil prices plunge over 5 % on OPEC reports , coronavirus\" (thehindu.com, 2020-03-06). Reported move: down 5%. Reason: reports that Russia wants to delay deeper output cuts recommended by its OPEC allies. Quote: \"extended losses to more than 5% on Friday on reports that Russia wants to delay deeper output cuts\" (source: 3fc7f8e83e45897e)\n- \"Oil Prices Plunge over 5 % on OPEC Reports , Coronavirus Outbreak\" (news18.com, 2020-03-06). Reported move: down 5%. Reason: reports that Russia wants to delay deeper output cuts recommended by its OPEC allies. Quote: \"extended losses to more than 5% on Friday on reports that Russia wants to delay deeper output cuts\" (source: 0542c00d2fbfe5ea)\n- \"World oil prices plunge over 7 . 5 %\" (business-standard.com, 2020-03-06). Reported move: down 7.5%. Reason: talks between OPEC and Russia over a possible cut in output ... ended without a deal. Quote: \"talks between OPEC and Russia over a possible cut in output in response to a coronavirus-fulled slump in demand ended without a deal\" (source: 2cca61d5a8859903)",
+        "reason": null,
+        "model": "openai/gpt-oss-120b",
+        "failed_queries": null,
+        "headline": "Explained, but treat as tentative.",
+        "version": "11",
+        "move": -10.065365126354555
+      },
+      {
+        "date": "2020-03-09",
+        "event": "2020 Saudi-Russia price war",
+        "z_score": -10.834108424895431,
+        "state": "explained",
+        "tier": "EXPLAINED_TENTATIVE",
+        "explanation": "-24.6% day-over-day move (z-score -10.83), on top of -39.5% over the last 10 trading days on 2020-03-09. Reasons given by 5 reports from that day:\n- \"Brent oil prices drop to $ 31 . 74\" (news.am, 2020-03-09). Reported move: down 42.6%. Reason: falling demand due to coronavirus. Quote: \"falling demand due to coronavirus\" (source: 4ee1e219f3a837fd)\n- \"\u0426\u0435\u043d\u0430 \u043d\u0435\u0444\u0442\u0438 Brent \u0443\u043f\u0430\u043b\u0430 \u0434\u043e $31 , 74\" (armenpress.am, 2020-03-09). Reported move: down 42.6%. Reason: \u043d\u0430 \u0444\u043e\u043d\u0435 \u043d\u043e\u0432\u043e\u0441\u0442\u0435\u0439 \u043e \u0442\u043e\u043c, \u0447\u0442\u043e \u0443\u0447\u0430\u0441\u0442\u043d\u0438\u043a\u0438 \u041e\u041f\u0415\u041a+. Quote: \"\u043d\u0430 \u0444\u043e\u043d\u0435 \u043d\u043e\u0432\u043e\u0441\u0442\u0435\u0439 \u043e \u0442\u043e\u043c, \u0447\u0442\u043e \u0443\u0447\u0430\u0441\u0442\u043d\u0438\u043a\u0438 \u041e\u041f\u0415\u041a+\" (source: 031ff9bf93ecec43)\n- \"Crude Oil Price Slumps News Oil Drops 31 % As OPEC Deal Collapse Sparks Price War , Global Markets Hit\" (ndtv.com, 2020-03-09). Reported move: down 31%. Reason: OPEC Deal Collapse Sparks Price War. Quote: \"OPEC Deal Collapse Sparks Price War\" (source: e539bfd61d3a8559)\n- \"Oil plunges 25 %, hit by erupting Saudi Arabia - Russia oil price war\" (business-standard.com, 2020-03-09). Reported move: down 25%. Reason: Saudi Arabia and Russia began a price war. Quote: \"Saudi Arabia and Russia began a price war\" (source: 06da8249f0f6b418)\n- \"Crude oil futures plunge nearly 30 pc on weak global cues\" (business-standard.com, 2020-03-09). Reported move: down 30%. Reason: weak global cues. Quote: \"weak global cues\" (source: deb363ed67d7d9a5)",
+        "reason": null,
+        "model": "openai/gpt-oss-120b",
+        "failed_queries": null,
+        "headline": "Explained, but treat as tentative.",
+        "version": "11",
+        "move": -24.588178097574943
+      },
+      {
+        "date": "2020-04-20",
+        "event": "2020 negative WTI price",
+        "z_score": -43.20772472684393,
+        "state": "fault",
+        "tier": "SYSTEM_ERROR",
+        "explanation": null,
+        "reason": "price_not_positive_move_undefined",
+        "model": null,
+        "failed_queries": null,
+        "headline": "The size and direction of this move cannot be computed: the price was not positive at one end of the day.",
+        "version": "11",
+        "move": null
+      },
+      {
+        "date": "2020-04-21",
+        "event": "2020 negative WTI price",
+        "z_score": -3.377999636437716,
+        "state": "fault",
+        "tier": "SYSTEM_ERROR",
+        "explanation": null,
+        "reason": "price_not_positive_move_undefined",
+        "model": null,
+        "failed_queries": null,
+        "headline": "The size and direction of this move cannot be computed: the price was not positive at one end of the day.",
+        "version": "11",
+        "move": null
+      },
+      {
+        "date": "2022-03-01",
+        "event": "2022 Russia invades Ukraine",
+        "z_score": 3.02886385702405,
+        "state": "explained",
+        "tier": "EXPLAINED_TENTATIVE",
+        "explanation": "+8.0% day-over-day move (z-score 3.03) on 2022-03-01. Reasons given by 7 reports from that day:\n- \"Oil price rises above $105 a barrel ahead of OPEC+ meeting\" (thecable.ng, 2022-03-01). Reported move: up 7%. Reason: OPEC and its allies adopted a production cut system to prop up prices and prevent an oversupply in the global oil market. Quote: \"OPEC and its allies adopted a production cut system to prop up prices and prevent an oversupply in the global oil market\" (source: 79bb2509b58f8742)\n- \"US and 30 allied countries to release 60m barrels of oil amid price surge\" (theguardian.com, 2022-03-01). Reported move: up, size not stated. Reason: fears about supply disruption from the Ukraine crisis and sanctions against Russia. Quote: \"fears about supply disruption from the Ukraine crisis and sanctions against Russia\" (source: af369c3c276a10d8)\n- \"Stock Futures Rise Slightly Amid Surge in Oil Prices , Ongoing Conflict in Ukraine\" (nbcsandiego.com, 2022-03-01). Reported move: up, size not stated. Reason: intensifying conflict between Russia and Ukraine. Quote: \"surge in oil prices amid the intensifying conflict between Russia and Ukraine.\" (source: 2967fbafd52ef7c7)\n- \"Petr\u00f3leo precio sube y rompe la barrera de los 100 d\u00f3lares el barril | Internacional\" (portafolio.co, 2022-03-01). Reported move: up, size not stated. Reason: cuando las sanciones por la invasi\u00f3n a Ucr. Quote: \"cuando las sanciones por la invasi\u00f3n a Ucr\" (source: fe9d1f5d9ef5125e)\n- \"\u0642\u0641\u0632\u0629 \u0644\u0623\u0633\u0639\u0627\u0631 \u0627\u0644\u0646\u0641\u0637 \u0645\u0639 \u062a\u0632\u0627\u064a\u062f \u0645\u062e\u0627\u0648\u0641 \u0627\u0644\u062d\u0631\u0628 .. \u0627\u0644\u0628\u0631\u0645\u064a\u0644 \u0641\u0648\u0642 100 \u062f\u0648\u0644\u0627\u0631 \u0645\u062c\u062f\u062f\u0627\" (al-ain.com, 2022-03-01). Reported move: up 3.1%. Reason: \u062a\u0632\u0627\u064a\u062f \u0645\u062e\u0627\u0648\u0641 \u0627\u0644\u062d\u0631\u0628. Quote: \"\u0642\u0641\u0632\u0629 \u0628\u0623\u0633\u0639\u0627\u0631 \u0627\u0644\u0646\u0641\u0637 \u0645\u0639 \u062a\u0632\u0627\u064a\u062f \u0645\u062e\u0627\u0648\u0641 \u0627\u0644\u062d\u0631\u0628.. \u0627\u0644\u0628\u0631\u0645\u064a\u0644 \u0641\u0648\u0642 100 \u062f\u0648\u0644\u0627\u0631 \u0645\u062c\u062f\u062f\u0627\" (source: 20d58cab789d4017)\n- \"Oil Futures Rise Sharply , Record Highest Settlement Since July 2014\" (finanznachrichten.de, 2022-03-01). Reported move: up 8%. Reason: escalation in the ongoing Russia-Ukraine war and a raft of sanctions. Quote: \"Crude oil prices rose sharply on Tuesday as an escalation in the ongoing Russia-Ukraine war and a raft of sanctions\" (source: 29548a383b75f8a5)\n- \"Oil prices surge over 7 % as global crude reserve release disappoints\" (financialpost.com, 2022-03-01). Reported move: up 7%. Reason: global agreement to release crude reserves failed to calm fears about supply disruptions. Quote: \"Oil prices surged over 7% on Tuesday as a global agreement to release crude reserves failed to calm fears about supply disruptions\" (source: 65895b49d9b199d3)",
+        "reason": null,
+        "model": "openai/gpt-oss-120b",
+        "failed_queries": null,
+        "headline": "Explained, but treat as tentative.",
+        "version": "11",
+        "move": 8.033851173565376
+      },
+      {
+        "date": "2022-03-09",
+        "event": "2022 Russia invades Ukraine",
+        "z_score": -4.336149652259897,
+        "state": "explained",
+        "tier": "EXPLAINED_TENTATIVE",
+        "explanation": "-12.1% day-over-day move (z-score -4.34) on 2022-03-09. Reasons given by 2 reports from that day:\n- \"Oil Prices Tumbles 15 % As Ukraine President Signals Openness to Talks\" (markets.businessinsider.com, 2022-03-09). Reported move: down 15%. Reason: Ukraine President signals openness to talks. Quote: \"Oil Prices Tumbles 15 % As Ukraine President Signals Openness to Talks\" (source: 0a88da377840da56)\n- \"Oil Falters on OPEC+ Supply and Ukraine Concession Reports\" (rigzone.com, 2022-03-09). Reported move: down 17%. Reason: UAE called on OPEC+ to boost oil output faster. Quote: \"UAE called on OPEC+ to boost oil output faster\" (source: fc8a454d49a74764)\nPointing the other way, 1 report from that day:\n- \"\u0627\u0644\u0642\u0627\u062f\u0645 \u0623\u0633\u0648\u0621 ... \u0623\u0633\u0639\u0627\u0631 \u0627\u0644\u0646\u0641\u0637 \u062a\u0648\u0627\u0635\u0644 \u0627\u0631\u062a\u0641\u0627\u0639\u0647\u0627 \u0639\u0627\u0644\u0645\u064a\u0627 \u0648\u0627\u062d\u062a\u0645\u0627\u0644 \u062a\u062e\u0637\u064a\u0647\u0627 \u0644\u0639\u062a\u0628\u0629 300 \u062f\u0648\u0644\u0627\u0631 \u0644\u0644\u0628\u0631\u0645\u064a\u0644 \u0628\u0627\u062a \u0648\u0627\u0631\u062f\u0627\" (akhbarona.com, 2022-03-09). Reported move: up 2.12%. Reason: \u0645\u0633\u062a\u0645\u0631\u0627\u0631 \u0627\u0644\u0645\u062e\u0627\u0648\u0641 \u0645\u0646 \u0634\u062d \u0645\u0639\u0631\u0648\u0636 \u0627\u0644\u062e\u0627\u0645 \u062e\u0644\u0627\u0644 \u0627\u0644\u0641\u062a\u0631\u0629 \u0627\u0644\u0642\u0631\u064a\u0628\u0629 \u0627\u0644\u0645\u0642\u0628\u0644\u0629\u060c \u0628\u0641\u0639\u0644 \u0642\u0631\u0627\u0631\u0627\u062a \u063a\u0631\u0628\u064a\u0629. Quote: \"\u0645\u0633\u062a\u0645\u0631\u0627\u0631 \u0627\u0644\u0645\u062e\u0627\u0648\u0641 \u0645\u0646 \u0634\u062d \u0645\u0639\u0631\u0648\u0636 \u0627\u0644\u062e\u0627\u0645 \u062e\u0644\u0627\u0644 \u0627\u0644\u0641\u062a\u0631\u0629 \u0627\u0644\u0642\u0631\u064a\u0628\u0629 \u0627\u0644\u0645\u0642\u0628\u0644\u0629\u060c \u0628\u0641\u0639\u0644 \u0642\u0631\u0627\u0631\u0627\u062a \u063a\u0631\u0628\u064a\u0629\" (source: 3a00b72bbf6c2185)",
+        "reason": null,
+        "model": "openai/gpt-oss-120b",
+        "failed_queries": null,
+        "headline": "Explained, but treat as tentative.",
+        "version": "11",
+        "move": -12.126111859385258
+      }
+    ],
+    "explained": 4,
+    "decided": 4,
+    "not_decided": 2,
+    "faults": 2,
+    "events_too_old": [
+      "2014 OPEC no-cut decision"
+    ],
+    "placebo": {
+      "run": true,
+      "n": 12,
+      "explained": 2,
+      "faults": 0,
+      "waiting": [],
+      "pipeline_version": "11",
+      "seed": 7,
+      "false_explanations": [
+        {
+          "date": "2019-11-14",
+          "explanation": "+2.0% day-over-day move (z-score 2.35) on 2019-11-14. Reasons given by 4 reports from that day:\n- \"Oil up 1 % on U . S . crude stocks fall , OPEC comments on U . S . shale growth\" (lfpress.com, 2019-11-14). Reported move: up 1%. Reason: U.S. crude stocks fall. Quote: \"Oil up 1 % on U . S . crude stocks fall , OPEC comments on U . S . shale growth\" (source: 8afff5b56e9e3dc6)\n- \"UPDATE 4 - Oil up 1 "
+        },
+        {
+          "date": "2024-12-02",
+          "explanation": "+5.1% day-over-day move (z-score 2.46) on 2024-12-02. Reasons given by 2 reports from that day:\n- \"Oil prices rise on China demand optimism ; markets eye OPEC meeting\" (invezz.com, 2024-12-02). Reported move: up, size not stated. Reason: robust manufacturing in China and rising geopolitical tensions. Quote: \"Oil prices rose sharply on robust manufacturing in China and rising geopolitical tensions."
+        }
+      ]
+    }
+  }
+}

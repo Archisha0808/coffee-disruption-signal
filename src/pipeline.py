@@ -256,10 +256,22 @@ def get_anomaly(date_str: str, anomalies_file: str) -> dict:
                           f"run src.modeling.anomaly_detector first.")
     row = row.iloc[0]
     pct_move = None
+    price_is_usable = True
     prior_idx = df.index[df["date"] == date_str][0] - 1
     if prior_idx >= 0:
         prior_price = df.iloc[prior_idx]["price"]
-        pct_move = 100 * (row["price"] - prior_price) / prior_price
+        # A percentage change is only defined when BOTH ends are positive.
+        # WTI's May contract settled at -$37.63 on 20 April 2020. The next day
+        # it RECOVERED, from -$37.63 to $10.01, and this arithmetic reports
+        # that as -126.6%: a fall. Everything downstream trusts the move it is
+        # handed, so the pipeline went looking for a story about a fall, found
+        # one, and explained it - through the blind reading and past the
+        # direction check. Refusing to compute the move is the only correct
+        # answer; the day is then recorded as a fault, not as a refusal.
+        if prior_price > 0 and row["price"] > 0:
+            pct_move = 100 * (row["price"] - prior_price) / prior_price
+        else:
+            price_is_usable = False
 
     def _num(col):
         value = row[col] if col in row.index else None
@@ -292,7 +304,8 @@ def get_anomaly(date_str: str, anomalies_file: str) -> dict:
         "pct_move": pct_move,
         "cumulative_pct_move": None if cumulative_return is None else 100 * cumulative_return,
         "cumulative_z_score": cumulative_z,
-        "direction": direction,
+        "direction": direction if price_is_usable else None,
+        "price_is_usable": price_is_usable,
     }
 
 
@@ -868,6 +881,30 @@ def explain_from_documents(anomaly: dict, documents: list, retrieval_meta=None, 
 
     Returns the dict that main() saves as the pipeline output.
     """
+    # A move through zero has no size and no direction (see get_anomaly), and
+    # every check below trusts the move it is handed. Nothing is explained,
+    # and this is recorded as a FAULT rather than a refusal: the system could
+    # not run, which is a different thing from the system declining. Faults
+    # are excluded from every rate; a refusal counted here would flatter the
+    # refusal figures.
+    if anomaly.get("price_is_usable") is False:
+        return {
+            "pipeline_version": PIPELINE_VERSION,
+            "anomaly": anomaly,
+            "price_description": price_description,
+            "outcome": {"tier": "SYSTEM_ERROR", "is_fault": True,
+                        "headline": "The size and direction of this move cannot "
+                                    "be computed: the price was not positive at "
+                                    "one end of the day.",
+                        "detail": "A percentage change through zero has no "
+                                  "meaning. Nothing is explained, and this is "
+                                  "recorded as a fault rather than a refusal."},
+            "explanation_result": {"decision": "SYSTEM_ERROR",
+                                   "reason": "price_not_positive_move_undefined"},
+            "gate_result": {"decision": "NOT_RUN", "accepted_document_count": 0},
+            "direction_summary": {}, "evidence_recency": {},
+        }
+
     # Which commodity's market reports the reading looks for (the headline
     # word lists differ: see src/rag/market_report.py). Coffee by default.
     market_report.set_subject(commodity_name)

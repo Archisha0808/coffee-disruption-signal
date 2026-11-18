@@ -355,8 +355,9 @@ def test_a_quiet_day_is_not_run_until_all_its_news_has_arrived(tmp_path, monkeyp
     answered = set()                                        # nothing in the cache to begin with
     asked = []
 
-    def fill(dates):
+    def fill(dates, rounds=12):
         asked.append(list(dates))
+        assert rounds >= 1                                  # how many times each one is asked
         answered.update(dates[:2])                          # the API answers for two of the three
 
     monkeypatch.setattr(rb, "news_complete", lambda date: date in answered)

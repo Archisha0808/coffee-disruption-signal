@@ -1,0 +1,97 @@
+{
+  "coffee": {
+    "commodity": "coffee",
+    "flagged_days": 279,
+    "assessed": 225,
+    "classes": {
+      "commodity-specific": 170,
+      "macro-driven": 55,
+      "unclassified": 54
+    },
+    "by_test": {
+      "10-day cumulative residual": 149,
+      "daily residual": 130
+    },
+    "macro_share": 0.24444444444444444,
+    "macro_share_shock_days": 0.1532258064516129,
+    "median_window_r2": 0.06383247530939667,
+    "first_date": "2018-04-27",
+    "last_date": "2026-07-09"
+  },
+  "crude_oil": {
+    "commodity": "crude_oil",
+    "flagged_days": 420,
+    "assessed": 330,
+    "classes": {
+      "macro-driven": 226,
+      "commodity-specific": 104,
+      "unclassified": 90
+    },
+    "by_test": {
+      "10-day cumulative residual": 214,
+      "daily residual": 206
+    },
+    "macro_share": 0.6848484848484848,
+    "macro_share_shock_days": 0.6276595744680851,
+    "median_window_r2": 0.7480289078126052,
+    "first_date": "2013-04-24",
+    "last_date": "2026-09-10"
+  },
+  "wheat": {
+    "commodity": "wheat",
+    "flagged_days": 519,
+    "assessed": 394,
+    "classes": {
+      "commodity-specific": 282,
+      "unclassified": 125,
+      "macro-driven": 112
+    },
+    "by_test": {
+      "10-day cumulative residual": 270,
+      "daily residual": 249
+    },
+    "macro_share": 0.28426395939086296,
+    "macro_share_shock_days": 0.19827586206896552,
+    "median_window_r2": 0.11906146561140074,
+    "first_date": "2009-05-01",
+    "last_date": "2026-08-26"
+  },
+  "gold": {
+    "commodity": "gold",
+    "flagged_days": 491,
+    "assessed": 397,
+    "classes": {
+      "commodity-specific": 230,
+      "macro-driven": 167,
+      "unclassified": 94
+    },
+    "by_test": {
+      "10-day cumulative residual": 264,
+      "daily residual": 227
+    },
+    "macro_share": 0.42065491183879095,
+    "macro_share_shock_days": 0.3192488262910798,
+    "median_window_r2": 0.2935187553576464,
+    "first_date": "2012-05-14",
+    "last_date": "2026-11-04"
+  },
+  "silver": {
+    "commodity": "silver",
+    "flagged_days": 515,
+    "assessed": 429,
+    "classes": {
+      "commodity-specific": 289,
+      "macro-driven": 140,
+      "unclassified": 86
+    },
+    "by_test": {
+      "daily residual": 260,
+      "10-day cumulative residual": 255
+    },
+    "macro_share": 0.32634032634032634,
+    "macro_share_shock_days": 0.22267206477732793,
+    "median_window_r2": 0.2664864883937581,
+    "first_date": "2010-05-04",
+    "last_date": "2026-11-04"
+  }
+}

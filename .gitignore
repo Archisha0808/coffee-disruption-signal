@@ -42,3 +42,8 @@ Thumbs.db
 # NOTE: data/raw/*.csv and results/* ARE committed on purpose — the hosted
 # dashboard reads them to display precomputed prices, anomalies, and
 # explanations.
+
+# Files staged to be applied to this repo: a copy of part of the tree.
+# Never committed - it would duplicate the project inside itself and break
+# test collection.
+_merge/
